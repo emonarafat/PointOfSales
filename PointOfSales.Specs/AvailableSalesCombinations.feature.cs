@@ -64,6 +64,14 @@ namespace PointOfSales.Specs
             testRunner.CollectScenarioErrors();
         }
         
+        public virtual void FeatureBackground()
+        {
+#line 6
+#line 7
+ testRunner.Given("I have products and sales combinaions", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+        }
+        
         public virtual void SetFixture(AvailableSalesCombinationsFeature.FixtureData fixtureData)
         {
         }
@@ -75,18 +83,37 @@ namespace PointOfSales.Specs
         
         [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "AvailableSalesCombinations")]
-        [Xunit.TraitAttribute("Description", "No sales combinations available")]
-        public virtual void NoSalesCombinationsAvailable()
+        [Xunit.TraitAttribute("Description", "Product does not have sales")]
+        public virtual void ProductDoesNotHaveSales()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No sales combinations available", ((string[])(null)));
-#line 6
-this.ScenarioSetup(scenarioInfo);
-#line 7
- testRunner.Given("I have product without sales combinaions", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 8
- testRunner.When("I am trying to see available sales combinations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Product does not have sales", ((string[])(null)));
 #line 9
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 10
+ testRunner.When("I am trying to see available sales combinations of product without sales", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 11
  testRunner.Then("I do not see any available sales combinations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "AvailableSalesCombinations")]
+        [Xunit.TraitAttribute("Description", "Sub-products available for sales")]
+        public virtual void Sub_ProductsAvailableForSales()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Sub-products available for sales", ((string[])(null)));
+#line 13
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 14
+ testRunner.When("I am trying to see available sales combinations of product with sub-product sales" +
+                    "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 15
+ testRunner.Then("I see sub-products sales combinations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

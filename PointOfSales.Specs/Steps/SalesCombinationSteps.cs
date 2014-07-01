@@ -15,8 +15,8 @@ namespace PointOfSales.Specs.Steps
     {
         private string result;
 
-        [Given(@"I have product without sales combinaions")]
-        public void GivenIHaveProductWithoutSalesCombinaions()
+        [Given(@"I have products and sales combinaions")]
+        public void GivenIHaveProductsAndSalesCombinaions()
         {
             DatabaseHelper.CreateProductsTable();
             DatabaseHelper.SeedProducts();
@@ -24,9 +24,8 @@ namespace PointOfSales.Specs.Steps
             DatabaseHelper.SeedSalesCombinations();
         }
 
-
-        [When(@"I am trying to see available sales combinations")]
-        public void WhenIAmTryingToSeeAvailableSalesCombinations()
+        [When(@"I am trying to see available sales combinations of product without sales")]
+        public void WhenIAmTryingToSeeAvailableSalesCombinationsOfProductWithoutSales()
         {
             result = WebApiHelper.GetJson("api/sales/search/2");
         }
@@ -36,6 +35,19 @@ namespace PointOfSales.Specs.Steps
         {
             var sales = JsonConvert.DeserializeObject<List<SalesCombination>>(result);
             Assert.False(sales.Any());
+        }
+
+        [When(@"I am trying to see available sales combinations of product with sub-product sales")]
+        public void WhenIAmTryingToSeeAvailableSalesCombinationsOfProductWithSub_ProductSales()
+        {
+            result = WebApiHelper.GetJson("api/sales/search/1");
+        }
+
+        [Then(@"I see sub-products sales combinations")]
+        public void ThenISeeSub_ProductsSalesCombinations()
+        {
+            var sales = JsonConvert.DeserializeObject<List<SalesCombination>>(result);
+            Assert.Equal(2, sales.Count);
         }
     }
 }
