@@ -1,10 +1,15 @@
-﻿using System;
+﻿using Microsoft.Owin.Hosting;
+using PointOfSales.Web.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
+using Xunit;
 
 namespace PointOfSales.Specs.Steps
 {
@@ -44,7 +49,15 @@ CREATE TABLE Products (
         [When(@"I trying to see all available products")]
         public void WhenITryingToSeeAllAvailableProducts()
         {
-            
+            string baseAddress = "http://localhost:9000/";
+            var type = typeof(ProductsController);
+
+            using(WebApp.Start<Startup>(url: baseAddress))
+            {
+                HttpClient client = new HttpClient();
+                var response = client.GetAsync(baseAddress + "api/products").Result;
+                Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            }
         }
 
         [Then(@"I do not see any products")]
