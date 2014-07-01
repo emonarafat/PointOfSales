@@ -6,5 +6,5 @@
 @products
 Scenario: No products available
 	Given I have no products	
-	When I trying to see all available products
+	When I am trying to see all available products
 	Then I do not see any products

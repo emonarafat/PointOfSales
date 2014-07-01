@@ -12,7 +12,7 @@ namespace PointOfSales.Persistence
     {
         public IEnumerable<Product> GetAll()
         {
-            throw new NotImplementedException();
+            return Enumerable.Empty<Product>();
         }
 
         public IEnumerable<Product> GetByNameOrDescription(string search)

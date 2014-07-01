@@ -16,6 +16,8 @@ namespace PointOfSales.Specs.Steps
     [Binding]
     public class ProductSteps
     {
+        private HttpResponseMessage response;
+
         private static readonly string connectionString = "server=(localdb)\\v11.0;database=PoS;Integrated Security=SSPI";
 
         [Given(@"I have no products")]
@@ -46,8 +48,8 @@ CREATE TABLE Products (
             }
         }
 
-        [When(@"I trying to see all available products")]
-        public void WhenITryingToSeeAllAvailableProducts()
+        [When(@"I am trying to see all available products")]
+        public void WhenIAmTryingToSeeAllAvailableProducts()
         {
             string baseAddress = "http://localhost:9000/";
             var type = typeof(ProductsController);
@@ -55,15 +57,15 @@ CREATE TABLE Products (
             using(WebApp.Start<Startup>(url: baseAddress))
             {
                 HttpClient client = new HttpClient();
-                var response = client.GetAsync(baseAddress + "api/products").Result;
-                Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+                response = client.GetAsync(baseAddress + "api/products").Result;                
             }
         }
 
         [Then(@"I do not see any products")]
         public void ThenIDoNotSeeAnyProducts()
         {
-            ScenarioContext.Current.Pending();
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal("[]", response.Content.ReadAsStringAsync().Result);
         }
     }
 }
