@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Moq;
 using Xunit;
 using System.Web.Http;
+using PointOfSales.Domain.Repositories;
+using PointOfSales.Web.Controllers;
+using PointOfSales.Domain.Model;
 
 public class ProductsControllerTests
 {
@@ -35,36 +38,5 @@ public class ProductsControllerTests
 
         repositoryMock.VerifyAll();
         Assert.Equal(expectedProducts, products);
-    }
-}
-
-public class ProductsController : ApiController
-{
-    private IProductRepository productRepository;
-
-    public ProductsController(IProductRepository productRepository)
-    {        
-        this.productRepository = productRepository;
-    }
-    public IEnumerable<Product> Get()
-    {
-        return productRepository.GetAll();
-    }
-
-    public IEnumerable<Product> Get(string search)
-    {
-        return productRepository.GetByNameOrDescription(search);
-    }
-}
-
-public class Product
-{
-    public string Name { get; set; }
-    public string Description { get; set; }
-}
-
-public interface IProductRepository
-{
-    IEnumerable<Product> GetAll();
-    IEnumerable<Product> GetByNameOrDescription(string search);
+    }    
 }
