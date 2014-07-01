@@ -104,6 +104,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AvailableSalesCombinations.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AvailableSalesCombinations.feature</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseHelper.cs" />
     <Compile Include="ProductsBrowsing.feature.cs">
       <AutoGen>True</AutoGen>
@@ -118,10 +123,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\ProductSteps.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Steps\SalesCombinationSteps.cs" />
     <Compile Include="WebApiHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="AvailableSalesCombinations.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AvailableSalesCombinations.feature.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
     <None Include="ProductsBrowsing.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
