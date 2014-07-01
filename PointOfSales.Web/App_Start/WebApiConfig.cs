@@ -19,6 +19,12 @@ namespace PointOfSales.Web
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "SearchApi",
+                routeTemplate: "api/{controller}/search/{search}",
+                defaults: new { action = "Search", search = RouteParameter.Optional }
+            );
         }
     }
 }
