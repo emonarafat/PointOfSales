@@ -25,7 +25,11 @@ namespace PointOfSales.Persistence
 
         public IEnumerable<Product> GetByNameOrDescription(string search)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                var sql = "SELECT * FROM Products WHERE Name LIKE @search";
+                return conn.Query<Product>(sql, new { search = String.Format("%{0}%", search) });
+            }  
         }
     }
 }

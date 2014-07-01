@@ -34,7 +34,7 @@ public class ProductsControllerTests
         repositoryMock.Setup(r => r.GetByNameOrDescription(search)).Returns(expectedProducts);
         var controller = new ProductsController(repositoryMock.Object);
         
-        var products = controller.Get(search);
+        var products = controller.Search(search);
 
         repositoryMock.VerifyAll();
         Assert.Equal(expectedProducts, products);
