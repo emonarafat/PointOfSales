@@ -69,13 +69,14 @@ namespace PointOfSales.Specs.Steps
         [When(@"I search products by description")]
         public void WhenISearchProductsByDescription()
         {
-            ScenarioContext.Current.Pending();
+            response = WebApiHelper.GetJson("api/products/search/smartphone");
         }
 
         [Then(@"I see products with description containing search string")]
         public void ThenISeeProductsWithDescriptionContainingSearchString()
         {
-            ScenarioContext.Current.Pending();
+            var products = JsonConvert.DeserializeObject<List<Product>>(response);
+            Assert.Equal(3, products.Count);
         }
     }
 }

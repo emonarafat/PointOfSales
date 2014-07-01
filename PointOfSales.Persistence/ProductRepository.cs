@@ -27,7 +27,8 @@ namespace PointOfSales.Persistence
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                var sql = "SELECT * FROM Products WHERE Name LIKE @search";
+                var sql = @"SELECT * FROM Products 
+                            WHERE Name LIKE @search OR Description LIKE @search";
                 return conn.Query<Product>(sql, new { search = String.Format("%{0}%", search) });
             }  
         }
