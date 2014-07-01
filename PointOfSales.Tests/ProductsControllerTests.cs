@@ -33,7 +33,7 @@ public class ProductsController : ApiController
     }
     public IEnumerable<Product> Get()
     {
-        throw new NotImplementedException();
+        return productRepository.GetAll();
     }
 }
 
