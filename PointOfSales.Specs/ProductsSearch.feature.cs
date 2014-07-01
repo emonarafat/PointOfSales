@@ -35,7 +35,8 @@ namespace PointOfSales.Specs
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ProductsSearch", "In order to quickly sell products\nAs a salesman\nI want to be able to search for a" +
-                    " product", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    " product", ProgrammingLanguage.CSharp, new string[] {
+                        "products"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -78,8 +79,7 @@ namespace PointOfSales.Specs
         [Xunit.TraitAttribute("Description", "Search by name")]
         public virtual void SearchByName()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search by name", new string[] {
-                        "products"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search by name", ((string[])(null)));
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -88,6 +88,24 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.When("I search products by name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
  testRunner.Then("I see products with names containing search string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "ProductsSearch")]
+        [Xunit.TraitAttribute("Description", "Search by description")]
+        public virtual void SearchByDescription()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search by description", ((string[])(null)));
+#line 12
+this.ScenarioSetup(scenarioInfo);
+#line 13
+ testRunner.Given("I have some products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 14
+ testRunner.When("I search products by description", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 15
+ testRunner.Then("I see products with description containing search string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

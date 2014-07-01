@@ -81,5 +81,17 @@ namespace PointOfSales.Specs.Steps
             var products = JsonConvert.DeserializeObject<List<Product>>(json);
             Assert.Equal(1, products.Count);
         }
+
+        [When(@"I search products by description")]
+        public void WhenISearchProductsByDescription()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"I see products with description containing search string")]
+        public void ThenISeeProductsWithDescriptionContainingSearchString()
+        {
+            ScenarioContext.Current.Pending();
+        }
     }
 }
