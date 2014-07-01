@@ -110,6 +110,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ProductsBrowsing.feature</DependentUpon>
     </Compile>
+    <Compile Include="ProductsSearch.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProductsSearch.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\ProductSteps.cs" />
     <Compile Include="Startup.cs" />
@@ -120,6 +125,10 @@
     <None Include="ProductsBrowsing.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ProductsBrowsing.feature.cs</LastGenOutput>
+    </None>
+    <None Include="ProductsSearch.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ProductsSearch.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

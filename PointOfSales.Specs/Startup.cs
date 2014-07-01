@@ -27,6 +27,12 @@ namespace PointOfSales.Specs
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            config.Routes.MapHttpRoute(
+                name: "ProductSearch",
+                routeTemplate: "api/{controller}/search/{search}",
+                defaults: new { action = "Search", search = RouteParameter.Optional }
+            );
+
             appBuilder.UseNinjectMiddleware(CreateKernel)
                       .UseNinjectWebApi(config);            
         }

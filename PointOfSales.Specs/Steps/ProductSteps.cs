@@ -42,8 +42,7 @@ namespace PointOfSales.Specs.Steps
 
         [Then(@"I do not see any products")]
         public void ThenIDoNotSeeAnyProducts()
-        {
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        {            
             Assert.Equal("[]", response.Content.ReadAsStringAsync().Result);
         }
 
@@ -57,10 +56,30 @@ namespace PointOfSales.Specs.Steps
         [Then(@"I see all products")]
         public void ThenISeeAllProducts()
         {
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             string json = response.Content.ReadAsStringAsync().Result;            
             var products = JsonConvert.DeserializeObject<List<Product>>(json);
             Assert.Equal(5, products.Count);
-        } 
+        }
+
+        [When(@"I search products by name")]
+        public void WhenISearchProductsByName()
+        {
+            string baseAddress = "http://localhost:9000/";
+            var type = typeof(ProductsController);
+
+            using (WebApp.Start<Startup>(url: baseAddress))
+            {
+                HttpClient client = new HttpClient();
+                response = client.GetAsync(baseAddress + "api/products/search/lumia").Result;
+            }
+        }
+
+        [Then(@"I see products with names containing search string")]
+        public void ThenISeeProductsWithNamesContainingSearchString()
+        {
+            string json = response.Content.ReadAsStringAsync().Result;
+            var products = JsonConvert.DeserializeObject<List<Product>>(json);
+            Assert.Equal(1, products.Count);
+        }
     }
 }
