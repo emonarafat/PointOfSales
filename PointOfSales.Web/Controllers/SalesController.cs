@@ -21,7 +21,8 @@ namespace PointOfSales.Web.Controllers
         [AcceptVerbs("GET")]
         public IEnumerable<SalesCombination> Search(int search)
         {
-            throw new NotFiniteNumberException();
+            // TODO: Rename parameter
+            return salesCombinationRepository.GetByProductId(search);
         }
     }
 }

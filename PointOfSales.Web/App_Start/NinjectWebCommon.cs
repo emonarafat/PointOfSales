@@ -64,6 +64,7 @@ namespace PointOfSales.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IProductRepository>().To<ProductRepository>();
+            kernel.Bind<ISalesCombinationRepository>().To<SalesCombinationRepository>();
         }        
     }
 }
