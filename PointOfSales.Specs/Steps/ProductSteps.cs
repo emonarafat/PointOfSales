@@ -56,6 +56,7 @@ namespace PointOfSales.Specs.Steps
         [When(@"I search products by name")]
         public void WhenISearchProductsByName()
         {
+            // TODO: Use step parameter
             response = WebApiHelper.GetJson("api/products/search/lumia");
         }
 
@@ -79,6 +80,19 @@ namespace PointOfSales.Specs.Steps
             var products = JsonConvert.DeserializeObject<List<Product>>(response);
             Assert.Equal(3, products.Count);
             Assert.True(products.All(p => p.Description.IndexOf("smartphone", StringComparison.InvariantCultureIgnoreCase) >= 0));
+        }
+
+        [When(@"I search products by name or description")]
+        public void WhenISearchProductsByNameOrDescription()
+        {
+            response = WebApiHelper.GetJson("api/products/search/iphone");
+        }
+
+        [Then(@"I see products with either name or description containing search string")]
+        public void ThenISeeProductsWithEitherNameOrDescriptionContainingSearchString()
+        {
+            var products = JsonConvert.DeserializeObject<List<Product>>(response);
+            Assert.Equal(3, products.Count);
         }
     }
 }
