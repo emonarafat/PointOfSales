@@ -19,7 +19,7 @@ namespace PointOfSales.Specs.Steps
     [Binding]
     public class ProductSteps
     {
-        private HttpResponseMessage response;
+        private string response;
 
         [Given(@"I have no products")]
         public void GivenIHaveNoProducts()
@@ -30,20 +30,13 @@ namespace PointOfSales.Specs.Steps
         [When(@"I am trying to see all available products")]
         public void WhenIAmTryingToSeeAllAvailableProducts()
         {
-            string baseAddress = "http://localhost:9000/";
-            var type = typeof(ProductsController);
-
-            using(WebApp.Start<Startup>(url: baseAddress))
-            {
-                HttpClient client = new HttpClient();
-                response = client.GetAsync(baseAddress + "api/products").Result;                
-            }
+            response = WebApiHelper.GetJson("api/products");
         }
 
         [Then(@"I do not see any products")]
         public void ThenIDoNotSeeAnyProducts()
         {            
-            Assert.Equal("[]", response.Content.ReadAsStringAsync().Result);
+            Assert.Equal("[]", response);
         }
 
         [Given(@"I have some products")]
@@ -56,29 +49,20 @@ namespace PointOfSales.Specs.Steps
         [Then(@"I see all products")]
         public void ThenISeeAllProducts()
         {
-            string json = response.Content.ReadAsStringAsync().Result;            
-            var products = JsonConvert.DeserializeObject<List<Product>>(json);
+            var products = JsonConvert.DeserializeObject<List<Product>>(response);
             Assert.Equal(5, products.Count);
         }
 
         [When(@"I search products by name")]
         public void WhenISearchProductsByName()
         {
-            string baseAddress = "http://localhost:9000/";
-            var type = typeof(ProductsController);
-
-            using (WebApp.Start<Startup>(url: baseAddress))
-            {
-                HttpClient client = new HttpClient();
-                response = client.GetAsync(baseAddress + "api/products/search/lumia").Result;
-            }
+            response = WebApiHelper.GetJson("api/products/search/lumia");
         }
 
         [Then(@"I see products with names containing search string")]
         public void ThenISeeProductsWithNamesContainingSearchString()
-        {
-            string json = response.Content.ReadAsStringAsync().Result;
-            var products = JsonConvert.DeserializeObject<List<Product>>(json);
+        {            
+            var products = JsonConvert.DeserializeObject<List<Product>>(response);
             Assert.Equal(1, products.Count);
         }
 
