@@ -82,7 +82,7 @@ namespace PointOfSales.Specs
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 7
- testRunner.Given("I have selected product without sales combinaions", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I have product without sales combinaions", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
  testRunner.When("I am trying to see available sales combinations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9

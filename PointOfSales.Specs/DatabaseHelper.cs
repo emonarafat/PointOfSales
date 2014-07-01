@@ -11,7 +11,7 @@ namespace PointOfSales.Specs
     {
         private static readonly string connectionString = "server=(localdb)\\v11.0;database=PoS;Integrated Security=SSPI";
 
-        public static void CreateProductsTable()
+        internal static void CreateProductsTable()
         {
             string sql = @"
 IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('Products'))
@@ -32,7 +32,7 @@ CREATE TABLE Products (
             Execute(sql);
         }
 
-        public static void SeedProducts()
+        internal static void SeedProducts()
         {
             string sql = @"
 INSERT INTO Products(Name,Price,Description,PictureURL,EntryDate) VALUES('iPhone 5',500,'Cool smartphone','QNS18KHI0IN','10/01/2013');
@@ -40,6 +40,33 @@ INSERT INTO Products(Name,Price,Description,PictureURL,EntryDate) VALUES('Lumia 
 INSERT INTO Products(Name,Price,Description,PictureURL,EntryDate) VALUES('20-pin Adapter',50,'Adapter for charging iPhone','MUZ33EWM5BG','01/19/2014');
 INSERT INTO Products(Name,Price,Description,PictureURL,EntryDate) VALUES('Motorola Defy',800,'Unbreakable smartphone','FNN66UJW9GE','12/26/2013');
 INSERT INTO Products(Name,Price,Description,PictureURL,EntryDate) VALUES('Case for iPhone',100,'Boostcase Hybrid Power Case for iPhone','UDL72FJM2NM','12/04/2013');
+";
+            Execute(sql);
+        }
+        internal static void CreateSalesCombinationsTable()
+        {
+            string sql = @"
+IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('SalesCombinations'))
+BEGIN;
+    DROP TABLE SalesCombinations;
+END;
+
+CREATE TABLE SalesCombinations (
+    SalesCombinationID INTEGER NOT NULL IDENTITY(1, 1),    
+    MainProductID INTEGER NOT NULL,
+    SubProductID INTEGER NOT NULL,
+    Discount DECIMAL(18,2) NOT NULL,
+    PRIMARY KEY (SalesCombinationID)
+);
+";
+            Execute(sql);           
+        }
+
+        internal static void SeedSalesCombinations()
+        {
+            string sql = @"
+INSERT INTO SalesCombinations(MainProductID,SubProductID,Discount) VALUES(1,3,5);
+INSERT INTO SalesCombinations(MainProductID,SubProductID,Discount) VALUES(1,5,20);
 ";
             Execute(sql);
         }
