@@ -109,7 +109,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AvailableSalesCombinations.feature</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseHelper.cs" />
+    <Compile Include="Helpers\DatabaseHelper.cs" />
     <Compile Include="ProductsBrowsing.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -124,7 +124,7 @@
     <Compile Include="Steps\ProductSteps.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Steps\SalesCombinationSteps.cs" />
-    <Compile Include="WebApiHelper.cs" />
+    <Compile Include="Helpers\WebApiHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

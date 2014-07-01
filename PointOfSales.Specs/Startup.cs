@@ -28,7 +28,7 @@ namespace PointOfSales.Specs
             );
 
             config.Routes.MapHttpRoute(
-                name: "ProductSearch",
+                name: "SearchApi",
                 routeTemplate: "api/{controller}/search/{search}",
                 defaults: new { action = "Search", search = RouteParameter.Optional }
             );
@@ -42,6 +42,7 @@ namespace PointOfSales.Specs
             kernel.Load(Assembly.GetExecutingAssembly());
             kernel.Bind<ProductsController>().ToSelf();
             kernel.Bind<IProductRepository>().To<ProductRepository>();
+            kernel.Bind<SalesController>().ToSelf();
             return kernel;
         }
     } 
