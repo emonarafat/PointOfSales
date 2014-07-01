@@ -61,8 +61,6 @@ namespace PointOfSales.Specs.Steps
             string json = response.Content.ReadAsStringAsync().Result;            
             var products = JsonConvert.DeserializeObject<List<Product>>(json);
             Assert.Equal(5, products.Count);
-        }
-
- 
+        } 
     }
 }

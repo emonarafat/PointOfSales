@@ -29,13 +29,7 @@ CREATE TABLE Products (
     PRIMARY KEY (ProductID)
 );
 ";
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            using (SqlCommand cmd = conn.CreateCommand())
-            {
-                cmd.CommandText = sql;
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
+            Execute(sql);
         }
 
         public static void SeedProducts()
@@ -47,7 +41,11 @@ INSERT INTO Products(Name,Price,Description,PictureURL,EntryDate) VALUES('20-pin
 INSERT INTO Products(Name,Price,Description,PictureURL,EntryDate) VALUES('Motorola Defy',800,'Unbreakable smartphone','FNN66UJW9GE','12/26/2013');
 INSERT INTO Products(Name,Price,Description,PictureURL,EntryDate) VALUES('Case for iPhone',100,'Boostcase Hybrid Power Case for iPhone','UDL72FJM2NM','12/04/2013');
 ";
+            Execute(sql);
+        }
 
+        private static void Execute(string sql)
+        {
             using (SqlConnection conn = new SqlConnection(connectionString))
             using (SqlCommand cmd = conn.CreateCommand())
             {
