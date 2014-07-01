@@ -23,12 +23,12 @@ public class ProductsControllerTests
     }
 
     [Fact]
-    public void ShouldSearchForProductByName()
+    public void ShouldSearchProductsByName()
     {
         var search = "iphone";
         var repositoryMock = new Mock<IProductRepository>();
         var expectedProducts = Enumerable.Empty<Product>();
-        repositoryMock.Setup(r => r.GetByName(search)).Returns(expectedProducts);
+        repositoryMock.Setup(r => r.GetByNameOrDescription(search)).Returns(expectedProducts);
         var controller = new ProductsController(repositoryMock.Object);
         
         var products = controller.Get(search);
@@ -53,17 +53,18 @@ public class ProductsController : ApiController
 
     public IEnumerable<Product> Get(string search)
     {
-        return productRepository.GetByName(search);
+        return productRepository.GetByNameOrDescription(search);
     }
 }
 
 public class Product
 {
     public string Name { get; set; }
+    public string Description { get; set; }
 }
 
 public interface IProductRepository
 {
     IEnumerable<Product> GetAll();
-    IEnumerable<Product> GetByName(string name);
+    IEnumerable<Product> GetByNameOrDescription(string search);
 }
