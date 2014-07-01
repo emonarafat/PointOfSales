@@ -64,6 +64,7 @@ namespace PointOfSales.Specs.Steps
         {            
             var products = JsonConvert.DeserializeObject<List<Product>>(response);
             Assert.Equal(1, products.Count);
+            Assert.True(products.All(p => p.Name.IndexOf("lumia", StringComparison.InvariantCultureIgnoreCase) >= 0));
         }
 
         [When(@"I search products by description")]
@@ -77,6 +78,7 @@ namespace PointOfSales.Specs.Steps
         {
             var products = JsonConvert.DeserializeObject<List<Product>>(response);
             Assert.Equal(3, products.Count);
+            Assert.True(products.All(p => p.Description.IndexOf("smartphone", StringComparison.InvariantCultureIgnoreCase) >= 0));
         }
     }
 }
