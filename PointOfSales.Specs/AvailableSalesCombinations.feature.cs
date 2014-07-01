@@ -118,6 +118,25 @@ this.FeatureBackground();
             this.ScenarioCleanup();
         }
         
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "AvailableSalesCombinations")]
+        [Xunit.TraitAttribute("Description", "Main products available for sales")]
+        public virtual void MainProductsAvailableForSales()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Main products available for sales", ((string[])(null)));
+#line 17
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 18
+ testRunner.When("I am trying to see available sales combinations of product with main products sal" +
+                    "es", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 19
+ testRunner.Then("I see main products sales combinations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable

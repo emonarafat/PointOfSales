@@ -49,5 +49,18 @@ namespace PointOfSales.Specs.Steps
             var sales = JsonConvert.DeserializeObject<List<SalesCombination>>(result);
             Assert.Equal(2, sales.Count);
         }
+
+        [When(@"I am trying to see available sales combinations of product with main products sales")]
+        public void WhenIAmTryingToSeeAvailableSalesCombinationsOfProductWithMainProductsSales()
+        {
+            result = WebApiHelper.GetJson("api/sales/search/3");
+        }
+
+        [Then(@"I see main products sales combinations")]
+        public void ThenISeeMainProductsSalesCombinations()
+        {
+            var sales = JsonConvert.DeserializeObject<List<SalesCombination>>(result);
+            Assert.Equal(1, sales.Count);
+        }
     }
 }

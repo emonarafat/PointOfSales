@@ -16,9 +16,11 @@ namespace PointOfSales.Persistence
 
         public IEnumerable<SalesCombination> GetByProductId(int productId)
         {
+            var sql = @"SELECT * FROM SalesCombinations 
+                        WHERE MainProductID = @productId OR SubProductID = @productId";
+
             using (var conn = new SqlConnection(connectionString))
-            {
-                var sql = @"SELECT * FROM SalesCombinations WHERE MainProductID = @productId";
+            {                
                 return conn.Query<SalesCombination>(sql, new { productId });
             }  
         }

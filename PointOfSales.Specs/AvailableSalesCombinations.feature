@@ -13,3 +13,7 @@ Scenario: Product does not have sales
 Scenario: Sub-products available for sales
 	When I am trying to see available sales combinations of product with sub-product sales
 	Then I see sub-products sales combinations
+
+Scenario: Main products available for sales
+	When I am trying to see available sales combinations of product with main products sales
+	Then I see main products sales combinations
