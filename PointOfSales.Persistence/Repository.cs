@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -10,11 +11,11 @@ namespace PointOfSales.Persistence
 {
     public class Repository
     {
-        private static readonly string connectionString = "server=(localdb)\\v11.0;database=PoS;Integrated Security=SSPI";
+        private static readonly string connectionString;
 
         static Repository()
         {
-
+            connectionString = ConfigurationManager.ConnectionStrings["pos"].ConnectionString;
         }
 
         protected IDbConnection GetConnection()
