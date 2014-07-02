@@ -10,10 +10,8 @@ using Dapper;
 
 namespace PointOfSales.Persistence
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : Repository, IProductRepository
     {
-        private static readonly string connectionString = "server=(localdb)\\v11.0;database=PoS;Integrated Security=SSPI";
-
         public IEnumerable<Product> GetAll()
         {
             using (SqlConnection conn = new SqlConnection(connectionString))

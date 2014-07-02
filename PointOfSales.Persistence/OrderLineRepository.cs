@@ -10,10 +10,8 @@ using Dapper;
 
 namespace PointOfSales.Persistence
 {
-    public class OrderLineRepository : IOrderLineRepository
+    public class OrderLineRepository : Repository, IOrderLineRepository
     {
-        private static readonly string connectionString = "server=(localdb)\\v11.0;database=PoS;Integrated Security=SSPI";
-
         public IEnumerable<OrderLine> GetByOrder(int orderId)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
