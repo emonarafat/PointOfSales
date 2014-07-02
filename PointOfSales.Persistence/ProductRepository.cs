@@ -32,5 +32,14 @@ namespace PointOfSales.Persistence
                 return conn.Query<Product>(sql, new { search = String.Format("%{0}%", search) });
             }  
         }
+
+        public Product GetById(int productId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                var sql = "SELECT * FROM Products WHERE ProductID = @productId";
+                return conn.Query<Product>(sql, new { productId }).FirstOrDefault();
+            }            
+        }
     }
 }

@@ -12,10 +12,12 @@ namespace PointOfSales.Web.Controllers
     public class OrderLinesController : ApiController
     {
         private IOrderLineRepository orderLineRepository;
-
-        public OrderLinesController(IOrderLineRepository orderLineRepository)
+        private IProductRepository productRepository;
+        
+        public OrderLinesController(IOrderLineRepository orderLineRepository, IProductRepository productRepository)
         {            
             this.orderLineRepository = orderLineRepository;
+            this.productRepository = productRepository;
         }
 
         public IEnumerable<OrderLine> GetByOrder(int orderId)
@@ -25,6 +27,8 @@ namespace PointOfSales.Web.Controllers
 
         public void Post([FromBody]OrderLine line)
         {
+            var product = productRepository.GetById(line.ProductId);
+            line.Price = product.Price;
             orderLineRepository.Add(line);
         }
     }

@@ -65,6 +65,7 @@ namespace PointOfSales.Web.App_Start
         {
             kernel.Bind<IProductRepository>().To<ProductRepository>();
             kernel.Bind<ISalesCombinationRepository>().To<SalesCombinationRepository>();
+            kernel.Bind<IOrderLineRepository>().To<OrderLineRepository>();
         }        
     }
 }
