@@ -17,7 +17,7 @@ namespace PointOfSales.Persistence
             var sql = @"SELECT * FROM SalesCombinations 
                         WHERE MainProductID = @productId OR SubProductID = @productId";
 
-            using (var conn = new SqlConnection(connectionString))
+            using (var conn = GetConnection())
             {                
                 return conn.Query<SalesCombination>(sql, new { productId });
             }  

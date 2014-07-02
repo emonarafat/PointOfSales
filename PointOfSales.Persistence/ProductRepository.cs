@@ -14,7 +14,7 @@ namespace PointOfSales.Persistence
     {
         public IEnumerable<Product> GetAll()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (var conn = GetConnection())
             {
                 var sql = "SELECT * FROM Products";
                 return conn.Query<Product>(sql);
@@ -23,7 +23,7 @@ namespace PointOfSales.Persistence
 
         public IEnumerable<Product> GetByNameOrDescription(string search)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (var conn = GetConnection())
             {
                 var sql = @"SELECT * FROM Products 
                             WHERE Name LIKE @search OR Description LIKE @search";
@@ -33,7 +33,7 @@ namespace PointOfSales.Persistence
 
         public Product GetById(int productId)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (var conn = GetConnection())
             {
                 var sql = "SELECT * FROM Products WHERE ProductID = @productId";
                 return conn.Query<Product>(sql, new { productId }).FirstOrDefault();

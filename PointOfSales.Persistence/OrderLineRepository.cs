@@ -14,7 +14,7 @@ namespace PointOfSales.Persistence
     {
         public IEnumerable<OrderLine> GetByOrder(int orderId)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (var conn = GetConnection())
             {
                 var sql = "SELECT * FROM OrderLines WHERE OrderID = @orderId";
                 return conn.Query<OrderLine>(sql, new { orderId });
@@ -23,7 +23,7 @@ namespace PointOfSales.Persistence
 
         public void Add(OrderLine line)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (var conn = GetConnection())
             {
                 var sql = @"INSERT INTO OrderLines (OrderID, ProductID, Price, Quantity) 
                             VALUES (@orderId, @productId, @price, @quantity)";
