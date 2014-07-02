@@ -1,4 +1,5 @@
 ﻿using Microsoft.Owin.Hosting;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,21 @@ namespace PointOfSales.Specs
                 var response = client.GetAsync(baseAddress + url).Result;
                 Assert.Equal(HttpStatusCode.OK, response.StatusCode);
                 return response.Content.ReadAsStringAsync().Result;
+            }
+        }
+
+        public static T Get<T>(string url)
+        {
+            return JsonConvert.DeserializeObject<T>(GetJson(url));
+        }
+
+        public static void Post<T>(string url, T value)
+        {
+            using (WebApp.Start<Startup>(url: baseAddress))
+            {
+                HttpClient client = new HttpClient();
+                var response = client.PostAsJsonAsync(baseAddress + url, value).Result;
+                Assert.True(response.IsSuccessStatusCode);
             }
         }
     }

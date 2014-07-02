@@ -22,6 +22,7 @@ namespace PointOfSales.Web.Controllers
             return productRepository.GetAll();
         }
 
+        // TODO: /api/products?search=search
         [AcceptVerbs("GET")]
         public IEnumerable<Product> Search(string search)
         {

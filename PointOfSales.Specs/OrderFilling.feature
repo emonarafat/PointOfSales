@@ -5,5 +5,5 @@
 
 Scenario: Add product to empty order
 	Given I have an empty order	
-	When I product to order
+	When I add product to order
 	Then order should have order line with product

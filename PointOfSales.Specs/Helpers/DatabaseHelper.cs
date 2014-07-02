@@ -70,6 +70,50 @@ INSERT INTO SalesCombinations(MainProductID,SubProductID,Discount) VALUES(1,5,20
 ";
             Execute(sql);
         }
+        internal static void CreateOrdersTable()
+        {
+            string sql = @"
+IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('Orders'))
+BEGIN;
+    DROP TABLE Orders;
+END;
+
+CREATE TABLE Orders (
+    OrderID INTEGER NOT NULL IDENTITY(1, 1),    
+    CustomerID INTEGER NOT NULL,
+    EntryDate DATETIME NOT NULL
+);
+";
+            Execute(sql);
+        }
+
+        internal static void CreateOrderLinesTable()
+        {
+            string sql = @"
+IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('OrderLines'))
+BEGIN;
+    DROP TABLE OrderLines;
+END;
+
+CREATE TABLE OrderLines (
+    OrderLineID INTEGER NOT NULL IDENTITY(1, 1),    
+    OrderID INTEGER NOT NULL,
+    ProductID INTEGER NOT NULL,
+    Price DECIMAL(18,2) NOT NULL,
+    Quantity INTEGER NOT NULL
+);
+";
+            Execute(sql);
+        }
+
+        internal static void SeedOrders()
+        {
+            string sql = @"
+INSERT INTO Orders(CustomerID,EntryDate) VALUES(1,'03/15/14');
+INSERT INTO Orders(CustomerID,EntryDate) VALUES(1,'05/24/14');
+";
+            Execute(sql);
+        }
 
         private static void Execute(string sql)
         {

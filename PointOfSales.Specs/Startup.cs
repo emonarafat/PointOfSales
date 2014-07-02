@@ -33,6 +33,12 @@ namespace PointOfSales.Specs
                 defaults: new { action = "Search", search = RouteParameter.Optional }
             );
 
+            config.Routes.MapHttpRoute(
+                name: "OrderLinesApi",
+                routeTemplate: "api/orderlines/order/{orderId}",
+                defaults: new { controller = "OrderLines", action = "GetByOrder" }
+            );
+
             appBuilder.UseNinjectMiddleware(CreateKernel)
                       .UseNinjectWebApi(config);            
         }
