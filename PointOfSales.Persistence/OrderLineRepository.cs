@@ -7,28 +7,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using NLog;
 
 namespace PointOfSales.Persistence
 {
     public class OrderLineRepository : Repository, IOrderLineRepository
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public IEnumerable<OrderLine> GetByOrder(int orderId)
         {
+            Logger.Debug("Getting order lines of order {0}", orderId);
+            var sql = "SELECT * FROM OrderLines WHERE OrderID = @orderId";
+
             using (var conn = GetConnection())
-            {
-                var sql = "SELECT * FROM OrderLines WHERE OrderID = @orderId";
-                return conn.Query<OrderLine>(sql, new { orderId });
-            }  
+                return conn.Query<OrderLine>(sql, new { orderId });              
         }
 
         public void Add(OrderLine line)
         {
-            using (var conn = GetConnection())
-            {
-                var sql = @"INSERT INTO OrderLines (OrderID, ProductID, Price, Quantity) 
+            Logger.Debug("Adding order line to order {0}", line.OrderId);
+            var sql = @"INSERT INTO OrderLines (OrderID, ProductID, Price, Quantity) 
                             VALUES (@orderId, @productId, @price, @quantity)";
-                conn.Execute(sql, line);
-            }            
+
+            using (var conn = GetConnection())            
+                conn.Execute(sql, line);                        
         }
     }
 }

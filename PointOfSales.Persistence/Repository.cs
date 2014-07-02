@@ -12,6 +12,11 @@ namespace PointOfSales.Persistence
     {
         private static readonly string connectionString = "server=(localdb)\\v11.0;database=PoS;Integrated Security=SSPI";
 
+        static Repository()
+        {
+
+        }
+
         protected IDbConnection GetConnection()
         {
             return new SqlConnection(connectionString);
