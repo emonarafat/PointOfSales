@@ -110,6 +110,11 @@
       <DependentUpon>AvailableSalesCombinations.feature</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DatabaseHelper.cs" />
+    <Compile Include="OrderFilling.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderFilling.feature</DependentUpon>
+    </Compile>
     <Compile Include="ProductsBrowsing.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -131,6 +136,10 @@
     <None Include="AvailableSalesCombinations.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AvailableSalesCombinations.feature.cs</LastGenOutput>
+    </None>
+    <None Include="OrderFilling.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>OrderFilling.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="ProductsBrowsing.feature">
