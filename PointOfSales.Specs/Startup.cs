@@ -47,10 +47,12 @@ namespace PointOfSales.Specs
             var kernel = new StandardKernel();
             kernel.Load(Assembly.GetExecutingAssembly());
             // TODO: Reuse configuration from web project
-            kernel.Bind<ProductsController>().ToSelf();
-            kernel.Bind<IProductRepository>().To<ProductRepository>();
+            kernel.Bind<ProductsController>().ToSelf();            
             kernel.Bind<SalesController>().ToSelf();
+
+            kernel.Bind<IProductRepository>().To<ProductRepository>();
             kernel.Bind<ISalesCombinationRepository>().To<SalesCombinationRepository>();
+            kernel.Bind<IOrderLineRepository>().To<OrderLineRepository>();
             return kernel;
         }
     } 
