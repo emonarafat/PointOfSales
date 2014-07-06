@@ -18,15 +18,15 @@ namespace PointOfSales.Specs
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class ProductsBrowsingFeature : Xunit.IUseFixture<ProductsBrowsingFeature.FixtureData>, System.IDisposable
+    public partial class AddingProductWithSalesCombinationsToOrderFeature : Xunit.IUseFixture<AddingProductWithSalesCombinationsToOrderFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "ProductsBrowsing.feature"
+#line 1 "AddingProductWithSalesCombinationsToOrder.feature"
 #line hidden
         
-        public ProductsBrowsingFeature()
+        public AddingProductWithSalesCombinationsToOrderFeature()
         {
             this.TestInitialize();
         }
@@ -34,8 +34,8 @@ namespace PointOfSales.Specs
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ProductsBrowsing", "In order to manage products\nAs a salesman\nI want to see all available products", ProgrammingLanguage.CSharp, new string[] {
-                        "products"});
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "AddingProductWithSalesCombinationsToOrder", "In order to offer discount\nAs a salesman\nI want to be able to add a product with " +
+                    "sales combinations to an order", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -64,7 +64,7 @@ namespace PointOfSales.Specs
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void SetFixture(ProductsBrowsingFeature.FixtureData fixtureData)
+        public virtual void SetFixture(AddingProductWithSalesCombinationsToOrderFeature.FixtureData fixtureData)
         {
         }
         
@@ -74,37 +74,21 @@ namespace PointOfSales.Specs
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "ProductsBrowsing")]
-        [Xunit.TraitAttribute("Description", "No products available")]
-        public virtual void NoProductsAvailable()
+        [Xunit.TraitAttribute("FeatureTitle", "AddingProductWithSalesCombinationsToOrder")]
+        [Xunit.TraitAttribute("Description", "Adding sales combination to order")]
+        public virtual void AddingSalesCombinationToOrder()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No products available", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding sales combination to order", ((string[])(null)));
+#line 6
+this.ScenarioSetup(scenarioInfo);
 #line 7
-this.ScenarioSetup(scenarioInfo);
+ testRunner.Given("I have an empty order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
- testRunner.Given("I have no products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.When("I add sales combination to order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9
- testRunner.When("I am trying to see all available products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Then("order should contain both products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 10
- testRunner.Then("I do not see any products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "ProductsBrowsing")]
-        [Xunit.TraitAttribute("Description", "Products available")]
-        public virtual void ProductsAvailable()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Products available", ((string[])(null)));
-#line 12
-this.ScenarioSetup(scenarioInfo);
-#line 13
- testRunner.Given("I have some products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 14
- testRunner.When("I am trying to see all available products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 15
- testRunner.Then("I see all products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.And("total price should have discount", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -116,12 +100,12 @@ this.ScenarioSetup(scenarioInfo);
             
             public FixtureData()
             {
-                ProductsBrowsingFeature.FeatureSetup();
+                AddingProductWithSalesCombinationsToOrderFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                ProductsBrowsingFeature.FeatureTearDown();
+                AddingProductWithSalesCombinationsToOrderFeature.FeatureTearDown();
             }
         }
     }

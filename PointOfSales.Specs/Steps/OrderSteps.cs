@@ -20,6 +20,8 @@ namespace PointOfSales.Specs.Steps
             DatabaseHelper.CreateOrdersTable();
             DatabaseHelper.SeedOrders();
             DatabaseHelper.CreateOrderLinesTable();
+            DatabaseHelper.CreateSalesCombinationsTable();
+            DatabaseHelper.SeedSalesCombinations();
         }
 
         [When(@"I add product to order")]
@@ -34,5 +36,24 @@ namespace PointOfSales.Specs.Steps
             var lines = WebApiHelper.Get<List<OrderLine>>("api/orderlines/order/1");
             Assert.Equal(1, lines.Count);
         }
+
+        [When(@"I add sales combination to order")]
+        public void WhenIAddSalesCombinationToOrder()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"order should contain both products")]
+        public void ThenOrderShouldContainBothProducts()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"total price should have discount")]
+        public void ThenTotalPriceShouldHaveDiscount()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
     }
 }

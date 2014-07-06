@@ -105,6 +105,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddingProductWithSalesCombinationsToOrder.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddingProductWithSalesCombinationsToOrder.feature</DependentUpon>
+    </Compile>
     <Compile Include="AvailableSalesCombinations.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -134,6 +139,10 @@
     <Compile Include="Helpers\WebApiHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="AddingProductWithSalesCombinationsToOrder.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AddingProductWithSalesCombinationsToOrder.feature.cs</LastGenOutput>
+    </None>
     <None Include="App.config" />
     <None Include="AvailableSalesCombinations.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
