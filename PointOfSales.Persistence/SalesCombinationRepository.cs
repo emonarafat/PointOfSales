@@ -24,5 +24,14 @@ namespace PointOfSales.Persistence
             using (var conn = GetConnection())
                 return conn.Query<SalesCombination>(sql, new { productId });
         }
+
+        public SalesCombination GetById(int id)
+        {
+            Logger.Debug("Getting sales combination {0}", id);
+            var sql = "SELECT * FROM SalesCombinations WHERE SalesCombinationID = @id";
+
+            using (var conn = GetConnection())
+                return conn.Query<SalesCombination>(sql, new { id }).FirstOrDefault();
+        }
     }
 }

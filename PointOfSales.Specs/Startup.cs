@@ -39,6 +39,12 @@ namespace PointOfSales.Specs
                 defaults: new { controller = "OrderLines", action = "GetByOrder" }
             );
 
+            config.Routes.MapHttpRoute(
+                name: "OrderSalesApi",
+                routeTemplate: "api/orders/{orderId}/sales/{salesCombinationId}",
+                defaults: new { controller = "OrderLines", action = "AddSalesCombination" }
+            );
+
             appBuilder.UseNinjectMiddleware(CreateKernel)
                       .UseNinjectWebApi(config);            
         }
@@ -49,6 +55,8 @@ namespace PointOfSales.Specs
             // TODO: Reuse configuration from web project
             kernel.Bind<ProductsController>().ToSelf();            
             kernel.Bind<SalesController>().ToSelf();
+            kernel.Bind<OrdersController>().ToSelf();
+            kernel.Bind<OrderLinesController>().ToSelf();
 
             kernel.Bind<IProductRepository>().To<ProductRepository>();
             kernel.Bind<ISalesCombinationRepository>().To<SalesCombinationRepository>();

@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace PointOfSales.Domain.Repositories
 {
-    public interface ISalesCombinationRepository
+    public interface IOrderRepository
     {
-        IEnumerable<SalesCombination> GetByProductId(int productId);
-        SalesCombination GetById(int id);
+        Order GetById(int id);
     }
 }

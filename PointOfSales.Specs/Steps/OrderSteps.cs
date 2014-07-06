@@ -56,6 +56,5 @@ namespace PointOfSales.Specs.Steps
             var order = WebApiHelper.Get<Order>("api/orders/1");
             Assert.Equal(580, order.TotalPrice);
         }
-
     }
 }
