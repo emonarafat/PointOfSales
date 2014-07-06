@@ -8,6 +8,7 @@ namespace PointOfSales.Domain.Model
 {
     public class Order
     {
+        public int OrderId { get; set; }
         public decimal TotalPrice { get; set; }
     }
 }
