@@ -19,8 +19,8 @@ namespace PointOfSales.Persistence
             Logger.Debug("Getting order {0}", id);
             var sql = "SELECT * FROM Orders WHERE OrderID = @id";
 
-            using (var conn = GetConnection())
-                return conn.Query<Order>(sql, new { id }).FirstOrDefault();
+            using (var conn = GetConnection())            
+                return conn.Query<Order>(sql, new { id }).FirstOrDefault();            
         }
     }
 }

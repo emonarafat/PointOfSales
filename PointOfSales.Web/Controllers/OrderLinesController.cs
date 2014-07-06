@@ -42,7 +42,7 @@ namespace PointOfSales.Web.Controllers
             var mainProduct = productRepository.GetById(sales.MainProductId);
             orderLineRepository.Add(new OrderLine { ProductId = mainProduct.ProductId, Price = mainProduct.Price, Quantity = 1, OrderId = orderId });
             var subProduct = productRepository.GetById(sales.SubProductId);
-            orderLineRepository.Add(new OrderLine { ProductId = subProduct.ProductId, Price = subProduct.Price, Quantity = 1, OrderId = orderId });
+            orderLineRepository.Add(new OrderLine { ProductId = subProduct.ProductId, Price = subProduct.Price - sales.Discount, Quantity = 1, OrderId = orderId });
         }
     }
 }

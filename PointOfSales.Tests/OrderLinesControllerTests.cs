@@ -83,7 +83,8 @@ namespace PointOfSales.Tests
             controller.SalesCombinationRepositoryMock.VerifyAll();
             controller.ProductRepositoryMock.VerifyAll();
             controller.OrderLineRepositoryMock.Verify(r => r.Add(It.Is<OrderLine>(l => l.ProductId == mainProduct.ProductId)));
-            controller.OrderLineRepositoryMock.Verify(r => r.Add(It.Is<OrderLine>(l => l.ProductId == subProduct.ProductId)));
+            controller.OrderLineRepositoryMock
+                .Verify(r => r.Add(It.Is<OrderLine>(l => l.ProductId == subProduct.ProductId && l.Price == subProduct.Price - salesCombination.Discount)));
         }
 
         private TestableOrderLinesController CreateTestableOrderLinesController()

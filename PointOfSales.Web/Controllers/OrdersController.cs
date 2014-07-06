@@ -12,14 +12,23 @@ namespace PointOfSales.Web.Controllers
     public class OrdersController : ApiController
     {
         private IOrderRepository orderRepository;
+        private IOrderLineRepository orderLineRepository;
 
-        public OrdersController(IOrderRepository orderRepository)
+        public OrdersController(IOrderRepository orderRepository, IOrderLineRepository orderLineRepository)
         {            
             this.orderRepository = orderRepository;
+            this.orderLineRepository = orderLineRepository;
         }
+
         public Order Get(int id)
         {
-            return orderRepository.GetById(id);
+            var order = orderRepository.GetById(id);
+            if (order == null)
+                return null;
+
+            var lines = orderLineRepository.GetByOrder(id);
+            order.TotalPrice = lines.Sum(l => l.Price);
+            return order;
         }
     }
 }
