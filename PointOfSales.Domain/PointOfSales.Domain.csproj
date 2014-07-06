@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Order.cs" />
     <Compile Include="Model\OrderLine.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Model\SalesCombination.cs" />

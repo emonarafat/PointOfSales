@@ -40,19 +40,21 @@ namespace PointOfSales.Specs.Steps
         [When(@"I add sales combination to order")]
         public void WhenIAddSalesCombinationToOrder()
         {
-            ScenarioContext.Current.Pending();
+            WebApiHelper.Post("api/orders/1/sales/2", new object());
         }
 
         [Then(@"order should contain both products")]
         public void ThenOrderShouldContainBothProducts()
         {
-            ScenarioContext.Current.Pending();
+            var lines = WebApiHelper.Get<List<OrderLine>>("api/orderlines/order/1");
+            Assert.Equal(2, lines.Count);
         }
 
         [Then(@"total price should have discount")]
         public void ThenTotalPriceShouldHaveDiscount()
         {
-            ScenarioContext.Current.Pending();
+            var order = WebApiHelper.Get<Order>("api/orders/1");
+            Assert.Equal(580, order.TotalPrice);
         }
 
     }
