@@ -93,6 +93,28 @@ this.ScenarioSetup(scenarioInfo);
             this.ScenarioCleanup();
         }
         
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "AddingProductWithSalesCombinationsToOrder")]
+        [Xunit.TraitAttribute("Description", "Adding sales combination for product which already added to order")]
+        public virtual void AddingSalesCombinationForProductWhichAlreadyAddedToOrder()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding sales combination for product which already added to order", ((string[])(null)));
+#line 12
+this.ScenarioSetup(scenarioInfo);
+#line 13
+ testRunner.Given("I have an empty order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 14
+ testRunner.When("I add product to order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 15
+  testRunner.And("I add sales combination to order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 16
+ testRunner.Then("order should contain both products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 17
+   testRunner.And("total price should have discount", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable
