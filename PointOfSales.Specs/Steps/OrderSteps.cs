@@ -74,13 +74,15 @@ namespace PointOfSales.Specs.Steps
         [When(@"I add sub product to order")]
         public void WhenIAddSubProductToOrder()
         {
-            ScenarioContext.Current.Pending();
+            WebApiHelper.Post("api/orderlines", new OrderLine { OrderId = 1, ProductId = 3, Quantity = 1 });
         }
 
         [Then(@"items quantity should be increased")]
         public void ThenItemsQuantityShouldBeIncreased()
         {
-            ScenarioContext.Current.Pending();
+            var line = WebApiHelper.Get<List<OrderLine>>("api/orderlines/order/1").ToArray();
+            Assert.Equal(2, line[0].Quantity);
+            Assert.Equal(2, line[1].Quantity);
         }
     }
 }
