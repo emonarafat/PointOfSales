@@ -102,9 +102,31 @@ this.ScenarioSetup(scenarioInfo);
 #line 12
  testRunner.Given("I have an empty order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 13
- testRunner.When("I add multiple products to order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I add two products to order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 14
- testRunner.Then("order should have order lines for each product", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("order should contain both products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "OrderFilling")]
+        [Xunit.TraitAttribute("Description", "Add same product multiple times")]
+        public virtual void AddSameProductMultipleTimes()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add same product multiple times", ((string[])(null)));
+#line 16
+this.ScenarioSetup(scenarioInfo);
+#line 17
+ testRunner.Given("I have an empty order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 18
+ testRunner.When("I add product to order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 19
+     testRunner.And("I add product to order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 20
+ testRunner.Then("order should have order line with product", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 21
+  testRunner.And("order line quantity should be 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

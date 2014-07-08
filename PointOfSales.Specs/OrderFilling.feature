@@ -10,5 +10,12 @@ Scenario: Add product to empty order
 
 Scenario: Add multiple products
 	Given I have an empty order
-	When I add multiple products to order
-	Then order should have order lines for each product
+	When I add two products to order
+	Then order should contain both products
+
+Scenario: Add same product multiple times
+	Given I have an empty order
+	When I add product to order
+     And I add product to order
+	Then order should have order line with product
+	 And order line quantity should be 2

@@ -57,14 +57,15 @@ namespace PointOfSales.Specs.Steps
             Assert.Equal(580, order.TotalPrice);
         }
 
-        [When(@"I add multiple products to order")]
-        public void WhenIAddMultipleProductsToOrder()
+        [When(@"I add two products to order")]
+        public void WhenIAddTwoProductsToOrder()
         {
-            ScenarioContext.Current.Pending();
+            WebApiHelper.Post("api/orderlines", new OrderLine { OrderId = 1, ProductId = 1, Quantity = 1 });
+            WebApiHelper.Post("api/orderlines", new OrderLine { OrderId = 1, ProductId = 2, Quantity = 1 });
         }
 
-        [Then(@"order should have order lines for each product")]
-        public void ThenOrderShouldHaveOrderLinesForEachProduct()
+        [Then(@"order line quantity should be (.*)")]
+        public void ThenOrderLineQuantityShouldBe(int quantity)
         {
             ScenarioContext.Current.Pending();
         }
