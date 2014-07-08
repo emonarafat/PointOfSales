@@ -56,5 +56,17 @@ namespace PointOfSales.Specs.Steps
             var order = WebApiHelper.Get<Order>("api/orders/1");
             Assert.Equal(580, order.TotalPrice);
         }
+
+        [When(@"I add multiple products to order")]
+        public void WhenIAddMultipleProductsToOrder()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"order should have order lines for each product")]
+        public void ThenOrderShouldHaveOrderLinesForEachProduct()
+        {
+            ScenarioContext.Current.Pending();
+        }
     }
 }
