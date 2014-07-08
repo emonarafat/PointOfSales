@@ -49,11 +49,24 @@ namespace PointOfSales.Web.Controllers
         public void AddSalesCombination(int orderId, int salesCombinationId)
         {
             var sales = salesCombinationRepository.GetById(salesCombinationId);
+            var lines = orderLineRepository.GetByOrder(orderId);
+
+            var mainProductExists = lines.Any(l => l.ProductId == sales.MainProductId);
+            var subProductExists = lines.Any(l => l.ProductId == sales.SubProductId);
+            // TODO: What to do if both exists?
+
             // TODO: UoW
-            var mainProduct = productRepository.GetById(sales.MainProductId);
-            orderLineRepository.Add(new OrderLine { ProductId = mainProduct.ProductId, Price = mainProduct.Price, Quantity = 1, OrderId = orderId });
-            var subProduct = productRepository.GetById(sales.SubProductId);
-            orderLineRepository.Add(new OrderLine { ProductId = subProduct.ProductId, Price = subProduct.Price - sales.Discount, Quantity = 1, OrderId = orderId });
+            if (!mainProductExists)
+            {
+                var mainProduct = productRepository.GetById(sales.MainProductId);
+                orderLineRepository.Add(new OrderLine { ProductId = mainProduct.ProductId, Price = mainProduct.Price, Quantity = 1, OrderId = orderId });
+            }
+
+            if (!subProductExists)
+            {
+                var subProduct = productRepository.GetById(sales.SubProductId);
+                orderLineRepository.Add(new OrderLine { ProductId = subProduct.ProductId, Price = subProduct.Price - sales.Discount, Quantity = 1, OrderId = orderId });
+            }
         }
     }
 }

@@ -107,6 +107,7 @@ namespace PointOfSales.Tests
             controller.OrderLineRepositoryMock.VerifyAll();
         }
 
+        // Probably we need separate test for sub and main product
         [Fact]
         public void ShouldNotAddBothProductsFromSalesCombinationIfOneProductAlreadyAdded()
         {
