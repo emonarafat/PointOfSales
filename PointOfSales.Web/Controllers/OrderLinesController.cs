@@ -31,7 +31,18 @@ namespace PointOfSales.Web.Controllers
         {
             var product = productRepository.GetById(line.ProductId);
             line.Price = product.Price;
-            orderLineRepository.Add(line);
+
+            var lines = orderLineRepository.GetByOrder(line.OrderId);
+            var existingLine = lines.FirstOrDefault(l => l.ProductId == line.ProductId);
+
+            if (existingLine == null)
+            {
+                orderLineRepository.Add(line);
+                return;
+            }
+
+            line.Quantity += existingLine.Quantity;
+            orderLineRepository.Update(line);            
         }
 
         [AcceptVerbs("POST")]

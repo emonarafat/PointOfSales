@@ -67,7 +67,8 @@ namespace PointOfSales.Specs.Steps
         [Then(@"order line quantity should be (.*)")]
         public void ThenOrderLineQuantityShouldBe(int quantity)
         {
-            ScenarioContext.Current.Pending();
+            var line = WebApiHelper.Get<List<OrderLine>>("api/orderlines/order/1").Single();
+            Assert.Equal(quantity, line.Quantity);
         }
     }
 }

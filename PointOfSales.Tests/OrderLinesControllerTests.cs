@@ -87,6 +87,26 @@ namespace PointOfSales.Tests
                 .Verify(r => r.Add(It.Is<OrderLine>(l => l.ProductId == subProduct.ProductId && l.Price == subProduct.Price - salesCombination.Discount)));
         }
 
+        [Fact]
+        public void ShouldIncreaseQuantityWhenOrderAlreadyHasProduct()
+        {
+            var controller = CreateTestableOrderLinesController();
+            var product = new Product { ProductId = Random.Next(), Price = (decimal)Random.NextDouble() }; 
+            var line = new OrderLine { OrderId = Random.Next(), ProductId = product.ProductId , Quantity = 1 };
+            var lines = new List<OrderLine> { 
+                new OrderLine { OrderLineId = line.OrderId, ProductId = line.ProductId, Quantity = 1 } 
+            };
+
+            controller.ProductRepositoryMock.Setup(r => r.GetById(line.ProductId)).Returns(product);
+            controller.OrderLineRepositoryMock.Setup(r => r.GetByOrder(line.OrderId)).Returns(lines);
+            controller.OrderLineRepositoryMock.Setup(r => r.Update(It.Is<OrderLine>(l =>
+                l.OrderId == line.OrderId && l.ProductId == line.ProductId && l.Quantity == 2)));
+
+            controller.Post(line);
+
+            controller.OrderLineRepositoryMock.VerifyAll();
+        }
+
         private TestableOrderLinesController CreateTestableOrderLinesController()
         {
             var lineRepositoryMock = new Mock<IOrderLineRepository>();
@@ -94,8 +114,6 @@ namespace PointOfSales.Tests
             var salesRepositoryMock = new Mock<ISalesCombinationRepository>();
             return new TestableOrderLinesController(lineRepositoryMock, productRepositoryMock, salesRepositoryMock);
         }
-        
-        // Should update quantity and price if product already added
     }
 
     internal class TestableOrderLinesController : OrderLinesController

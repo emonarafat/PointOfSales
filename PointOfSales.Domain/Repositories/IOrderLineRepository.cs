@@ -12,5 +12,6 @@ namespace PointOfSales.Domain.Repositories
         IEnumerable<OrderLine> GetByOrder(int orderId);
 
         void Add(OrderLine line);
+        void Update(OrderLine line);
     }
 }
