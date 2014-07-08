@@ -107,6 +107,39 @@ namespace PointOfSales.Tests
             controller.OrderLineRepositoryMock.VerifyAll();
         }
 
+        [Fact]
+        public void ShouldNotAddBothProductsFromSalesCombinationIfOneProductAlreadyAdded()
+        {
+            var controller = CreateTestableOrderLinesController();
+            int orderId = Random.Next();
+            var mainProduct = new Product { ProductId = Random.Next(), Price = Random.Next() };
+            var subProduct = new Product { ProductId = Random.Next(), Price = Random.Next() };
+
+            var salesCombination = new SalesCombination
+            {
+                SalesCombinationId = Random.Next(),
+                MainProductId = mainProduct.ProductId,
+                SubProductId = subProduct.ProductId,
+                Discount = Random.Next()
+            };
+
+            var lines = new[] { new OrderLine { ProductId = mainProduct.ProductId, Quantity = 1 } };
+
+            controller.SalesCombinationRepositoryMock.Setup(r => r.GetById(salesCombination.SalesCombinationId))
+                      .Returns(salesCombination);
+            controller.OrderLineRepositoryMock.Setup(r => r.GetByOrder(orderId)).Returns(lines);            
+            controller.ProductRepositoryMock.Setup(r => r.GetById(salesCombination.SubProductId)).Returns(subProduct);
+
+            controller.AddSalesCombination(orderId, salesCombination.SalesCombinationId);
+
+            controller.SalesCombinationRepositoryMock.VerifyAll();
+            controller.ProductRepositoryMock.VerifyAll();
+            controller.OrderLineRepositoryMock.Verify(r => r.Add(It.Is<OrderLine>(l => l.ProductId == subProduct.ProductId)));
+            controller.ProductRepositoryMock.Verify(r => r.GetById(mainProduct.ProductId), Times.Never());
+            controller.OrderLineRepositoryMock
+                .Verify(r => r.Add(It.Is<OrderLine>(l => l.ProductId == subProduct.ProductId && l.Price == subProduct.Price - salesCombination.Discount)));            
+        }
+
         private TestableOrderLinesController CreateTestableOrderLinesController()
         {
             var lineRepositoryMock = new Mock<IOrderLineRepository>();
