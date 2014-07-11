@@ -115,6 +115,30 @@ INSERT INTO Orders(CustomerID,EntryDate) VALUES(1,'05/24/14');
             Execute(sql);
         }
 
+        internal static void CreateCustomersTable()
+        {
+            string sql = @"
+IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('Customers'))
+BEGIN;
+    DROP TABLE Customers;
+END;
+
+CREATE TABLE Customers (
+    CustomerID INTEGER NOT NULL IDENTITY(1, 1),    
+    FirstName VARCHAR(255) NOT NULL,
+    LastName VARCHAR(255) NOT NULL,
+    MiddleName VARCHAR(255) NULL,
+    EmailAddress VARCHAR(255) NOT NULL,
+    Street VARCHAR(255) NULL,
+    HouseNumber VARCHAR(10) NULL,
+    PostalCode VARCHAR(6) NULL,
+    City VARCHAR(255) NULL,    
+    EntryDate DATETIME NOT NULL
+);
+";
+            Execute(sql);
+        }
+
         private static void Execute(string sql)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
