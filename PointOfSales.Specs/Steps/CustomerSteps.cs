@@ -21,7 +21,8 @@ namespace PointOfSales.Specs.Steps
         [When(@"I add customer")]
         public void WhenIAddCustomer()
         {
-            WebApiHelper.Post("api/customers", new Customer());
+            var customer = new Customer { FirstName = "John", LastName = "Doe", EmailAddress = "john.doe@gmail.com" };
+            WebApiHelper.Post("api/customers", customer);
         }
 
         [Then(@"customer should exist in the system")]
@@ -29,6 +30,7 @@ namespace PointOfSales.Specs.Steps
         {
             var customers = WebApiHelper.Get<List<Customer>>("api/customers");
             Assert.Equal(1, customers.Count);
+            Assert.Equal("john.doe@gmail.com", customers[0].EmailAddress);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace PointOfSales.Web.Controllers
 
         public void Post(Customer customer)
         {
-
+            customerRepository.Add(customer);
         }
     }
 }

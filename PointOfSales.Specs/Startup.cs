@@ -62,6 +62,7 @@ namespace PointOfSales.Specs
             kernel.Bind<ISalesCombinationRepository>().To<SalesCombinationRepository>();
             kernel.Bind<IOrderLineRepository>().To<OrderLineRepository>();
             kernel.Bind<IOrderRepository>().To<OrderRepository>();
+            kernel.Bind<ICustomerRepository>().To<CustomerRepository>();
             return kernel;
         }
     } 
