@@ -32,5 +32,23 @@ namespace PointOfSales.Specs.Steps
             Assert.Equal(1, customers.Count);
             Assert.Equal("john.doe@gmail.com", customers[0].EmailAddress);
         }
+
+        [Given(@"customer without orders")]
+        public void GivenCustomerWithoutOrders()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [When(@"I search recurring customers")]
+        public void WhenISearchRecurringCustomers()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"I don't see any customers")]
+        public void ThenIDonTSeeAnyCustomers()
+        {
+            ScenarioContext.Current.Pending();
+        }
     }
 }

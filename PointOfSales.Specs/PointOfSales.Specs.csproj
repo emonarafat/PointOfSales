@@ -137,6 +137,11 @@
       <DependentUpon>ProductsSearch.feature</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchingRecurringCustomers.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SearchingRecurringCustomers.feature</DependentUpon>
+    </Compile>
     <Compile Include="Steps\CustomerSteps.cs" />
     <Compile Include="Steps\OrderSteps.cs" />
     <Compile Include="Steps\ProductSteps.cs" />
@@ -170,6 +175,10 @@
     <None Include="ProductsSearch.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ProductsSearch.feature.cs</LastGenOutput>
+    </None>
+    <None Include="SearchingRecurringCustomers.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SearchingRecurringCustomers.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
