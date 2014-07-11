@@ -10,5 +10,6 @@ namespace PointOfSales.Domain.Repositories
     public interface ICustomerRepository
     {
         IEnumerable<Customer> GetAll();
+        void Add(Customer customer);
     }
 }

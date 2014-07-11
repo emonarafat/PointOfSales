@@ -19,7 +19,7 @@ namespace PointOfSales.Web.Controllers
         }
         public IEnumerable<Customer> Get()
         {
-            return Enumerable.Empty<Customer>();
+            return customerRepository.GetAll();
         }
 
         public void Post(Customer customer)
