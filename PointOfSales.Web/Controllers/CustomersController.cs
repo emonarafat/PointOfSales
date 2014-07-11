@@ -1,4 +1,5 @@
 ﻿using PointOfSales.Domain.Model;
+using PointOfSales.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,12 @@ namespace PointOfSales.Web.Controllers
 {
     public class CustomersController : ApiController
     {
+        private ICustomerRepository customerRepository;
+
+        public CustomersController(ICustomerRepository customerRepository)
+        {            
+            this.customerRepository = customerRepository;
+        }
         public IEnumerable<Customer> Get()
         {
             return Enumerable.Empty<Customer>();
