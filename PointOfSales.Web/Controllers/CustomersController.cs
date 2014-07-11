@@ -26,5 +26,10 @@ namespace PointOfSales.Web.Controllers
         {
             customerRepository.Add(customer);
         }
+
+        public IEnumerable<Customer> GetRecurringCustomers()
+        {
+            return customerRepository.GetRecurringCustomers();
+        }
     }
 }

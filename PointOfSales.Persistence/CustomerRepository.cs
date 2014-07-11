@@ -32,5 +32,10 @@ namespace PointOfSales.Persistence
             using (var conn = GetConnection())
                 conn.Execute(sql, customer);
         }
+
+        public IEnumerable<Customer> GetRecurringCustomers()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
