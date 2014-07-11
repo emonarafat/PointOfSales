@@ -12,6 +12,8 @@ namespace PointOfSales.Specs.Steps
     [Binding]
     public class CustomerSteps
     {
+        private List<Customer> actualCustomers;
+
         [Given(@"I don't have any customers")]
         public void GivenIDonTHaveAnyCustomers()
         {
@@ -36,19 +38,21 @@ namespace PointOfSales.Specs.Steps
         [Given(@"customer without orders")]
         public void GivenCustomerWithoutOrders()
         {
-            ScenarioContext.Current.Pending();
+            // TODO: Looks like adding new customer
+            var customer = new Customer { FirstName = "John", LastName = "Doe", EmailAddress = "john.doe@gmail.com" };
+            WebApiHelper.Post("api/customers", customer);           
         }
 
         [When(@"I search recurring customers")]
         public void WhenISearchRecurringCustomers()
         {
-            ScenarioContext.Current.Pending();
+            actualCustomers = WebApiHelper.Get<List<Customer>>("api/customers/recurring");
         }
 
         [Then(@"I don't see any customers")]
         public void ThenIDonTSeeAnyCustomers()
         {
-            ScenarioContext.Current.Pending();
+            Assert.Equal(0, actualCustomers.Count);
         }
     }
 }
