@@ -93,14 +93,15 @@ namespace PointOfSales.Tests
             var controller = CreateTestableOrderLinesController();
             var product = new Product { ProductId = Random.Next(), Price = (decimal)Random.NextDouble() }; 
             var line = new OrderLine { OrderId = Random.Next(), ProductId = product.ProductId , Quantity = 1 };
+
             var lines = new List<OrderLine> { 
-                new OrderLine { OrderLineId = line.OrderId, ProductId = line.ProductId, Quantity = 1 } 
+                new OrderLine { OrderLineId = Random.Next(), ProductId = line.ProductId, Quantity = 1 } 
             };
 
             controller.ProductRepositoryMock.Setup(r => r.GetById(line.ProductId)).Returns(product);
             controller.OrderLineRepositoryMock.Setup(r => r.GetByOrder(line.OrderId)).Returns(lines);
             controller.OrderLineRepositoryMock.Setup(r => r.Update(It.Is<OrderLine>(l =>
-                l.OrderId == line.OrderId && l.ProductId == line.ProductId && l.Quantity == 2)));
+                l.OrderLineId == lines[0].OrderLineId && l.ProductId == line.ProductId && l.Quantity == 2)));
 
             controller.Post(line);
 
@@ -139,6 +140,42 @@ namespace PointOfSales.Tests
             controller.ProductRepositoryMock.Verify(r => r.GetById(mainProduct.ProductId), Times.Never());
             controller.OrderLineRepositoryMock
                 .Verify(r => r.Add(It.Is<OrderLine>(l => l.ProductId == subProduct.ProductId && l.Price == subProduct.Price - salesCombination.Discount)));            
+        }
+
+        [Fact]
+        public void ShouldNotAddAnyProductsFromSalesCombinationIfBothAlreadyAdded()
+        {
+            var controller = CreateTestableOrderLinesController();
+            int orderId = Random.Next();
+
+            var salesCombination = new SalesCombination
+            {
+                SalesCombinationId = Random.Next(),
+                MainProductId = Random.Next(),
+                SubProductId = Random.Next()
+            };
+
+            var lines = new[] {
+                new OrderLine { ProductId = salesCombination.MainProductId, Quantity = 1 },
+                new OrderLine { ProductId = salesCombination.SubProductId, Quantity = 1 }
+            };
+
+            controller.SalesCombinationRepositoryMock
+                      .Setup(r => r.GetById(salesCombination.SalesCombinationId))
+                      .Returns(salesCombination);
+
+            controller.OrderLineRepositoryMock.Setup(r => r.GetByOrder(orderId)).Returns(lines);
+
+            controller.AddSalesCombination(orderId, salesCombination.SalesCombinationId);
+
+            controller.SalesCombinationRepositoryMock.VerifyAll();
+            controller.ProductRepositoryMock.Verify(r => r.GetById(It.IsAny<int>()), Times.Never());
+            controller.OrderLineRepositoryMock.VerifyAll();
+            controller.OrderLineRepositoryMock
+                .Verify(r => r.Update(It.Is<OrderLine>(l => l.ProductId == salesCombination.MainProductId && l.Quantity == 2)));
+
+            controller.OrderLineRepositoryMock
+                .Verify(r => r.Update(It.Is<OrderLine>(l => l.ProductId == salesCombination.SubProductId && l.Quantity == 2)));
         }
 
         private TestableOrderLinesController CreateTestableOrderLinesController()

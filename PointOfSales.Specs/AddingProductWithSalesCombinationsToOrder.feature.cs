@@ -84,7 +84,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 7
  testRunner.Given("I have an empty order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
- testRunner.When("I add sales combination to order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I add sales combination 2 to order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9
  testRunner.Then("order should contain both products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 10
@@ -106,7 +106,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 14
  testRunner.When("I add product to order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 15
-  testRunner.And("I add sales combination to order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I add sales combination 2 to order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16
  testRunner.Then("order should contain both products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 17
@@ -130,9 +130,11 @@ this.ScenarioSetup(scenarioInfo);
 #line 22
  testRunner.And("I add sub product to order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 23
- testRunner.Then("order should contain both products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I add sales combination 1 to order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 24
- testRunner.And("items quantity should be increased", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("order should contain both products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 25
+ testRunner.And("items quantity should be 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

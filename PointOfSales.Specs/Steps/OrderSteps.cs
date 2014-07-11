@@ -37,10 +37,10 @@ namespace PointOfSales.Specs.Steps
             Assert.Equal(1, lines.Count);
         }
 
-        [When(@"I add sales combination to order")]
-        public void WhenIAddSalesCombinationToOrder()
+        [When(@"I add sales combination (.*) to order")]
+        public void WhenIAddSalesCombinationToOrder(int salesCombinationId)
         {
-            WebApiHelper.Post("api/orders/1/sales/2", new object());
+            WebApiHelper.Post(String.Format("api/orders/1/sales/{0}", salesCombinationId), new object());
         }
 
         [Then(@"order should contain both products")]
@@ -77,12 +77,12 @@ namespace PointOfSales.Specs.Steps
             WebApiHelper.Post("api/orderlines", new OrderLine { OrderId = 1, ProductId = 3, Quantity = 1 });
         }
 
-        [Then(@"items quantity should be increased")]
-        public void ThenItemsQuantityShouldBeIncreased()
+        [Then(@"items quantity should be (.*)")]
+        public void ThenItemsQuantityShouldBe(int quantity)
         {
             var line = WebApiHelper.Get<List<OrderLine>>("api/orderlines/order/1").ToArray();
-            Assert.Equal(2, line[0].Quantity);
-            Assert.Equal(2, line[1].Quantity);
+            Assert.Equal(quantity, line[0].Quantity);
+            Assert.Equal(quantity, line[1].Quantity);
         }
     }
 }

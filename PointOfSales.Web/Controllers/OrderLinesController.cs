@@ -41,8 +41,8 @@ namespace PointOfSales.Web.Controllers
                 return;
             }
 
-            line.Quantity += existingLine.Quantity;
-            orderLineRepository.Update(line);            
+            existingLine.Quantity += line.Quantity;
+            orderLineRepository.Update(existingLine);            
         }
 
         [AcceptVerbs("POST")]
@@ -53,7 +53,19 @@ namespace PointOfSales.Web.Controllers
 
             var mainProductExists = lines.Any(l => l.ProductId == sales.MainProductId);
             var subProductExists = lines.Any(l => l.ProductId == sales.SubProductId);
-            // TODO: What to do if both exists?
+
+            if (mainProductExists && subProductExists)
+            {
+                // TODO: Remove duplication
+                var mainProductLine = lines.First(l => l.ProductId == sales.MainProductId);
+                mainProductLine.Quantity++;
+                orderLineRepository.Update(mainProductLine);
+
+                var subProductLine = lines.First(l => l.ProductId == sales.SubProductId);
+                subProductLine.Quantity++;
+                orderLineRepository.Update(subProductLine);
+                return;
+            }
 
             // TODO: UoW
             if (!mainProductExists)

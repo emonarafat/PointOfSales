@@ -40,7 +40,7 @@ namespace PointOfSales.Persistence
             var sql = @"UPDATE OrderLines SET Quantity = @quantity WHERE OrderLineID = @id";
 
             using (var conn = GetConnection())            
-                conn.Execute(sql, new { id = line.OrderId, quantity = line.Quantity });
+                conn.Execute(sql, new { id = line.OrderLineId, quantity = line.Quantity });
         }
     }
 }
