@@ -26,5 +26,11 @@ namespace PointOfSales.Web.Controllers
         {
             return customerRepository.Add(customer);
         }
+
+        [HttpGet]
+        public IEnumerable<Customer> Search(string search)
+        {
+            return customerRepository.GetByName(search);
+        }
     }
 }

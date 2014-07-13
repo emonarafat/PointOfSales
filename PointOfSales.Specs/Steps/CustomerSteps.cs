@@ -91,14 +91,13 @@ namespace PointOfSales.Specs.Steps
         [Given(@"I have no customers")]
         public void GivenIHaveNoCustomers()
         {
-            ScenarioContext.Current.Pending();
+            DatabaseHelper.CreateCustomersTable();
         }
 
         [When(@"I search for recurring customer '(.*)'")]
         public void WhenISearchForRecurringCustomer(string search)
         {
-            ScenarioContext.Current.Pending();
+            actualCustomers = WebApiHelper.Get<List<Customer>>("api/customers/search/" + search);
         }
-
     }
 }

@@ -38,5 +38,5 @@ public class ProductsControllerTests
 
         repositoryMock.VerifyAll();
         Assert.Equal(expectedProducts, products);
-    }    
+    }
 }

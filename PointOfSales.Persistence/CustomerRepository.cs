@@ -37,5 +37,14 @@ namespace PointOfSales.Persistence
                 return id;
             }
         }
+
+        public IEnumerable<Customer> GetByName(string search)
+        {
+            Logger.Debug("Getting customers by name '{0}'", search);
+            var sql = @"SELECT * FROM Customers WHERE FirstName LIKE @search";
+
+            using (var conn = GetConnection())
+                return conn.Query<Customer>(sql, new { search = String.Format("{0}%", search) });
+        }
     }
 }
