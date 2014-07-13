@@ -88,5 +88,11 @@ namespace PointOfSales.Specs.Steps
         {
             Assert.Equal(0, actualOrders.Count);
         }
+
+        [Then(@"I see (.*) orders")]
+        public void ThenISeeOrders(int ordersCount)
+        {
+            Assert.Equal(ordersCount, actualOrders.Count);
+        }
     }
 }

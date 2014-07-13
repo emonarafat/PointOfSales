@@ -7,3 +7,8 @@ Scenario: Customer without orders does not have purchase history
 	Given customer without orders	
 	When I view purchase history
 	Then I do not see any orders
+
+Scenario: Customer with orders have pruchase history
+    Given cusomer with 2 orders
+	When I view purchase history
+	Then I see 2 orders
