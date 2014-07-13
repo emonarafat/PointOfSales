@@ -111,7 +111,7 @@ namespace PointOfSales.Specs.Steps
         public void ThenISeeAllCustomersWithNamesContainingSearchString()
         {
             // TODO: Table input?
-            Assert.Equal(3, actualCustomers.Count);
+            Assert.Equal(4, actualCustomers.Count);
         }
     }
 }
