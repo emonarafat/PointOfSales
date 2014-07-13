@@ -15,21 +15,15 @@ namespace PointOfSales.Web
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
+                name: "DefaultApiWithId",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                defaults: new { id = RouteParameter.Optional },
+                constraints: new { id = @"^\d+$" }
             );
 
             config.Routes.MapHttpRoute(
-                name: "SearchApi",
-                routeTemplate: "api/{controller}/search/{search}",
-                defaults: new { action = "Search", search = RouteParameter.Optional }
-            );
-
-            config.Routes.MapHttpRoute(
-                name: "OrderLinesApi",
-                routeTemplate: "api/orderlines/order/{orderId}",
-                defaults: new { controller = "OrderLines", action = "GetByOrder" }
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}"
             );
         }
     }

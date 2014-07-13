@@ -35,7 +35,7 @@ namespace PointOfSales.Persistence
 
         public IEnumerable<Customer> GetRecurringCustomers()
         {
-            throw new NotImplementedException();
+            return Enumerable.Empty<Customer>();
         }
     }
 }

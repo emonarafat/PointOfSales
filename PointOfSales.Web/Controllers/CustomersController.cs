@@ -21,13 +21,14 @@ namespace PointOfSales.Web.Controllers
         {
             return customerRepository.GetAll();
         }
-
+        
         public void Post(Customer customer)
         {
             customerRepository.Add(customer);
         }
-
-        public IEnumerable<Customer> GetRecurringCustomers()
+        
+        [HttpGet]
+        public IEnumerable<Customer> Recurring()
         {
             return customerRepository.GetRecurringCustomers();
         }

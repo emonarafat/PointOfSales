@@ -21,7 +21,7 @@ namespace PointOfSales.Specs
             {
                 HttpClient client = new HttpClient();
                 var response = client.GetAsync(baseAddress + url).Result;
-                Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+                Assert.True(HttpStatusCode.OK == response.StatusCode, response.Content.ReadAsStringAsync().Result);
                 return response.Content.ReadAsStringAsync().Result;
             }
         }
