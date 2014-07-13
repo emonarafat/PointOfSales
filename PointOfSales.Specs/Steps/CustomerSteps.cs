@@ -113,5 +113,28 @@ namespace PointOfSales.Specs.Steps
             // TODO: Table input?
             Assert.Equal(4, actualCustomers.Count);
         }
+
+        [When(@"I edit details of a customer")]
+        public void WhenIEditDetailsOfACustomer()
+        {
+            var customer = WebApiHelper.Get<Customer>("api/customers/1");
+            customer.FirstName = "Jack";
+            customer.LastName = "Daniels";
+            customer.MiddleName = null;
+            customer.EmailAddress = "jack.daniels@gmail.com";
+            customer.City = "Chicago";
+            WebApiHelper.Put("api/customers", customer);
+        }
+
+        [Then(@"I should see updated customer")]
+        public void ThenIShouldSeeUpdatedCustomer()
+        {
+            var customer = WebApiHelper.Get<Customer>("api/customers/1");
+            Assert.Equal("Jack", customer.FirstName);
+            Assert.Equal("Daniels", customer.LastName);
+            Assert.Null(customer.MiddleName);
+            Assert.Equal("jack.daniels@gmail.com", customer.EmailAddress);
+            Assert.Equal("Chicago", customer.City);
+        }
     }
 }

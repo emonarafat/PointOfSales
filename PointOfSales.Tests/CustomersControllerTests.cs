@@ -5,8 +5,10 @@ using PointOfSales.Web.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 using Xunit;
 
 namespace PointOfSales.Tests
@@ -52,6 +54,34 @@ namespace PointOfSales.Tests
 
             customerRepositoryMock.VerifyAll();
             Assert.Equal(expectedCustomers, actualCustomers);
+        }
+
+        [Fact]
+        public void ShouldReturnNotFoundWhenCustomerNotFound()
+        {
+            var id = new Random().Next();
+            var customerRepositoryMock = new Mock<ICustomerRepository>();
+            customerRepositoryMock.Setup(r => r.GetById(id)).Returns((Customer)null);
+            var controller = new CustomersController(customerRepositoryMock.Object);
+
+            var exception = Assert.Throws<HttpResponseException>(() => controller.Get(id));
+            Assert.Equal(HttpStatusCode.NotFound, exception.Response.StatusCode);
+            customerRepositoryMock.VerifyAll();
+        }
+
+        [Fact]
+        public void ShouldReturnExistingCustomer()
+        {
+            var id = new Random().Next();
+            var customerRepositoryMock = new Mock<ICustomerRepository>();
+            var expectedCustomer = new Customer();
+            customerRepositoryMock.Setup(r => r.GetById(id)).Returns(expectedCustomer);
+            var controller = new CustomersController(customerRepositoryMock.Object);
+
+            var actualCustomer = controller.Get(id);
+
+            Assert.Equal(expectedCustomer, actualCustomer);
+            customerRepositoryMock.VerifyAll();
         }
     }
 }

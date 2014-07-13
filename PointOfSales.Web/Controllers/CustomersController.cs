@@ -21,6 +21,15 @@ namespace PointOfSales.Web.Controllers
         {
             return customerRepository.GetAll();
         }
+
+        public Customer Get(int id)
+        {
+            var customer = customerRepository.GetById(id);
+            if (customer == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            return customer;
+        }
         
         public int Post(Customer customer)
         {

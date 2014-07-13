@@ -46,5 +46,10 @@ namespace PointOfSales.Persistence
             using (var conn = GetConnection())
                 return conn.Query<Customer>(sql, new { search = String.Format("{0}%", search) });
         }
+
+        public Customer GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

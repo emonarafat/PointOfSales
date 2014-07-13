@@ -51,5 +51,15 @@ namespace PointOfSales.Specs
                 return Int32.Parse(response.Content.ReadAsStringAsync().Result);
             }
         }
+
+        public static void Put<T>(string url, T value)
+        {
+            using(WebApp.Start<Startup>(url : baseAddress))
+            {
+                HttpClient client = new HttpClient();
+                var response = client.PutAsJsonAsync(baseAddress + url, value).Result;
+                Assert.True(response.IsSuccessStatusCode, "Response status is " + response.StatusCode);
+            }
+        }
     }
 }

@@ -12,5 +12,6 @@ namespace PointOfSales.Domain.Repositories
         IEnumerable<Customer> GetAll();
         int Add(Customer customer);
         IEnumerable<Customer> GetByName(string search);
+        Customer GetById(int id);
     }
 }
