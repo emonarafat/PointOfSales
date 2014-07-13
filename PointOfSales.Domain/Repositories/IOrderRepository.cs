@@ -11,5 +11,6 @@ namespace PointOfSales.Domain.Repositories
     {
         Order GetById(int id);
         void Add(Order order);
+        IEnumerable<Order> GetByCustomer(int customerId);
     }
 }

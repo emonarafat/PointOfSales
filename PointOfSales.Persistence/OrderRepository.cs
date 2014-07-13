@@ -32,5 +32,14 @@ namespace PointOfSales.Persistence
             using (var conn = GetConnection())
                 conn.Execute(sql, new { customerId = order.CustomerId });
         }
+
+        public IEnumerable<Order> GetByCustomer(int customerId)
+        {
+            Logger.Debug("Getting customer {0} orders", customerId);
+            var sql = "SELECT * FROM Orders WHERE CustomerID = @customerId";
+
+            using (var conn = GetConnection())
+                return conn.Query<Order>(sql, new { customerId = customerId });
+        }
     }
 }

@@ -77,5 +77,19 @@ namespace PointOfSales.Tests
 
             orderRepositoryMock.Verify(r => r.Add(order), Times.Once());
         }
+
+        [Fact]
+        public void ShouldGetPurchaseHistory()
+        {
+            var customerId = Random.Next();
+            var orderRepositoryMock = new Mock<IOrderRepository>();
+            var linesRepositoryMock = new Mock<IOrderLineRepository>();
+            var controller = new OrdersController(orderRepositoryMock.Object, linesRepositoryMock.Object);
+            var expectedOrders = Enumerable.Empty<Order>();
+            orderRepositoryMock.Setup(r => r.GetByCustomer(customerId)).Returns(expectedOrders);
+
+            var actualOrders = controller.GetByCustomer(customerId);
+            orderRepositoryMock.VerifyAll();            
+        }
     }
 }

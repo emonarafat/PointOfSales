@@ -74,5 +74,19 @@ namespace PointOfSales.Specs.Steps
         {
             Assert.Equal(1, actualCustomers.Count);
         }
+
+        [When(@"I view purchase history")]
+        public void WhenIViewPurchaseHistory()
+        {
+            actualOrders = WebApiHelper.Get<List<Order>>("api/customers/1/orders");
+        }
+
+        private List<Order> actualOrders;
+
+        [Then(@"I do not see any orders")]
+        public void ThenIDoNotSeeAnyOrders()
+        {
+            Assert.Equal(0, actualOrders.Count);
+        }
     }
 }

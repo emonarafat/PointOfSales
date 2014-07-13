@@ -47,10 +47,10 @@ namespace PointOfSales.Tests
             customerRepositoryMock.Setup(r => r.GetRecurringCustomers()).Returns(expectedCustomers);
             var controller = new CustomersController(customerRepositoryMock.Object);
 
-            //var actualCustomers = controller.Recurring();
+            var actualCustomers = controller.Recurring();
 
-            //customerRepositoryMock.VerifyAll();
-            //Assert.Equal(expectedCustomers, actualCustomers);
+            customerRepositoryMock.VerifyAll();
+            Assert.Equal(expectedCustomers, actualCustomers);
         }
     }
 }

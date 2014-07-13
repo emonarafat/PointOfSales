@@ -31,6 +31,13 @@ namespace PointOfSales.Web.Controllers
             return order;
         }
 
+        [HttpGet]
+        [ActionName("Get")]
+        public IEnumerable<Order> GetByCustomer(int customerId)
+        {
+            return orderRepository.GetByCustomer(customerId);
+        }
+
         public void Post(Order order)
         {
             orderRepository.Add(order);

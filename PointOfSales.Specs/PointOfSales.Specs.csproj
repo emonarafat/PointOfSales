@@ -148,6 +148,11 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Steps\SalesCombinationSteps.cs" />
     <Compile Include="Helpers\WebApiHelper.cs" />
+    <Compile Include="ViewPurchaseHistoryOfCustomer.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewPurchaseHistoryOfCustomer.feature</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="AddingCustomer.feature">
@@ -179,6 +184,10 @@
     <None Include="SearchingRecurringCustomers.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SearchingRecurringCustomers.feature.cs</LastGenOutput>
+    </None>
+    <None Include="ViewPurchaseHistoryOfCustomer.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ViewPurchaseHistoryOfCustomer.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
