@@ -44,8 +44,8 @@ namespace PointOfSales.Specs.Steps
             WebApiHelper.Post("api/customers", customer);
         }
 
-        [Then(@"I don't see any customers")]
-        public void ThenIDonTSeeAnyCustomers()
+        [Then(@"I do not see any customers")]
+        public void ThenIDoNotSeeAnyCustomers()
         {
             Assert.Equal(0, actualCustomers.Count);
         }
@@ -94,10 +94,24 @@ namespace PointOfSales.Specs.Steps
             DatabaseHelper.CreateCustomersTable();
         }
 
+        [Given(@"I have some customers")]
+        public void GivenIHaveSomeCustomers()
+        {
+            DatabaseHelper.CreateCustomersTable();
+            DatabaseHelper.SeedCustomers();
+        }
+
         [When(@"I search for recurring customer '(.*)'")]
         public void WhenISearchForRecurringCustomer(string search)
         {
             actualCustomers = WebApiHelper.Get<List<Customer>>("api/customers/search/" + search);
+        }
+
+        [Then(@"I see all customers with names containing search string")]
+        public void ThenISeeAllCustomersWithNamesContainingSearchString()
+        {
+            // TODO: Table input?
+            Assert.Equal(3, actualCustomers.Count);
         }
     }
 }
