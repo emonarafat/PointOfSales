@@ -37,18 +37,11 @@ namespace PointOfSales.Specs.Steps
 
         [Given(@"customer without orders")]
         public void GivenCustomerWithoutOrders()
-        {
-            // TODO: Looks like adding new customer
+        {            
             DatabaseHelper.CreateOrdersTable();
             DatabaseHelper.CreateCustomersTable();
             var customer = new Customer { FirstName = "John", LastName = "Doe", EmailAddress = "john.doe@gmail.com" };
             WebApiHelper.Post("api/customers", customer);
-        }
-
-        [When(@"I search recurring customers")]
-        public void WhenISearchRecurringCustomers()
-        {
-            actualCustomers = WebApiHelper.Get<List<Customer>>("api/customers/recurring");
         }
 
         [Then(@"I don't see any customers")]
@@ -94,5 +87,18 @@ namespace PointOfSales.Specs.Steps
         {
             Assert.Equal(ordersCount, actualOrders.Count);
         }
+
+        [Given(@"I have no customers")]
+        public void GivenIHaveNoCustomers()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [When(@"I search for recurring customer '(.*)'")]
+        public void WhenISearchForRecurringCustomer(string search)
+        {
+            ScenarioContext.Current.Pending();
+        }
+
     }
 }

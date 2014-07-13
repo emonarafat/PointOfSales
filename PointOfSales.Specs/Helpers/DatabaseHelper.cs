@@ -139,6 +139,19 @@ CREATE TABLE Customers (
             Execute(sql);
         }
 
+        internal static void SeedCustomers()
+        {
+            string sql = @"
+INSERT INTO Customers(FirstName,LastName,MiddleName,EmailAddress,Street,HouseNumber,PostalCode,City,EntryDate) VALUES('John','Doe',NULL,'john.doe@gmail.com','Wall Street','10', '220004', 'New York', '10/01/2013');
+INSERT INTO Customers(FirstName,LastName,MiddleName,EmailAddress,Street,HouseNumber,PostalCode,City,EntryDate) VALUES('Billy','Bob','Doe','billy.doe@gmail.com','Elm Street','13', '220000', 'Toronto', '11/01/2013');
+INSERT INTO Customers(FirstName,LastName,MiddleName,EmailAddress,Street,HouseNumber,PostalCode,City,EntryDate) VALUES('Mike','White',NULL,'mike.white@gmail.com','10th','2', '220004', 'New York', '05/02/2013');
+INSERT INTO Customers(FirstName,LastName,MiddleName,EmailAddress,Street,HouseNumber,PostalCode,City,EntryDate) VALUES('John','Doe',NULL,'john.doe@yahoo.com','Wall Street','42', '220004', 'New York', '15/01/2014');
+INSERT INTO Customers(FirstName,LastName,MiddleName,EmailAddress,Street,HouseNumber,PostalCode,City,EntryDate) VALUES('John','Mike',NULL,'john.mike@yahoo.com','Wall Street','42', '220004', 'New York', '05/02/2014');
+";
+
+            Execute(sql);
+        }
+
         private static void Execute(string sql)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))

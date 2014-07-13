@@ -37,16 +37,5 @@ namespace PointOfSales.Persistence
                 return id;
             }
         }
-
-        public IEnumerable<Customer> GetRecurringCustomers()
-        {
-            Logger.Debug("Getting recurring customers");
-            var sql = @"SELECT c.* FROM Customers c                        
-                        WHERE (SELECT COUNT(1) FROM Orders o
-                               WHERE o.CustomerID = c.CustomerID) > 1";
-
-            using (var conn = GetConnection())
-                return conn.Query<Customer>(sql);
-        }
     }
 }

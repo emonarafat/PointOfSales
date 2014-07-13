@@ -11,7 +11,5 @@ namespace PointOfSales.Domain.Repositories
     {
         IEnumerable<Customer> GetAll();
         int Add(Customer customer);
-
-        IEnumerable<Customer> GetRecurringCustomers();
     }
 }
