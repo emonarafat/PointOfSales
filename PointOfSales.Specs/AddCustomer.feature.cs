@@ -23,7 +23,7 @@ namespace PointOfSales.Specs
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "AddingCustomer.feature"
+#line 1 "AddCustomer.feature"
 #line hidden
         
         public AddingCustomerFeature()

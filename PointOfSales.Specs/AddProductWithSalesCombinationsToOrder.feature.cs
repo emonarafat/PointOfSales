@@ -23,7 +23,7 @@ namespace PointOfSales.Specs
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "AddingProductWithSalesCombinationsToOrder.feature"
+#line 1 "AddProductWithSalesCombinationsToOrder.feature"
 #line hidden
         
         public AddingProductWithSalesCombinationsToOrderFeature()
