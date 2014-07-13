@@ -30,5 +30,10 @@ namespace PointOfSales.Web.Controllers
             order.TotalPrice = lines.Sum(l => l.Price);
             return order;
         }
+
+        public void Post(Order order)
+        {
+            orderRepository.Add(order);
+        }
     }
 }

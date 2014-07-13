@@ -23,14 +23,19 @@ namespace PointOfSales.Persistence
                 return conn.Query<Customer>(sql);
         }
 
-        public void Add(Customer customer)
+        public int Add(Customer customer)
         {
             Logger.Debug("Adding customer");
             var sql = @"INSERT INTO Customers (FirstName, LastName, MiddleName, EmailAddress, Street, HouseNumber, PostalCode, City, EntryDate)
-                        VALUES (@firstName, @lastName, @middleName, @emailAddress, @street, @houseNumber, @postalCode, @city, GETDATE())";
+                        VALUES (@firstName, @lastName, @middleName, @emailAddress, @street, @houseNumber, @postalCode, @city, GETDATE());
+                        SELECT CAST(SCOPE_IDENTITY() AS INT)";
 
             using (var conn = GetConnection())
-                conn.Execute(sql, customer);
+            {
+                int id = conn.Query<int>(sql, customer).Single();
+                Logger.Trace("Customer {0} created", id);
+                return id;
+            }
         }
 
         public IEnumerable<Customer> GetRecurringCustomers()

@@ -22,9 +22,9 @@ namespace PointOfSales.Web.Controllers
             return customerRepository.GetAll();
         }
         
-        public void Post(Customer customer)
+        public int Post(Customer customer)
         {
-            customerRepository.Add(customer);
+            return customerRepository.Add(customer);
         }
         
         [HttpGet]

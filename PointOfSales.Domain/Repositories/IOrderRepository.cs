@@ -10,5 +10,6 @@ namespace PointOfSales.Domain.Repositories
     public interface IOrderRepository
     {
         Order GetById(int id);
+        void Add(Order order);
     }
 }

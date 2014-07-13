@@ -37,7 +37,18 @@ namespace PointOfSales.Specs
             {
                 HttpClient client = new HttpClient();
                 var response = client.PostAsJsonAsync(baseAddress + url, value).Result;
+                Assert.True(response.IsSuccessStatusCode, "Response status is " + response.StatusCode);              
+            }
+        }
+
+        public static int PostAndReturnId<T>(string url, T value)
+        {
+            using (WebApp.Start<Startup>(url: baseAddress))
+            {
+                HttpClient client = new HttpClient();
+                var response = client.PostAsJsonAsync(baseAddress + url, value).Result;
                 Assert.True(response.IsSuccessStatusCode, "Response status is " + response.StatusCode);
+                return Int32.Parse(response.Content.ReadAsStringAsync().Result);
             }
         }
     }

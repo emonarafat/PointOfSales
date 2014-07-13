@@ -64,5 +64,18 @@ namespace PointOfSales.Tests
             orderRepositoryMock.VerifyAll();
             Assert.Null(order);
         }
+
+        [Fact]
+        public void ShouldCreateNewOrder()
+        {
+            var orderRepositoryMock = new Mock<IOrderRepository>();
+            var linesRepositoryMock = new Mock<IOrderLineRepository>();
+            var controller = new OrdersController(orderRepositoryMock.Object, linesRepositoryMock.Object);
+            var order = new Order();
+
+            controller.Post(order);
+
+            orderRepositoryMock.Verify(r => r.Add(order), Times.Once());
+        }
     }
 }

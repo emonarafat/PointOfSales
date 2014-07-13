@@ -22,5 +22,15 @@ namespace PointOfSales.Persistence
             using (var conn = GetConnection())            
                 return conn.Query<Order>(sql, new { id }).FirstOrDefault();            
         }
+
+        public void Add(Order order)
+        {
+            // TODO: We need only customer Id
+            Logger.Debug("Adding order");
+            var sql = "INSERT INTO Orders (CustomerID, EntryDate) VALUES (@customerId, GETDATE())";
+
+            using (var conn = GetConnection())
+                conn.Execute(sql, new { customerId = order.CustomerId });
+        }
     }
 }

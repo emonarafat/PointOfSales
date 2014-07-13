@@ -40,7 +40,7 @@ namespace PointOfSales.Specs.Steps
         {
             // TODO: Looks like adding new customer
             var customer = new Customer { FirstName = "John", LastName = "Doe", EmailAddress = "john.doe@gmail.com" };
-            WebApiHelper.Post("api/customers", customer);           
+            WebApiHelper.Post("api/customers", customer);
         }
 
         [When(@"I search recurring customers")]
@@ -53,6 +53,16 @@ namespace PointOfSales.Specs.Steps
         public void ThenIDonTSeeAnyCustomers()
         {
             Assert.Equal(0, actualCustomers.Count);
+        }
+
+        [Given(@"cusomer with (.*) order")]
+        public void GivenCusomerWithOrder(int ordersCount)
+        {
+            var customer = new Customer { FirstName = "John", LastName = "Doe", EmailAddress = "john.doe@gmail.com" };
+            int id = WebApiHelper.PostAndReturnId("api/customers", customer);
+
+            for (int i = 0; i < ordersCount; i++)
+                WebApiHelper.Post("api/orders", new Order { CustomerId = id });
         }
     }
 }

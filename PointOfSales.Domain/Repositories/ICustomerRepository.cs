@@ -10,7 +10,7 @@ namespace PointOfSales.Domain.Repositories
     public interface ICustomerRepository
     {
         IEnumerable<Customer> GetAll();
-        void Add(Customer customer);
+        int Add(Customer customer);
 
         IEnumerable<Customer> GetRecurringCustomers();
     }
