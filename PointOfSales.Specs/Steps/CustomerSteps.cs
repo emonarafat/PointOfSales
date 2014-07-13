@@ -123,7 +123,7 @@ namespace PointOfSales.Specs.Steps
             customer.MiddleName = null;
             customer.EmailAddress = "jack.daniels@gmail.com";
             customer.City = "Chicago";
-            WebApiHelper.Put("api/customers", customer);
+            WebApiHelper.Put("api/customers/1", customer);
         }
 
         [Then(@"I should see updated customer")]

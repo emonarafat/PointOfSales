@@ -25,6 +25,7 @@ namespace PointOfSales.Persistence
 
         public int Add(Customer customer)
         {
+            // TODO: Email should be unique
             Logger.Debug("Adding customer");
             var sql = @"INSERT INTO Customers (FirstName, LastName, MiddleName, EmailAddress, Street, HouseNumber, PostalCode, City, EntryDate)
                         VALUES (@firstName, @lastName, @middleName, @emailAddress, @street, @houseNumber, @postalCode, @city, GETDATE());
@@ -56,8 +57,8 @@ namespace PointOfSales.Persistence
                 return conn.Query<Customer>(sql, new { id = id }).SingleOrDefault();
         }
 
-        public void Update(Customer customer)
-        {
+        public bool Update(Customer customer)
+        {            
             Logger.Debug("Updating customer {0}", customer.CustomerId);
             var sql = @"UPDATE Customers SET
                            FirstName = @firstName,
@@ -68,8 +69,8 @@ namespace PointOfSales.Persistence
                            Street = @street
                          WHERE CustomerID = @customerId";
 
-            using (var conn = GetConnection())
-                conn.Execute(sql, customer); // TODO: Check if succeed
+            using (var conn = GetConnection())            
+                return conn.Execute(sql, customer) == 1;
         }
     }
 }

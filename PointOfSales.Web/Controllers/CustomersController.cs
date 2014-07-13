@@ -36,9 +36,12 @@ namespace PointOfSales.Web.Controllers
             return customerRepository.Add(customer);
         }
 
-        public void Put(Customer customer)
+        public void Put(int id, Customer customer)
         {
-            customerRepository.Update(customer);
+            customer.CustomerId = id;
+
+            if(!customerRepository.Update(customer))
+                throw new HttpResponseException(HttpStatusCode.NotFound);
         }
 
         [HttpGet]

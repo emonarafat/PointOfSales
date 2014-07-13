@@ -86,14 +86,30 @@ namespace PointOfSales.Tests
 
         [Fact]
         public void ShouldUpdateExistingCustomer()
-        {            
+        {
+            var customerId = new Random().Next();
             var customerRepositoryMock = new Mock<ICustomerRepository>();
-            var expectedCustomer = new Customer();            
+            var expectedCustomer = new Customer();
+            customerRepositoryMock.Setup(r => r.Update(expectedCustomer)).Returns(true);
             var controller = new CustomersController(customerRepositoryMock.Object);
 
-            controller.Put(expectedCustomer);
+            controller.Put(customerId, expectedCustomer);
 
-            customerRepositoryMock.Verify(r => r.Update(expectedCustomer), Times.Once());
+            customerRepositoryMock.VerifyAll();
+        }
+
+        [Fact]
+        public void ShouldReturnNotFoundWhenUpdatingNonExistingCustomer()
+        {
+            var id = new Random().Next();
+            var customer = new Customer();
+            var customerRepositoryMock = new Mock<ICustomerRepository>();
+            customerRepositoryMock.Setup(r => r.Update(customer)).Returns(false);
+            var controller = new CustomersController(customerRepositoryMock.Object);
+
+            var exception = Assert.Throws<HttpResponseException>(() => controller.Put(id, customer));
+            Assert.Equal(HttpStatusCode.NotFound, exception.Response.StatusCode);
+            customerRepositoryMock.VerifyAll();
         }
     }
 }
