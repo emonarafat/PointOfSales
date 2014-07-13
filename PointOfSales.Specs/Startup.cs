@@ -53,6 +53,13 @@ namespace PointOfSales.Specs
             );
 
             config.Routes.MapHttpRoute(
+                name: "DefaultPutApi",
+                routeTemplate: "api/{controller}",
+                defaults: new { action = "Put" },
+                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Put) }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "OrderHistoryApi",
                 routeTemplate: "api/customers/{customerId}/orders",
                 defaults: new { controller = "orders", action = "get" },

@@ -83,5 +83,17 @@ namespace PointOfSales.Tests
             Assert.Equal(expectedCustomer, actualCustomer);
             customerRepositoryMock.VerifyAll();
         }
+
+        [Fact]
+        public void ShouldUpdateExistingCustomer()
+        {            
+            var customerRepositoryMock = new Mock<ICustomerRepository>();
+            var expectedCustomer = new Customer();            
+            var controller = new CustomersController(customerRepositoryMock.Object);
+
+            controller.Put(expectedCustomer);
+
+            customerRepositoryMock.Verify(r => r.Update(expectedCustomer), Times.Once());
+        }
     }
 }

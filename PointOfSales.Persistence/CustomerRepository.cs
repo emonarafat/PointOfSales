@@ -49,7 +49,27 @@ namespace PointOfSales.Persistence
 
         public Customer GetById(int id)
         {
-            throw new NotImplementedException();
+            Logger.Debug("Getting customer {0}", id);
+            var sql = "SELECT * FROM Customers WHERE CustomerID = @id";
+
+            using (var conn = GetConnection())
+                return conn.Query<Customer>(sql, new { id = id }).SingleOrDefault();
+        }
+
+        public void Update(Customer customer)
+        {
+            Logger.Debug("Updating customer {0}", customer.CustomerId);
+            var sql = @"UPDATE Customers SET
+                           FirstName = @firstName,
+                           LastName = @lastName,
+                           MiddleName = @middleName,
+                           EmailAddress = @emailAddress,
+                           City = @city,
+                           Street = @street
+                         WHERE CustomerID = @customerId";
+
+            using (var conn = GetConnection())
+                conn.Execute(sql, customer); // TODO: Check if succeed
         }
     }
 }
