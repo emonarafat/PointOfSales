@@ -39,6 +39,8 @@ namespace PointOfSales.Specs.Steps
         public void GivenCustomerWithoutOrders()
         {
             // TODO: Looks like adding new customer
+            DatabaseHelper.CreateOrdersTable();
+            DatabaseHelper.CreateCustomersTable();
             var customer = new Customer { FirstName = "John", LastName = "Doe", EmailAddress = "john.doe@gmail.com" };
             WebApiHelper.Post("api/customers", customer);
         }
@@ -55,14 +57,22 @@ namespace PointOfSales.Specs.Steps
             Assert.Equal(0, actualCustomers.Count);
         }
 
-        [Given(@"cusomer with (.*) order")]
-        public void GivenCusomerWithOrder(int ordersCount)
+        [Given(@"cusomer with (.*) orders")]
+        public void GivenCusomerWithOrders(int ordersCount)
         {
+            DatabaseHelper.CreateOrdersTable();
+            DatabaseHelper.CreateCustomersTable();
             var customer = new Customer { FirstName = "John", LastName = "Doe", EmailAddress = "john.doe@gmail.com" };
             int id = WebApiHelper.PostAndReturnId("api/customers", customer);
 
             for (int i = 0; i < ordersCount; i++)
                 WebApiHelper.Post("api/orders", new Order { CustomerId = id });
+        }
+
+        [Then(@"I see (.*) customer")]
+        public void ThenISeeCustomer(int customersCount)
+        {
+            Assert.Equal(1, actualCustomers.Count);
         }
     }
 }

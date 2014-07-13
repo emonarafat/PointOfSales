@@ -9,7 +9,12 @@ Scenario: Customer without orders is not a recurring customer
 	Then I don't see any customers
 
 Scenario: Customer with single order is not a recurring customer
-	Given cusomer with 1 order
+	Given cusomer with 1 orders
 	When I search recurring customers
 	Then I don't see any customers
+
+Scenario: Customer with several orders is a recurring customer
+	Given cusomer with 2 orders
+	When I search recurring customers
+	Then I see 1 customer
 	
