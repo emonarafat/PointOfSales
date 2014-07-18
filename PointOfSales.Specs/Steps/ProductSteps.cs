@@ -19,7 +19,7 @@ namespace PointOfSales.Specs.Steps
     [Binding]
     public class ProductSteps
     {
-        private string response;
+        private List<Product> products;
 
         [Given(@"I have no products")]
         public void GivenIHaveNoProducts()
@@ -30,13 +30,13 @@ namespace PointOfSales.Specs.Steps
         [When(@"I am trying to see all available products")]
         public void WhenIAmTryingToSeeAllAvailableProducts()
         {
-            response = WebApiHelper.GetJson("api/products");
+            products = WebApiHelper.Get<List<Product>>("api/products");
         }
 
         [Then(@"I do not see any products")]
         public void ThenIDoNotSeeAnyProducts()
-        {            
-            Assert.Equal("[]", response);
+        {
+            Assert.Equal(0, products.Count);
         }
 
         [Given(@"I have some products")]
@@ -48,8 +48,7 @@ namespace PointOfSales.Specs.Steps
 
         [Then(@"I see all products")]
         public void ThenISeeAllProducts()
-        {
-            var products = JsonConvert.DeserializeObject<List<Product>>(response);
+        {            
             Assert.Equal(5, products.Count);
         }
 
@@ -57,13 +56,12 @@ namespace PointOfSales.Specs.Steps
         public void WhenISearchProductsByName()
         {
             // TODO: Use step parameter
-            response = WebApiHelper.GetJson("api/products/search/lumia");
+            products = WebApiHelper.Get<List<Product>>("api/products/search/lumia");
         }
 
         [Then(@"I see products with names containing search string")]
         public void ThenISeeProductsWithNamesContainingSearchString()
-        {            
-            var products = JsonConvert.DeserializeObject<List<Product>>(response);
+        {           
             Assert.Equal(1, products.Count);
             Assert.True(products.All(p => p.Name.IndexOf("lumia", StringComparison.InvariantCultureIgnoreCase) >= 0));
         }
@@ -71,13 +69,12 @@ namespace PointOfSales.Specs.Steps
         [When(@"I search products by description")]
         public void WhenISearchProductsByDescription()
         {
-            response = WebApiHelper.GetJson("api/products/search/smartphone");
+            products = WebApiHelper.Get<List<Product>>("api/products/search/smartphone");
         }
 
         [Then(@"I see products with description containing search string")]
         public void ThenISeeProductsWithDescriptionContainingSearchString()
         {
-            var products = JsonConvert.DeserializeObject<List<Product>>(response);
             Assert.Equal(3, products.Count);
             Assert.True(products.All(p => p.Description.IndexOf("smartphone", StringComparison.InvariantCultureIgnoreCase) >= 0));
         }
@@ -85,13 +82,12 @@ namespace PointOfSales.Specs.Steps
         [When(@"I search products by name or description")]
         public void WhenISearchProductsByNameOrDescription()
         {
-            response = WebApiHelper.GetJson("api/products/search/iphone");
+            products = WebApiHelper.Get<List<Product>>("api/products/search/iphone");
         }
 
         [Then(@"I see products with either name or description containing search string")]
         public void ThenISeeProductsWithEitherNameOrDescriptionContainingSearchString()
         {
-            var products = JsonConvert.DeserializeObject<List<Product>>(response);
             Assert.Equal(3, products.Count);
         }
     }

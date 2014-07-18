@@ -74,7 +74,7 @@ namespace PointOfSales.Specs.Steps
             actualOrders = WebApiHelper.Get<List<Order>>("api/customers/1/orders");
         }
 
-        private List<Order> actualOrders;
+        private List<Order> actualOrders; 
 
         [Then(@"I do not see any orders")]
         public void ThenIDoNotSeeAnyOrders()
