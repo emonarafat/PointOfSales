@@ -1,8 +1,7 @@
-﻿@products
-Feature: ProductsBrowsing
-	In order to manage products
+﻿Feature: View all available products
+	In order see what products there are
 	As a salesman
-	I want to see all available products
+	I want to view all available products
 
 Scenario: No products available
 	Given I have no products	

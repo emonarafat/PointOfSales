@@ -24,6 +24,8 @@ namespace PointOfSales.Specs
             // Configure Web API for self-host. 
             HttpConfiguration config = new HttpConfiguration();
 
+            config.MapHttpAttributeRoutes();
+            
             config.Routes.MapHttpRoute(
                 name: "ApiRPC",
                 routeTemplate: "api/{controller}/{action}",
@@ -80,7 +82,7 @@ namespace PointOfSales.Specs
             config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
 
             appBuilder.UseNinjectMiddleware(CreateKernel)
-                      .UseNinjectWebApi(config);            
+                      .UseNinjectWebApi(config);
         }
         private static StandardKernel CreateKernel()
         {

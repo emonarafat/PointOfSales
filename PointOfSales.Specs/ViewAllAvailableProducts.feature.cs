@@ -18,15 +18,15 @@ namespace PointOfSales.Specs
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class ProductsBrowsingFeature : Xunit.IUseFixture<ProductsBrowsingFeature.FixtureData>, System.IDisposable
+    public partial class ViewAllAvailableProductsFeature : Xunit.IUseFixture<ViewAllAvailableProductsFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "SeeAllAvailableProducts.feature"
+#line 1 "ViewAllAvailableProducts.feature"
 #line hidden
         
-        public ProductsBrowsingFeature()
+        public ViewAllAvailableProductsFeature()
         {
             this.TestInitialize();
         }
@@ -34,8 +34,8 @@ namespace PointOfSales.Specs
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ProductsBrowsing", "In order to manage products\nAs a salesman\nI want to see all available products", ProgrammingLanguage.CSharp, new string[] {
-                        "products"});
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "View all available products", "In order see what products there are\nAs a salesman\nI want to view all available p" +
+                    "roducts", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -64,7 +64,7 @@ namespace PointOfSales.Specs
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void SetFixture(ProductsBrowsingFeature.FixtureData fixtureData)
+        public virtual void SetFixture(ViewAllAvailableProductsFeature.FixtureData fixtureData)
         {
         }
         
@@ -74,36 +74,36 @@ namespace PointOfSales.Specs
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "ProductsBrowsing")]
+        [Xunit.TraitAttribute("FeatureTitle", "View all available products")]
         [Xunit.TraitAttribute("Description", "No products available")]
         public virtual void NoProductsAvailable()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No products available", ((string[])(null)));
-#line 7
+#line 6
 this.ScenarioSetup(scenarioInfo);
-#line 8
+#line 7
  testRunner.Given("I have no products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 9
+#line 8
  testRunner.When("I am trying to see all available products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 10
+#line 9
  testRunner.Then("I do not see any products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "ProductsBrowsing")]
+        [Xunit.TraitAttribute("FeatureTitle", "View all available products")]
         [Xunit.TraitAttribute("Description", "Products available")]
         public virtual void ProductsAvailable()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Products available", ((string[])(null)));
-#line 12
+#line 11
 this.ScenarioSetup(scenarioInfo);
-#line 13
+#line 12
  testRunner.Given("I have some products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 14
+#line 13
  testRunner.When("I am trying to see all available products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 15
+#line 14
  testRunner.Then("I see all products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -116,12 +116,12 @@ this.ScenarioSetup(scenarioInfo);
             
             public FixtureData()
             {
-                ProductsBrowsingFeature.FeatureSetup();
+                ViewAllAvailableProductsFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                ProductsBrowsingFeature.FeatureTearDown();
+                ViewAllAvailableProductsFeature.FeatureTearDown();
             }
         }
     }

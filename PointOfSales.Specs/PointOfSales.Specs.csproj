@@ -89,6 +89,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.1.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -131,10 +132,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AddProductToOrder.feature</DependentUpon>
     </Compile>
-    <Compile Include="SeeAllAvailableProducts.feature.cs">
+    <Compile Include="ViewAllAvailableProducts.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SeeAllAvailableProducts.feature</DependentUpon>
+      <DependentUpon>ViewAllAvailableProducts.feature</DependentUpon>
     </Compile>
     <Compile Include="SearchForProduct.feature.cs">
       <AutoGen>True</AutoGen>
@@ -182,9 +183,9 @@
       <LastGenOutput>AddProductToOrder.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
-    <None Include="SeeAllAvailableProducts.feature">
+    <None Include="ViewAllAvailableProducts.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>SeeAllAvailableProducts.feature.cs</LastGenOutput>
+      <LastGenOutput>ViewAllAvailableProducts.feature.cs</LastGenOutput>
     </None>
     <None Include="SearchForProduct.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

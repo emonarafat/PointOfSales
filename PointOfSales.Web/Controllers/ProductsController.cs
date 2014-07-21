@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace PointOfSales.Web.Controllers
 {
+    [RoutePrefix("api/products")]
     public class ProductsController : ApiController
     {
         private IProductRepository productRepository;
@@ -17,14 +18,15 @@ namespace PointOfSales.Web.Controllers
         {
             this.productRepository = productRepository;
         }
+      
+        [Route("")]
         public IEnumerable<Product> Get()
         {
             return productRepository.GetAll();
-        }
-
-        // TODO: /api/products?search=search
-        [AcceptVerbs("GET")]
-        public IEnumerable<Product> Search(string search)
+        }        
+        
+        [Route("")]
+        public IEnumerable<Product> Get(string search)
         {
             return productRepository.GetByNameOrDescription(search);
         }

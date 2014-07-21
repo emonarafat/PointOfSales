@@ -56,7 +56,7 @@ namespace PointOfSales.Specs.Steps
         public void WhenISearchProductsByName()
         {
             // TODO: Use step parameter
-            products = WebApiHelper.Get<List<Product>>("api/products/search/lumia");
+            products = WebApiHelper.Get<List<Product>>("api/products?search=lumia");
         }
 
         [Then(@"I see products with names containing search string")]
@@ -69,7 +69,7 @@ namespace PointOfSales.Specs.Steps
         [When(@"I search products by description")]
         public void WhenISearchProductsByDescription()
         {
-            products = WebApiHelper.Get<List<Product>>("api/products/search/smartphone");
+            products = WebApiHelper.Get<List<Product>>("api/products?search=smartphone");
         }
 
         [Then(@"I see products with description containing search string")]
@@ -82,7 +82,7 @@ namespace PointOfSales.Specs.Steps
         [When(@"I search products by name or description")]
         public void WhenISearchProductsByNameOrDescription()
         {
-            products = WebApiHelper.Get<List<Product>>("api/products/search/iphone");
+            products = WebApiHelper.Get<List<Product>>("api/products?search=iphone");
         }
 
         [Then(@"I see products with either name or description containing search string")]
