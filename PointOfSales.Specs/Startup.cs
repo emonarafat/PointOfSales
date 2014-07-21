@@ -55,13 +55,6 @@ namespace PointOfSales.Specs
             );
 
             config.Routes.MapHttpRoute(
-                name: "OrderHistoryApi",
-                routeTemplate: "api/customers/{customerId}/orders",
-                defaults: new { controller = "orders", action = "get" },
-                constraints: new { customerId = @"^\d+$" }
-            );
-
-            config.Routes.MapHttpRoute(
                 name: "SearchApi",
                 routeTemplate: "api/{controller}/search/{search}",
                 defaults: new { action = "Search", search = RouteParameter.Optional }

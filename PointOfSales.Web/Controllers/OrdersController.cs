@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace PointOfSales.Web.Controllers
 {
+    [RoutePrefix("api/orders")]
     public class OrdersController : ApiController
     {
         private IOrderRepository orderRepository;
@@ -20,6 +21,7 @@ namespace PointOfSales.Web.Controllers
             this.orderLineRepository = orderLineRepository;
         }
 
+        [Route("{id:int}")]
         public Order Get(int id)
         {
             var order = orderRepository.GetById(id);
@@ -30,14 +32,14 @@ namespace PointOfSales.Web.Controllers
             order.TotalPrice = lines.Sum(l => l.Price);
             return order;
         }
-
-        [HttpGet]
-        [ActionName("Get")]
+        
+        [Route("~/api/customers/{customerId}/orders")]
         public IEnumerable<Order> GetByCustomer(int customerId)
         {
             return orderRepository.GetByCustomer(customerId);
         }
 
+        [Route("")]
         public void Post(Order order)
         {
             orderRepository.Add(order);
