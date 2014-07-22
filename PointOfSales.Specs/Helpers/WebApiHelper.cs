@@ -28,7 +28,7 @@ namespace PointOfSales.Specs
 
         public static List<SalesCombination> GetSalesByProduct(int productId)
         {
-            return Get<List<SalesCombination>>("api/sales?productId={0}", productId);
+            return Get<List<SalesCombination>>("api/products/{0}/sales", productId);
         }
         
         public static List<Product> GetProducts(string search)

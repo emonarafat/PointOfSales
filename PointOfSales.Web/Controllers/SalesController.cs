@@ -18,7 +18,7 @@ namespace PointOfSales.Web.Controllers
             this.salesCombinationRepository = salesCombinationRepository;
         }
 
-        [Route("api/sales")]
+        [Route("api/products/{productId:int}/sales")]
         public IEnumerable<SalesCombination> GetByProduct(int productId)
         {
             return salesCombinationRepository.GetByProductId(productId);
