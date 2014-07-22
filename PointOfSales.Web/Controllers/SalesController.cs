@@ -18,11 +18,10 @@ namespace PointOfSales.Web.Controllers
             this.salesCombinationRepository = salesCombinationRepository;
         }
 
-        [AcceptVerbs("GET")]
-        public IEnumerable<SalesCombination> Search(int search)
+        [Route("api/sales")]
+        public IEnumerable<SalesCombination> GetByProduct(int productId)
         {
-            // TODO: Rename parameter
-            return salesCombinationRepository.GetByProductId(search);
+            return salesCombinationRepository.GetByProductId(productId);
         }
     }
 }

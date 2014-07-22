@@ -24,7 +24,7 @@ namespace PointOfSales.Tests
             repositoryMock.Setup(r => r.GetByProductId(productId)).Returns(expectedSales);
             var controller = new SalesController(repositoryMock.Object);
 
-            var sales = controller.Search(productId);
+            var sales = controller.GetByProduct(productId);
 
             repositoryMock.VerifyAll();
             Assert.Equal(expectedSales, sales);            

@@ -20,6 +20,11 @@ namespace PointOfSales.Specs
         {
             return Get<List<OrderLine>>("api/orders/{0}/lines", orderId);
         }
+
+        public static List<SalesCombination> GetSalesByProduct(int productId)
+        {
+            return Get<List<SalesCombination>>("api/sales?productId={0}", productId);
+        }
         
         public static string GetJson(string url)
         {
