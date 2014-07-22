@@ -33,7 +33,7 @@ namespace PointOfSales.Specs.Steps
         [Then(@"order should have order line with product")]
         public void ThenOrderShouldHaveOrderLineWithProduct()
         {
-            var lines = WebApiHelper.Get<List<OrderLine>>("api/orderlines/order/1");
+            var lines = WebApiHelper.GetOrderLines(1);
             Assert.Equal(1, lines.Count);
         }
 
@@ -46,7 +46,7 @@ namespace PointOfSales.Specs.Steps
         [Then(@"order should contain both products")]
         public void ThenOrderShouldContainBothProducts()
         {
-            var lines = WebApiHelper.Get<List<OrderLine>>("api/orderlines/order/1");
+            var lines = WebApiHelper.GetOrderLines(1);
             Assert.Equal(2, lines.Count);
         }
 
@@ -67,7 +67,7 @@ namespace PointOfSales.Specs.Steps
         [Then(@"order line quantity should be (.*)")]
         public void ThenOrderLineQuantityShouldBe(int quantity)
         {
-            var line = WebApiHelper.Get<List<OrderLine>>("api/orderlines/order/1").Single();
+            var line = WebApiHelper.GetOrderLines(1).Single();
             Assert.Equal(quantity, line.Quantity);
         }
 
@@ -80,9 +80,9 @@ namespace PointOfSales.Specs.Steps
         [Then(@"items quantity should be (.*)")]
         public void ThenItemsQuantityShouldBe(int quantity)
         {
-            var line = WebApiHelper.Get<List<OrderLine>>("api/orderlines/order/1").ToArray();
-            Assert.Equal(quantity, line[0].Quantity);
-            Assert.Equal(quantity, line[1].Quantity);
+            var lines = WebApiHelper.GetOrderLines(1);
+            Assert.Equal(quantity, lines[0].Quantity);
+            Assert.Equal(quantity, lines[1].Quantity);
         }
     }
 }

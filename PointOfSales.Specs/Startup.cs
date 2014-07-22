@@ -61,12 +61,6 @@ namespace PointOfSales.Specs
             );
 
             config.Routes.MapHttpRoute(
-                name: "OrderLinesApi",
-                routeTemplate: "api/orderlines/order/{orderId}",
-                defaults: new { controller = "OrderLines", action = "GetByOrder" }
-            );
-
-            config.Routes.MapHttpRoute(
                 name: "OrderSalesApi",
                 routeTemplate: "api/orders/{orderId}/sales/{salesCombinationId}",
                 defaults: new { controller = "OrderLines", action = "AddSalesCombination" }

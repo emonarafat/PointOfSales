@@ -22,6 +22,7 @@ namespace PointOfSales.Web.Controllers
             this.salesCombinationRepository = salesCombinationRepository;
         }
 
+        [Route("api/orders/{orderId:int}/lines")]
         public IEnumerable<OrderLine> GetByOrder(int orderId)
         {
             return orderLineRepository.GetByOrder(orderId);

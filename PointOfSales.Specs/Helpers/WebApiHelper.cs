@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin.Hosting;
 using Newtonsoft.Json;
+using PointOfSales.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,11 @@ namespace PointOfSales.Specs
     public static class WebApiHelper
     {
         private static readonly string baseAddress = "http://localhost:9000/";
+
+        public static List<OrderLine> GetOrderLines(int orderId)
+        {
+            return Get<List<OrderLine>>("api/orders/{0}/lines", orderId);
+        }
         
         public static string GetJson(string url)
         {
@@ -24,6 +30,11 @@ namespace PointOfSales.Specs
                 Assert.True(HttpStatusCode.OK == response.StatusCode, response.Content.ReadAsStringAsync().Result);
                 return response.Content.ReadAsStringAsync().Result;
             }
+        }
+
+        public static T Get<T>(string urlFormat, params object[] args)
+        {
+            return Get<T>(String.Format(urlFormat, args));
         }
 
         public static T Get<T>(string url)
