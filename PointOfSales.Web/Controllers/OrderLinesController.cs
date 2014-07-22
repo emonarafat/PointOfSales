@@ -47,7 +47,8 @@ namespace PointOfSales.Web.Controllers
             orderLineRepository.Update(existingLine);            
         }
 
-        [AcceptVerbs("POST")]
+        [Route("api/orders/{orderId:int}/sales/{salesCombinationId:int}")]
+        [HttpPost]
         public void AddSalesCombination(int orderId, int salesCombinationId)
         {
             var sales = salesCombinationRepository.GetById(salesCombinationId);

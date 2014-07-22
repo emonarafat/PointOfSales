@@ -25,13 +25,6 @@ namespace PointOfSales.Specs
             HttpConfiguration config = new HttpConfiguration();
 
             config.MapHttpAttributeRoutes();
-
-            config.Routes.MapHttpRoute(
-                name: "OrderSalesApi",
-                routeTemplate: "api/orders/{orderId}/sales/{salesCombinationId}",
-                defaults: new { controller = "OrderLines", action = "AddSalesCombination" }
-            );    
-
             config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
 
             appBuilder.UseNinjectMiddleware(CreateKernel)
