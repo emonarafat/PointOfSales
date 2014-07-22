@@ -14,7 +14,7 @@ namespace PointOfSales.Specs
             return WebApiHelper.Get<List<Product>>("api/products");
         }
 
-        public List<Product> GetProducts(string search)
+        public List<Product> Get(string search)
         {
             return WebApiHelper.Get<List<Product>>("api/products?search={0}", search);
         }

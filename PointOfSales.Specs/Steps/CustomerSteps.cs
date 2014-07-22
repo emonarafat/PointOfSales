@@ -12,7 +12,14 @@ namespace PointOfSales.Specs.Steps
     [Binding]
     public class CustomerSteps
     {
+        private CustomersApi customersApi;
         private List<Customer> customers;
+        private List<Order> orders;
+
+        public CustomerSteps(CustomersApi customersApi)
+        {
+            this.customersApi = customersApi;
+        }
 
         [Given(@"I don't have any customers")]
         public void GivenIDonTHaveAnyCustomers()
@@ -24,13 +31,13 @@ namespace PointOfSales.Specs.Steps
         public void WhenIAddCustomer()
         {
             var customer = new Customer { FirstName = "John", LastName = "Doe", EmailAddress = "john.doe@gmail.com" };
-            WebApiHelper.Post("api/customers", customer);
+            customersApi.Post(customer);
         }
 
         [Then(@"customer should exist in the system")]
         public void ThenCustomerShouldExistInTheSystem()
         {
-            var customers = WebApiHelper.Get<List<Customer>>("api/customers");
+            var customers = customersApi.Get();
             Assert.Equal(1, customers.Count);
             Assert.Equal("john.doe@gmail.com", customers[0].EmailAddress);
         }
@@ -41,7 +48,7 @@ namespace PointOfSales.Specs.Steps
             DatabaseHelper.CreateOrdersTable();
             DatabaseHelper.CreateCustomersTable();
             var customer = new Customer { FirstName = "John", LastName = "Doe", EmailAddress = "john.doe@gmail.com" };
-            WebApiHelper.Post("api/customers", customer);
+            customersApi.Post(customer);
         }
 
         [Then(@"I do not see any customers")]
@@ -56,7 +63,7 @@ namespace PointOfSales.Specs.Steps
             DatabaseHelper.CreateOrdersTable();
             DatabaseHelper.CreateCustomersTable();
             var customer = new Customer { FirstName = "John", LastName = "Doe", EmailAddress = "john.doe@gmail.com" };
-            int id = WebApiHelper.PostAndReturnId("api/customers", customer);
+            int id = customersApi.PostAndReturnId(customer);
 
             for (int i = 0; i < ordersCount; i++)
                 WebApiHelper.Post("api/orders", new Order { CustomerId = id });
@@ -71,21 +78,19 @@ namespace PointOfSales.Specs.Steps
         [When(@"I view purchase history")]
         public void WhenIViewPurchaseHistory()
         {
-            actualOrders = WebApiHelper.Get<List<Order>>("api/customers/1/orders");
+            orders = WebApiHelper.Get<List<Order>>("api/customers/1/orders");
         }
-
-        private List<Order> actualOrders; 
 
         [Then(@"I do not see any orders")]
         public void ThenIDoNotSeeAnyOrders()
         {
-            Assert.Equal(0, actualOrders.Count);
+            Assert.Equal(0, orders.Count);
         }
 
         [Then(@"I see (.*) orders")]
         public void ThenISeeOrders(int ordersCount)
         {
-            Assert.Equal(ordersCount, actualOrders.Count);
+            Assert.Equal(ordersCount, orders.Count);
         }
 
         [Given(@"I have no customers")]
@@ -104,7 +109,7 @@ namespace PointOfSales.Specs.Steps
         [When(@"I search for recurring customer '(.*)'")]
         public void WhenISearchForRecurringCustomer(string name)
         {
-            customers = WebApiHelper.GetCustomers(name);
+            customers = customersApi.Get(name);
         }
 
         [Then(@"I see all customers with names containing search string")]
@@ -117,19 +122,19 @@ namespace PointOfSales.Specs.Steps
         [When(@"I edit details of a customer")]
         public void WhenIEditDetailsOfACustomer()
         {
-            var customer = WebApiHelper.Get<Customer>("api/customers/1");
+            var customer = customersApi.Get(1);
             customer.FirstName = "Jack";
             customer.LastName = "Daniels";
             customer.MiddleName = null;
             customer.EmailAddress = "jack.daniels@gmail.com";
             customer.City = "Chicago";
-            WebApiHelper.Put("api/customers/1", customer);
+            customersApi.Put(customer);
         }
 
         [Then(@"I should see updated customer")]
         public void ThenIShouldSeeUpdatedCustomer()
         {
-            var customer = WebApiHelper.Get<Customer>("api/customers/1");
+            var customer = customersApi.Get(1);
             Assert.Equal("Jack", customer.FirstName);
             Assert.Equal("Daniels", customer.LastName);
             Assert.Null(customer.MiddleName);

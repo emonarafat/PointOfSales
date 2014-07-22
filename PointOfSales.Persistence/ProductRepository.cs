@@ -21,7 +21,7 @@ namespace PointOfSales.Persistence
             var sql = "SELECT * FROM Products";
 
             using (var conn = GetConnection())
-                return conn.Query<Product>(sql);                        
+                return conn.Query<Product>(sql);
         }
 
         public IEnumerable<Product> GetByNameOrDescription(string search)
@@ -30,7 +30,7 @@ namespace PointOfSales.Persistence
             var sql = @"SELECT * FROM Products 
                         WHERE Name LIKE @search OR Description LIKE @search";
 
-            using (var conn = GetConnection())                
+            using (var conn = GetConnection())
                 return conn.Query<Product>(sql, new { search = String.Format("%{0}%", search) });
         }
 
