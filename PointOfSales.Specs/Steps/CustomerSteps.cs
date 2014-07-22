@@ -13,12 +13,14 @@ namespace PointOfSales.Specs.Steps
     public class CustomerSteps
     {
         private CustomersApi customersApi;
+        private OrdersApi ordersApi;
         private List<Customer> customers;
         private List<Order> orders;
 
-        public CustomerSteps(CustomersApi customersApi)
+        public CustomerSteps(CustomersApi customersApi, OrdersApi ordersApi)
         {
             this.customersApi = customersApi;
+            this.ordersApi = ordersApi;
         }
 
         [Given(@"I don't have any customers")]
@@ -66,7 +68,7 @@ namespace PointOfSales.Specs.Steps
             int id = customersApi.PostAndReturnId(customer);
 
             for (int i = 0; i < ordersCount; i++)
-                WebApiHelper.Post("api/orders", new Order { CustomerId = id });
+                ordersApi.Post(new Order { CustomerId = id });
         }
 
         [Then(@"I see (.*) customer")]
@@ -78,7 +80,7 @@ namespace PointOfSales.Specs.Steps
         [When(@"I view purchase history")]
         public void WhenIViewPurchaseHistory()
         {
-            orders = WebApiHelper.Get<List<Order>>("api/customers/1/orders");
+            orders = ordersApi.GetCustomerOrders(1);
         }
 
         [Then(@"I do not see any orders")]

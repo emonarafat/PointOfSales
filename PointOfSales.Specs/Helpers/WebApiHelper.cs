@@ -16,21 +16,6 @@ namespace PointOfSales.Specs
     {
         private static readonly string baseAddress = "http://localhost:9000/";
 
-        public static List<OrderLine> GetOrderLines(int orderId)
-        {
-            return Get<List<OrderLine>>("api/orders/{0}/lines", orderId);
-        }
-
-        public static void AddOrderLine(int orderId, int productId, int quantity)
-        {
-            Post("api/orders/{0}/lines?productId={1}&quantity={2}", orderId, productId, quantity);
-        }
-
-        public static List<SalesCombination> GetSalesByProduct(int productId)
-        {
-            return Get<List<SalesCombination>>("api/products/{0}/sales", productId);
-        }
-
         public static string GetJson(string url)
         {
             using (WebApp.Start<Startup>(url: baseAddress))
