@@ -27,7 +27,7 @@ namespace PointOfSales.Specs.Steps
         [When(@"I add product to order")]
         public void WhenIAddProductToOrder()
         {
-            WebApiHelper.Post("api/orderlines", new OrderLine { OrderId = 1, ProductId = 1, Quantity = 1 });
+            WebApiHelper.AddOrderLine(1, productId: 1, quantity: 1);
         }
 
         [Then(@"order should have order line with product")]
@@ -60,8 +60,8 @@ namespace PointOfSales.Specs.Steps
         [When(@"I add two products to order")]
         public void WhenIAddTwoProductsToOrder()
         {
-            WebApiHelper.Post("api/orderlines", new OrderLine { OrderId = 1, ProductId = 1, Quantity = 1 });
-            WebApiHelper.Post("api/orderlines", new OrderLine { OrderId = 1, ProductId = 2, Quantity = 1 });
+            WebApiHelper.AddOrderLine(1, productId: 1, quantity: 1);
+            WebApiHelper.AddOrderLine(1, productId: 2, quantity: 1);
         }
 
         [Then(@"order line quantity should be (.*)")]
@@ -74,7 +74,7 @@ namespace PointOfSales.Specs.Steps
         [When(@"I add sub product to order")]
         public void WhenIAddSubProductToOrder()
         {
-            WebApiHelper.Post("api/orderlines", new OrderLine { OrderId = 1, ProductId = 3, Quantity = 1 });
+            WebApiHelper.AddOrderLine(1, productId: 3, quantity: 1);
         }
 
         [Then(@"items quantity should be (.*)")]

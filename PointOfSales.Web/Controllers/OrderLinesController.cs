@@ -28,8 +28,9 @@ namespace PointOfSales.Web.Controllers
             return orderLineRepository.GetByOrder(orderId);
         }
 
-        public void Post([FromBody]OrderLine line)
-        {
+        [Route("api/orders/{orderId:int}/lines")]
+        public void Post([FromUri]OrderLine line)
+        {            
             var product = productRepository.GetById(line.ProductId);
             line.Price = product.Price;
 

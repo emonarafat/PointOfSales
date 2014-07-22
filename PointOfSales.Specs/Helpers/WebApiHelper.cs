@@ -21,6 +21,11 @@ namespace PointOfSales.Specs
             return Get<List<OrderLine>>("api/orders/{0}/lines", orderId);
         }
 
+        public static void AddOrderLine(int orderId, int productId, int quantity)
+        {
+            Post("api/orders/{0}/lines?productId={1}&quantity={2}", orderId, productId, quantity);
+        }
+
         public static List<SalesCombination> GetSalesByProduct(int productId)
         {
             return Get<List<SalesCombination>>("api/sales?productId={0}", productId);
@@ -55,6 +60,18 @@ namespace PointOfSales.Specs
         public static T Get<T>(string url)
         {
             return JsonConvert.DeserializeObject<T>(GetJson(url));
+        }
+
+        public static void Post(string urlFormat, params object[] args)
+        {
+            var url = String.Format(urlFormat, args);
+
+            using(WebApp.Start<Startup>(url: baseAddress))
+            {
+                HttpClient client = new HttpClient();
+                var response = client.PostAsync(baseAddress + url, null).Result;
+                Assert.True(response.IsSuccessStatusCode, "Response status is " + response.StatusCode);
+            }
         }
 
         public static void Post<T>(string url, T value)

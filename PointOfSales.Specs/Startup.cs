@@ -25,34 +25,6 @@ namespace PointOfSales.Specs
             HttpConfiguration config = new HttpConfiguration();
 
             config.MapHttpAttributeRoutes();
-            
-            config.Routes.MapHttpRoute(
-                name: "ApiRPC",
-                routeTemplate: "api/{controller}/{action}",
-                defaults: new { },
-                constraints: new { action = @"^[a-zA-Z]+$", httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
-            );
-
-            config.Routes.MapHttpRoute(
-                name: "DefaultApiWithId",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { },
-                constraints: new { id = @"^\d+$" }
-            );
-
-            config.Routes.MapHttpRoute(
-                name: "DefaultGetApi",
-                routeTemplate: "api/{controller}",
-                defaults: new { action = "Get" },
-                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
-            );
-
-            config.Routes.MapHttpRoute(
-                name: "DefaultPostApi",
-                routeTemplate: "api/{controller}",
-                defaults: new { action = "Post" },
-                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Post) }
-            );
 
             config.Routes.MapHttpRoute(
                 name: "OrderSalesApi",
