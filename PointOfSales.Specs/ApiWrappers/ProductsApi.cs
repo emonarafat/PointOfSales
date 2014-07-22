@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace PointOfSales.Specs
 {
-    public class ProductsApi
+    public class ProductsApi : WebApiWrapper
     {
         public List<Product> GetProducts()
         {
-            return WebApiHelper.Get<List<Product>>("api/products");
+            return Get<List<Product>>("api/products");
         }
 
         public List<Product> Get(string search)
         {
-            return WebApiHelper.Get<List<Product>>("api/products?search={0}", search);
+            return Get<List<Product>>("api/products?search={0}", search);
         }
     }
 }

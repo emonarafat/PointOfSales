@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 
 namespace PointOfSales.Specs
 {
-    public class OrdersApi
+    public class OrdersApi : WebApiWrapper
     {
         public Order Get(int id)
         {
-            return WebApiHelper.Get<Order>("api/orders/{0}", id);
+            return Get<Order>("api/orders/{0}", id);
         }
 
         public List<Order> GetCustomerOrders(int customerId)
         {
-            return WebApiHelper.Get<List<Order>>("api/customers/{0}/orders", customerId);
+            return Get<List<Order>>("api/customers/{0}/orders", customerId);
         }
 
         public void Post(Order order)
         {
-            WebApiHelper.Post("api/orders", order);
+            Post("api/orders", order);
         }
     }
 }

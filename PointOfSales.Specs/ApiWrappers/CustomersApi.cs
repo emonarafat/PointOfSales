@@ -7,36 +7,36 @@ using System.Threading.Tasks;
 
 namespace PointOfSales.Specs
 {
-    public class CustomersApi
+    public class CustomersApi : WebApiWrapper
     {
         public List<Customer> Get()
         {
-            return WebApiHelper.Get<List<Customer>>("api/customers");
+            return Get<List<Customer>>("api/customers");
         }
 
         public Customer Get(int id)
         {
-            return WebApiHelper.Get<Customer>("api/customers/" + id);
+            return Get<Customer>("api/customers/" + id);
         }
 
         public List<Customer> Get(string name)
         {
-            return WebApiHelper.Get<List<Customer>>("api/customers?name={0}", name);
+            return Get<List<Customer>>("api/customers?name={0}", name);
         }
 
         public void Post(Customer customer)
         {
-            WebApiHelper.Post("api/customers", customer);
+            Post("api/customers", customer);
         }
 
         public int PostAndReturnId(Customer customer)
         {
-            return WebApiHelper.PostAndReturnId("api/customers", customer);
+            return PostAndReturnId("api/customers", customer);
         }
 
         public void Put(Customer customer)
         {
-            WebApiHelper.Put("api/customers/" + customer.CustomerId, customer);
+            Put("api/customers/" + customer.CustomerId, customer);
         }
     }
 }

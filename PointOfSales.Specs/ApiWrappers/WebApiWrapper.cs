@@ -12,11 +12,11 @@ using Xunit;
 
 namespace PointOfSales.Specs
 {
-    public static class WebApiHelper
+    public class WebApiWrapper
     {
         private static readonly string baseAddress = "http://localhost:9000/";
 
-        public static string GetJson(string url)
+        public string GetJson(string url)
         {
             using (WebApp.Start<Startup>(url: baseAddress))
             {
@@ -27,17 +27,17 @@ namespace PointOfSales.Specs
             }
         }
 
-        public static T Get<T>(string urlFormat, params object[] args)
+        public T Get<T>(string urlFormat, params object[] args)
         {
             return Get<T>(String.Format(urlFormat, args));
         }
 
-        public static T Get<T>(string url)
+        public T Get<T>(string url)
         {
             return JsonConvert.DeserializeObject<T>(GetJson(url));
         }
 
-        public static void Post(string urlFormat, params object[] args)
+        public void Post(string urlFormat, params object[] args)
         {
             var url = String.Format(urlFormat, args);
 
@@ -49,7 +49,7 @@ namespace PointOfSales.Specs
             }
         }
 
-        public static void Post<T>(string url, T value)
+        public void Post<T>(string url, T value)
         {
             using (WebApp.Start<Startup>(url: baseAddress))
             {
@@ -59,7 +59,7 @@ namespace PointOfSales.Specs
             }
         }
 
-        public static int PostAndReturnId<T>(string url, T value)
+        public int PostAndReturnId<T>(string url, T value)
         {
             using (WebApp.Start<Startup>(url: baseAddress))
             {
@@ -70,7 +70,7 @@ namespace PointOfSales.Specs
             }
         }
 
-        public static void Put<T>(string url, T value)
+        public void Put<T>(string url, T value)
         {
             using(WebApp.Start<Startup>(url : baseAddress))
             {
