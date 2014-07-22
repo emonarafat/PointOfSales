@@ -30,11 +30,6 @@ namespace PointOfSales.Specs
         {
             return Get<List<SalesCombination>>("api/products/{0}/sales", productId);
         }
-        
-        public static List<Product> GetProducts(string search)
-        {
-            return Get<List<Product>>("api/products?search={0}", search);
-        }
 
         public static List<Customer> GetCustomers(string name)
         {

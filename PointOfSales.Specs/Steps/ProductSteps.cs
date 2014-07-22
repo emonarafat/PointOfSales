@@ -19,7 +19,13 @@ namespace PointOfSales.Specs.Steps
     [Binding]
     public class ProductSteps
     {
+        private ProductsApi api;
         private List<Product> products;
+
+        public ProductSteps(ProductsApi api)
+        {
+            this.api = api;
+        }
 
         [Given(@"I have no products")]
         public void GivenIHaveNoProducts()
@@ -30,7 +36,7 @@ namespace PointOfSales.Specs.Steps
         [When(@"I am trying to see all available products")]
         public void WhenIAmTryingToSeeAllAvailableProducts()
         {
-            products = WebApiHelper.Get<List<Product>>("api/products");
+            products = api.GetProducts();
         }
 
         [Then(@"I do not see any products")]
@@ -56,7 +62,7 @@ namespace PointOfSales.Specs.Steps
         public void WhenISearchProductsByName()
         {
             // TODO: Use step parameter
-            products = WebApiHelper.GetProducts("lumia");
+            products = api.GetProducts("lumia");
         }
 
         [Then(@"I see products with names containing search string")]
@@ -69,7 +75,7 @@ namespace PointOfSales.Specs.Steps
         [When(@"I search products by description")]
         public void WhenISearchProductsByDescription()
         {
-            products = WebApiHelper.GetProducts("smartphone");
+            products = api.GetProducts("smartphone");
         }
 
         [Then(@"I see products with description containing search string")]
@@ -82,7 +88,7 @@ namespace PointOfSales.Specs.Steps
         [When(@"I search products by name or description")]
         public void WhenISearchProductsByNameOrDescription()
         {
-            products = WebApiHelper.GetProducts("iphone");
+            products = api.GetProducts("iphone");
         }
 
         [Then(@"I see products with either name or description containing search string")]

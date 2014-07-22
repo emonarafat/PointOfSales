@@ -116,6 +116,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AddProductWithSalesCombinationsToOrder.feature</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ProductsApi.cs" />
     <Compile Include="SeeAvailableSalesCombinations.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
