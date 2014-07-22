@@ -26,6 +26,16 @@ namespace PointOfSales.Specs
             return Get<List<SalesCombination>>("api/sales?productId={0}", productId);
         }
         
+        public static List<Product> GetProducts(string search)
+        {
+            return Get<List<Product>>("api/products?search={0}", search);
+        }
+
+        public static List<Customer> GetCustomers(string name)
+        {
+            return Get<List<Customer>>("api/customers?name={0}", name);
+        }
+
         public static string GetJson(string url)
         {
             using (WebApp.Start<Startup>(url: baseAddress))

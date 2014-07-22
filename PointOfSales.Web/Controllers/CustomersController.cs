@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace PointOfSales.Web.Controllers
 {
+    [RoutePrefix("api/customers")]
     public class CustomersController : ApiController
     {
         private ICustomerRepository customerRepository;
@@ -17,11 +18,14 @@ namespace PointOfSales.Web.Controllers
         {            
             this.customerRepository = customerRepository;
         }
+
+        [Route("")]
         public IEnumerable<Customer> Get()
         {
             return customerRepository.GetAll();
         }
 
+        [Route("{id:int}")]
         public Customer Get(int id)
         {
             var customer = customerRepository.GetById(id);
@@ -29,13 +33,15 @@ namespace PointOfSales.Web.Controllers
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             return customer;
-        }
+        }        
         
+        [Route("")]
         public int Post(Customer customer)
         {
             return customerRepository.Add(customer);
         }
 
+        [Route("{id:int}")]
         public void Put(int id, Customer customer)
         {
             customer.CustomerId = id;
@@ -44,10 +50,10 @@ namespace PointOfSales.Web.Controllers
                 throw new HttpResponseException(HttpStatusCode.NotFound);
         }
 
-        [HttpGet]
-        public IEnumerable<Customer> Search(string search)
+        [Route("")]
+        public IEnumerable<Customer> Get(string name)
         {
-            return customerRepository.GetByName(search);
+            return customerRepository.GetByName(name);
         }
     }
 }

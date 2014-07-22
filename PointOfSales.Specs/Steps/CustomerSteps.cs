@@ -12,7 +12,7 @@ namespace PointOfSales.Specs.Steps
     [Binding]
     public class CustomerSteps
     {
-        private List<Customer> actualCustomers;
+        private List<Customer> customers;
 
         [Given(@"I don't have any customers")]
         public void GivenIDonTHaveAnyCustomers()
@@ -47,7 +47,7 @@ namespace PointOfSales.Specs.Steps
         [Then(@"I do not see any customers")]
         public void ThenIDoNotSeeAnyCustomers()
         {
-            Assert.Equal(0, actualCustomers.Count);
+            Assert.Equal(0, customers.Count);
         }
 
         [Given(@"cusomer with (.*) orders")]
@@ -65,7 +65,7 @@ namespace PointOfSales.Specs.Steps
         [Then(@"I see (.*) customer")]
         public void ThenISeeCustomer(int customersCount)
         {
-            Assert.Equal(1, actualCustomers.Count);
+            Assert.Equal(1, customers.Count);
         }
 
         [When(@"I view purchase history")]
@@ -102,16 +102,16 @@ namespace PointOfSales.Specs.Steps
         }
 
         [When(@"I search for recurring customer '(.*)'")]
-        public void WhenISearchForRecurringCustomer(string search)
+        public void WhenISearchForRecurringCustomer(string name)
         {
-            actualCustomers = WebApiHelper.Get<List<Customer>>("api/customers/search/" + search);
+            customers = WebApiHelper.GetCustomers(name);
         }
 
         [Then(@"I see all customers with names containing search string")]
         public void ThenISeeAllCustomersWithNamesContainingSearchString()
         {
             // TODO: Table input?
-            Assert.Equal(4, actualCustomers.Count);
+            Assert.Equal(4, customers.Count);
         }
 
         [When(@"I edit details of a customer")]

@@ -55,12 +55,6 @@ namespace PointOfSales.Specs
             );
 
             config.Routes.MapHttpRoute(
-                name: "SearchApi",
-                routeTemplate: "api/{controller}/search/{search}",
-                defaults: new { action = "Search", search = RouteParameter.Optional }
-            );
-
-            config.Routes.MapHttpRoute(
                 name: "OrderSalesApi",
                 routeTemplate: "api/orders/{orderId}/sales/{salesCombinationId}",
                 defaults: new { controller = "OrderLines", action = "AddSalesCombination" }

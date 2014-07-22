@@ -50,7 +50,7 @@ namespace PointOfSales.Tests
             customerRepositoryMock.Setup(r => r.GetByName(search)).Returns(expectedCustomers);
             var controller = new CustomersController(customerRepositoryMock.Object);
 
-            var actualCustomers = controller.Search("foo");
+            var actualCustomers = controller.Get("foo");
 
             customerRepositoryMock.VerifyAll();
             Assert.Equal(expectedCustomers, actualCustomers);
