@@ -30,6 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=1.27.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Dapper.1.27\lib\net45\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="FizzWare.NBuilder">
+      <HintPath>..\packages\NBuilder.3.0.1.1\lib\FizzWare.NBuilder.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin">
       <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
@@ -156,7 +163,7 @@
     <Compile Include="Steps\CustomerSteps.cs" />
     <Compile Include="Steps\OrderSteps.cs" />
     <Compile Include="Steps\ProductSteps.cs" />
-    <Compile Include="Startup.cs" />
+    <Compile Include="ApiWrappers\Startup.cs" />
     <Compile Include="Steps\SalesCombinationSteps.cs" />
     <Compile Include="ApiWrappers\WebApiWrapper.cs" />
     <Compile Include="ViewPurchaseHistoryOfCustomer.feature.cs">

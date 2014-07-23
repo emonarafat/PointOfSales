@@ -1,20 +1,26 @@
 ﻿@products
-Feature: ProductsSearch
-	In order to quickly sell products
+Feature: Products Search
+	In order to quickly allocate products by something I remember from them
 	As a salesman
-	I want to be able to search for a product
+	I want to search for products by string
 
-Scenario: Search by name
-	Given I have some products	  
-	When I search products by name
-	Then I see products with names containing search string
+Background:
+	Given there are following products in shop
+	| Name             | Description                                 |
+	| Apple iPhone 5   | Touchscreen smartphone                      |
+	| Nokia Lumia 1020 | Touchscreen smartphone with PureView camera |
+	| Belkin Charge    | Charger for iPhone or iPod                  |
+	| Nokia 3310       | Mobile phone                                |
 
-Scenario: Search by description
-	Given I have some products	  
-	When I search products by description
-	Then I see products with description containing search string
+Scenario: Search products by name	
+	When I search products by 'nokia'
+	Then I see only these products: 'Nokia Lumia 1020', 'Nokia 3310'
+	
 
-Scenario: Search by name or description
-	Given I have some products	  
-	When I search products by name or description
-	Then I see products with either name or description containing search string
+Scenario: Search products by description	
+	When I search products by 'smartphone'
+	Then I see only these products: 'Apple iPhone 5', 'Nokia Lumia 1020'
+
+Scenario: Search products by name or description	
+	When I search products by 'iphone'
+	Then I see only these products: 'Apple iPhone 5', 'Belkin Charge'

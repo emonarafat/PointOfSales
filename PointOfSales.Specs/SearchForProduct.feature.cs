@@ -34,8 +34,8 @@ namespace PointOfSales.Specs
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ProductsSearch", "In order to quickly sell products\nAs a salesman\nI want to be able to search for a" +
-                    " product", ProgrammingLanguage.CSharp, new string[] {
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Products Search", "In order to quickly allocate products by something I remember from them\nAs a sale" +
+                    "sman\nI want to search for products by string", ProgrammingLanguage.CSharp, new string[] {
                         "products"});
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -65,6 +65,30 @@ namespace PointOfSales.Specs
             testRunner.CollectScenarioErrors();
         }
         
+        public virtual void FeatureBackground()
+        {
+#line 7
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "Description"});
+            table1.AddRow(new string[] {
+                        "Apple iPhone 5",
+                        "Touchscreen smartphone"});
+            table1.AddRow(new string[] {
+                        "Nokia Lumia 1020",
+                        "Touchscreen smartphone with PureView camera"});
+            table1.AddRow(new string[] {
+                        "Belkin Charge",
+                        "Charger for iPhone or iPod"});
+            table1.AddRow(new string[] {
+                        "Nokia 3310",
+                        "Mobile phone"});
+#line 8
+ testRunner.Given("there are following products in shop", ((string)(null)), table1, "Given ");
+#line hidden
+        }
+        
         public virtual void SetFixture(ProductsSearchFeature.FixtureData fixtureData)
         {
         }
@@ -75,55 +99,55 @@ namespace PointOfSales.Specs
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "ProductsSearch")]
-        [Xunit.TraitAttribute("Description", "Search by name")]
-        public virtual void SearchByName()
+        [Xunit.TraitAttribute("FeatureTitle", "Products Search")]
+        [Xunit.TraitAttribute("Description", "Search products by name")]
+        public virtual void SearchProductsByName()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search by name", ((string[])(null)));
-#line 7
-this.ScenarioSetup(scenarioInfo);
-#line 8
- testRunner.Given("I have some products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 9
- testRunner.When("I search products by name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 10
- testRunner.Then("I see products with names containing search string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "ProductsSearch")]
-        [Xunit.TraitAttribute("Description", "Search by description")]
-        public virtual void SearchByDescription()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search by description", ((string[])(null)));
-#line 12
-this.ScenarioSetup(scenarioInfo);
-#line 13
- testRunner.Given("I have some products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 14
- testRunner.When("I search products by description", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search products by name", ((string[])(null)));
 #line 15
- testRunner.Then("I see products with description containing search string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
+#line 16
+ testRunner.When("I search products by \'nokia\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 17
+ testRunner.Then("I see only these products: \'Nokia Lumia 1020\', \'Nokia 3310\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "ProductsSearch")]
-        [Xunit.TraitAttribute("Description", "Search by name or description")]
-        public virtual void SearchByNameOrDescription()
+        [Xunit.TraitAttribute("FeatureTitle", "Products Search")]
+        [Xunit.TraitAttribute("Description", "Search products by description")]
+        public virtual void SearchProductsByDescription()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search by name or description", ((string[])(null)));
-#line 17
-this.ScenarioSetup(scenarioInfo);
-#line 18
- testRunner.Given("I have some products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 19
- testRunner.When("I search products by name or description", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search products by description", ((string[])(null)));
 #line 20
- testRunner.Then("I see products with either name or description containing search string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
+#line 21
+ testRunner.When("I search products by \'smartphone\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 22
+ testRunner.Then("I see only these products: \'Apple iPhone 5\', \'Nokia Lumia 1020\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "Products Search")]
+        [Xunit.TraitAttribute("Description", "Search products by name or description")]
+        public virtual void SearchProductsByNameOrDescription()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search products by name or description", ((string[])(null)));
+#line 24
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
+#line 25
+ testRunner.When("I search products by \'iphone\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 26
+ testRunner.Then("I see only these products: \'Apple iPhone 5\', \'Belkin Charge\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

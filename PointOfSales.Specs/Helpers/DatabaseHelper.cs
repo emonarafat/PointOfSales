@@ -1,9 +1,11 @@
-﻿using System;
+﻿using PointOfSales.Domain.Model;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
 
 namespace PointOfSales.Specs
 {
@@ -150,6 +152,15 @@ INSERT INTO Customers(FirstName,LastName,MiddleName,EmailAddress,Street,HouseNum
 ";
 
             Execute(sql);
+        }
+
+        internal static void Save(IEnumerable<Product> products)
+        {
+            string sql = @"INSERT INTO Products(Name,Price,Description,PictureURL,EntryDate) 
+                           VALUES(@Name,@Price,@Description,@PictureURL,@EntryDate)";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+                conn.Execute(sql, products);
         }
 
         private static void Execute(string sql)

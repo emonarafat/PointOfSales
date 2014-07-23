@@ -12,6 +12,7 @@ namespace PointOfSales.Domain.Model
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
+        public string PictureUrl { get; set; }
         public DateTime EntryDate { get; set; }
     }
 }

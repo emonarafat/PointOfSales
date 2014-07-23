@@ -12,7 +12,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 using Xunit;
+using FizzWare.NBuilder;
 
 namespace PointOfSales.Specs.Steps
 {
@@ -27,16 +29,38 @@ namespace PointOfSales.Specs.Steps
             this.productsApi = productsApi;
         }
 
-        [Given(@"I have no products")]
+        [Given(@"there are no products in shop")]
         public void GivenIHaveNoProducts()
         {
             DatabaseHelper.CreateProductsTable();
         }
 
-        [When(@"I am trying to see all available products")]
-        public void WhenIAmTryingToSeeAllAvailableProducts()
+        [Given(@"there are following products in shop")]
+        public void GivenThereAreFollowingProductsInShop(Table table)
+        {
+            var products = table.CreateSet<Product>(() => Builder<Product>.CreateNew().Build());
+            DatabaseHelper.CreateProductsTable();
+            DatabaseHelper.Save(products);
+        }
+
+        [Given(@"there are (.*) products in shop")]
+        public void GivenThereAreProductsInShop(int productsCount)
+        {
+            var products = Builder<Product>.CreateListOfSize(productsCount).Build();
+            DatabaseHelper.CreateProductsTable();
+            DatabaseHelper.Save(products);
+        }
+
+        [When(@"I view all available products")]
+        public void WhenIViewAllAvailableProducts()
         {
             products = productsApi.GetProducts();
+        }
+
+        [When(@"I search products by '(.*)'")]
+        public void WhenISearchProductsBy(string search)
+        {
+            products = productsApi.Get(search);
         }
 
         [Then(@"I do not see any products")]
@@ -45,56 +69,17 @@ namespace PointOfSales.Specs.Steps
             Assert.Equal(0, products.Count);
         }
 
-        [Given(@"I have some products")]
-        public void GivenIHaveSomeProducts()
+        [Then(@"I see (.*) products")]
+        public void ThenISeeProducts(int productsCount)
         {
-            DatabaseHelper.CreateProductsTable();
-            DatabaseHelper.SeedProducts();
+            Assert.Equal(productsCount, products.Count);
         }
 
-        [Then(@"I see all products")]
-        public void ThenISeeAllProducts()
-        {            
-            Assert.Equal(5, products.Count);
-        }
-
-        [When(@"I search products by name")]
-        public void WhenISearchProductsByName()
+        [Then(@"I see only these products: (.*)")]
+        public void ThenISeeOnlyFollowingProducts(string productNames)
         {
-            // TODO: Use step parameter
-            products = productsApi.Get("lumia");
-        }
-
-        [Then(@"I see products with names containing search string")]
-        public void ThenISeeProductsWithNamesContainingSearchString()
-        {           
-            Assert.Equal(1, products.Count);
-            Assert.True(products.All(p => p.Name.IndexOf("lumia", StringComparison.InvariantCultureIgnoreCase) >= 0));
-        }
-
-        [When(@"I search products by description")]
-        public void WhenISearchProductsByDescription()
-        {
-            products = productsApi.Get("smartphone");
-        }
-
-        [Then(@"I see products with description containing search string")]
-        public void ThenISeeProductsWithDescriptionContainingSearchString()
-        {
-            Assert.Equal(3, products.Count);
-            Assert.True(products.All(p => p.Description.IndexOf("smartphone", StringComparison.InvariantCultureIgnoreCase) >= 0));
-        }
-
-        [When(@"I search products by name or description")]
-        public void WhenISearchProductsByNameOrDescription()
-        {
-            products = productsApi.Get("iphone");
-        }
-
-        [Then(@"I see products with either name or description containing search string")]
-        public void ThenISeeProductsWithEitherNameOrDescriptionContainingSearchString()
-        {
-            Assert.Equal(3, products.Count);
+            var names = productNames.Split(',').Select(n => n.Trim(' ', '\'')).OrderBy(n => n);
+            Assert.Equal(names, products.Select(p => p.Name).OrderBy(n => n));
         }
     }
 }
