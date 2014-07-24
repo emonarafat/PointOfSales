@@ -11,10 +11,12 @@ Background:
 	| Nokia 3310           |
 	| Belkin Charge        |
 	| Speck SmartFlex Case |
+	| Speck GemShell Case  |
 	And there are following sales combinations in shop
-	| MainProduct    | SubProduct           |
-	| Apple iPhone 5 | Belkin Charge        |
-	| Apple iPhone 5 | Speck SmartFlex Case |
+	| MainProduct          | SubProduct           |
+	| Apple iPhone 5       | Belkin Charge        |
+	| Apple iPhone 5       | Speck SmartFlex Case |
+	| Speck SmartFlex Case | Speck GemShell Case  |
 
 Scenario: Product does not have available sales combinations 
 	When I view available sales combinations of product 'Nokia 3310'
@@ -32,3 +34,10 @@ Scenario: Product is the sub product of sales combination
 	Then I see following sales combinations
 	| MainProduct    | SubProduct           |
 	| Apple iPhone 5 | Belkin Charge        |
+
+Scenario: Product is both main and sub product of sales combinations
+	When I view available sales combinations of product 'Speck SmartFlex Case'
+	Then I see following sales combinations
+	| MainProduct          | SubProduct           |
+	| Apple iPhone 5       | Speck SmartFlex Case |
+	| Speck SmartFlex Case | Speck GemShell Case  |

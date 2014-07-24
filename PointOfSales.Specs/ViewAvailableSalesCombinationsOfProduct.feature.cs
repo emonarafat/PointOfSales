@@ -79,6 +79,8 @@ namespace PointOfSales.Specs
                         "Belkin Charge"});
             table1.AddRow(new string[] {
                         "Speck SmartFlex Case"});
+            table1.AddRow(new string[] {
+                        "Speck GemShell Case"});
 #line 8
  testRunner.Given("there are following products in shop", ((string)(null)), table1, "Given ");
 #line hidden
@@ -91,7 +93,10 @@ namespace PointOfSales.Specs
             table2.AddRow(new string[] {
                         "Apple iPhone 5",
                         "Speck SmartFlex Case"});
-#line 14
+            table2.AddRow(new string[] {
+                        "Speck SmartFlex Case",
+                        "Speck GemShell Case"});
+#line 15
  testRunner.And("there are following sales combinations in shop", ((string)(null)), table2, "And ");
 #line hidden
         }
@@ -111,13 +116,13 @@ namespace PointOfSales.Specs
         public virtual void ProductDoesNotHaveAvailableSalesCombinations()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Product does not have available sales combinations", ((string[])(null)));
-#line 19
+#line 21
 this.ScenarioSetup(scenarioInfo);
 #line 7
 this.FeatureBackground();
-#line 20
+#line 22
  testRunner.When("I view available sales combinations of product \'Nokia 3310\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 21
+#line 23
  testRunner.Then("I do not see any sales combinations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -129,11 +134,11 @@ this.FeatureBackground();
         public virtual void ProductIsTheMainProductOfSalesCombinations()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Product is the main product of sales combinations", ((string[])(null)));
-#line 23
+#line 25
 this.ScenarioSetup(scenarioInfo);
 #line 7
 this.FeatureBackground();
-#line 24
+#line 26
  testRunner.When("I view available sales combinations of product \'Apple iPhone 5\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -145,7 +150,7 @@ this.FeatureBackground();
             table3.AddRow(new string[] {
                         "Apple iPhone 5",
                         "Speck SmartFlex Case"});
-#line 25
+#line 27
  testRunner.Then("I see following sales combinations", ((string)(null)), table3, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -157,11 +162,11 @@ this.FeatureBackground();
         public virtual void ProductIsTheSubProductOfSalesCombination()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Product is the sub product of sales combination", ((string[])(null)));
-#line 30
+#line 32
 this.ScenarioSetup(scenarioInfo);
 #line 7
 this.FeatureBackground();
-#line 31
+#line 33
  testRunner.When("I view available sales combinations of product \'Belkin Charge\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
@@ -170,8 +175,36 @@ this.FeatureBackground();
             table4.AddRow(new string[] {
                         "Apple iPhone 5",
                         "Belkin Charge"});
-#line 32
+#line 34
  testRunner.Then("I see following sales combinations", ((string)(null)), table4, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "View available sales combinations of product")]
+        [Xunit.TraitAttribute("Description", "Product is both main and sub product of sales combinations")]
+        public virtual void ProductIsBothMainAndSubProductOfSalesCombinations()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Product is both main and sub product of sales combinations", ((string[])(null)));
+#line 38
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
+#line 39
+ testRunner.When("I view available sales combinations of product \'Speck SmartFlex Case\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "MainProduct",
+                        "SubProduct"});
+            table5.AddRow(new string[] {
+                        "Apple iPhone 5",
+                        "Speck SmartFlex Case"});
+            table5.AddRow(new string[] {
+                        "Speck SmartFlex Case",
+                        "Speck GemShell Case"});
+#line 40
+ testRunner.Then("I see following sales combinations", ((string)(null)), table5, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
