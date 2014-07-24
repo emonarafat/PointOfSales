@@ -179,6 +179,13 @@ INSERT INTO Customers(FirstName,LastName,MiddleName,EmailAddress,Street,HouseNum
                 conn.Execute(sql, sales);
         }
 
+        internal static IEnumerable<SalesCombination> GetSalesCombinations()
+        {
+            string sql = @"SELECT SalesCombinationID,MainProductID,SubProductID,Discount FROM SalesCombinations";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+                return conn.Query<SalesCombination>(sql);
+        }
+
         private static void Execute(string sql)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))

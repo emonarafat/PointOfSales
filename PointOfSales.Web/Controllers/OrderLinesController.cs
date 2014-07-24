@@ -39,12 +39,21 @@ namespace PointOfSales.Web.Controllers
 
             if (existingLine == null)
             {
+                // TODO: Sales combination should be part of order
+                var sales = salesCombinationRepository.GetByProductId(line.ProductId);
+                // TODO: What if several products match sales combinations?
+                var salesCombination = sales.FirstOrDefault(s =>
+                    lines.Any(l => l.ProductId == s.MainProductId || l.ProductId == s.SubProductId));
+
+                if (salesCombination != null)
+                    line.Price -= salesCombination.Discount;
+
                 orderLineRepository.Add(line);
                 return;
             }
 
             existingLine.Quantity += line.Quantity;
-            orderLineRepository.Update(existingLine);            
+            orderLineRepository.Update(existingLine);
         }
 
         [Route("api/orders/{orderId:int}/sales/{salesCombinationId:int}")]
@@ -57,27 +66,28 @@ namespace PointOfSales.Web.Controllers
             var mainProductExists = lines.Any(l => l.ProductId == sales.MainProductId);
             var subProductExists = lines.Any(l => l.ProductId == sales.SubProductId);
 
-            if (mainProductExists && subProductExists)
+            // TODO: What if price changes?
+            // TODO: Remove duplication
+            // TODO: UoW
+            if (mainProductExists)
             {
-                // TODO: Remove duplication
                 var mainProductLine = lines.First(l => l.ProductId == sales.MainProductId);
                 mainProductLine.Quantity++;
                 orderLineRepository.Update(mainProductLine);
-
-                var subProductLine = lines.First(l => l.ProductId == sales.SubProductId);
-                subProductLine.Quantity++;
-                orderLineRepository.Update(subProductLine);
-                return;
             }
-
-            // TODO: UoW
-            if (!mainProductExists)
+            else
             {
                 var mainProduct = productRepository.GetById(sales.MainProductId);
                 orderLineRepository.Add(new OrderLine { ProductId = mainProduct.ProductId, Price = mainProduct.Price, Quantity = 1, OrderId = orderId });
             }
 
-            if (!subProductExists)
+            if (subProductExists)
+            {
+                var subProductLine = lines.First(l => l.ProductId == sales.SubProductId);
+                subProductLine.Quantity++;
+                orderLineRepository.Update(subProductLine);
+            }
+            else
             {
                 var subProduct = productRepository.GetById(sales.SubProductId);
                 orderLineRepository.Add(new OrderLine { ProductId = subProduct.ProductId, Price = subProduct.Price - sales.Discount, Quantity = 1, OrderId = orderId });

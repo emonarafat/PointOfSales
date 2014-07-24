@@ -31,7 +31,8 @@ namespace PointOfSales.Specs.Steps
             var sales = table.Rows.Select(r => new SalesCombination
             {
                 MainProductId = productIds[r["MainProduct"]],
-                SubProductId = productIds[r["SubProduct"]]
+                SubProductId = productIds[r["SubProduct"]],
+                Discount = r.Keys.Contains("Discount") ? Decimal.Parse(r["Discount"]) : 0
             });
 
             DatabaseHelper.CreateSalesCombinationsTable();

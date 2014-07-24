@@ -89,7 +89,7 @@ namespace PointOfSales.Tests
             orderRepositoryMock.Setup(r => r.GetByCustomer(customerId)).Returns(expectedOrders);
 
             var actualOrders = controller.GetByCustomer(customerId);
-            orderRepositoryMock.VerifyAll();            
+            orderRepositoryMock.VerifyAll();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace PointOfSales.Specs
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class OrderFillingFeature : Xunit.IUseFixture<OrderFillingFeature.FixtureData>, System.IDisposable
+    public partial class AddProductsToOrderFeature : Xunit.IUseFixture<AddProductsToOrderFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -26,7 +26,7 @@ namespace PointOfSales.Specs
 #line 1 "AddProductToOrder.feature"
 #line hidden
         
-        public OrderFillingFeature()
+        public AddProductsToOrderFeature()
         {
             this.TestInitialize();
         }
@@ -34,8 +34,9 @@ namespace PointOfSales.Specs
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "OrderFilling", "In order to sell products\nAs a salesman\nI want to be able to add a product to an " +
-                    "order", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Add products to order", "In order to sell products\nAs a salesman\nI want to be able to add a products to an" +
+                    " order", ProgrammingLanguage.CSharp, new string[] {
+                        "orders"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -64,7 +65,25 @@ namespace PointOfSales.Specs
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void SetFixture(OrderFillingFeature.FixtureData fixtureData)
+        public virtual void FeatureBackground()
+        {
+#line 7
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "Price"});
+            table1.AddRow(new string[] {
+                        "Apple iPhone 5",
+                        "500"});
+            table1.AddRow(new string[] {
+                        "Nokia 3310",
+                        "100"});
+#line 8
+ testRunner.Given("there are following products in shop", ((string)(null)), table1, "Given ");
+#line hidden
+        }
+        
+        public virtual void SetFixture(AddProductsToOrderFeature.FixtureData fixtureData)
         {
         }
         
@@ -74,59 +93,95 @@ namespace PointOfSales.Specs
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "OrderFilling")]
+        [Xunit.TraitAttribute("FeatureTitle", "Add products to order")]
         [Xunit.TraitAttribute("Description", "Add product to empty order")]
         public virtual void AddProductToEmptyOrder()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add product to empty order", ((string[])(null)));
-#line 6
+#line 13
 this.ScenarioSetup(scenarioInfo);
 #line 7
- testRunner.Given("I have an empty order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 8
- testRunner.When("I add product to order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 9
- testRunner.Then("order should have order line with product", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "OrderFilling")]
-        [Xunit.TraitAttribute("Description", "Add multiple products")]
-        public virtual void AddMultipleProducts()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add multiple products", ((string[])(null)));
-#line 11
-this.ScenarioSetup(scenarioInfo);
-#line 12
- testRunner.Given("I have an empty order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 13
- testRunner.When("I add two products to order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.FeatureBackground();
 #line 14
- testRunner.Then("order should contain both products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Given("I have an empty order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 15
+ testRunner.When("I add \'Apple iPhone 5\' to this order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ProductName",
+                        "Quantity"});
+            table2.AddRow(new string[] {
+                        "Apple iPhone 5",
+                        "1"});
+#line 16
+ testRunner.Then("order should have following lines", ((string)(null)), table2, "Then ");
+#line 19
+ testRunner.And("total price should be 500", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "OrderFilling")]
-        [Xunit.TraitAttribute("Description", "Add same product multiple times")]
-        public virtual void AddSameProductMultipleTimes()
+        [Xunit.TraitAttribute("FeatureTitle", "Add products to order")]
+        [Xunit.TraitAttribute("Description", "Add multiple products to empty order")]
+        public virtual void AddMultipleProductsToEmptyOrder()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add same product multiple times", ((string[])(null)));
-#line 16
-this.ScenarioSetup(scenarioInfo);
-#line 17
- testRunner.Given("I have an empty order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 18
- testRunner.When("I add product to order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 19
-     testRunner.And("I add product to order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 20
- testRunner.Then("order should have order line with product", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add multiple products to empty order", ((string[])(null)));
 #line 21
-  testRunner.And("order line quantity should be 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
+#line 22
+ testRunner.Given("I have an empty order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 23
+ testRunner.When("I add \'Apple iPhone 5\' to this order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 24
+  testRunner.And("I add \'Nokia 3310\' to this order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ProductName",
+                        "Quantity"});
+            table3.AddRow(new string[] {
+                        "Apple iPhone 5",
+                        "1"});
+            table3.AddRow(new string[] {
+                        "Nokia 3310",
+                        "1"});
+#line 25
+ testRunner.Then("order should have following lines", ((string)(null)), table3, "Then ");
+#line 29
+ testRunner.And("total price should be 600", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "Add products to order")]
+        [Xunit.TraitAttribute("Description", "Add same product multiple times to empty order")]
+        public virtual void AddSameProductMultipleTimesToEmptyOrder()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add same product multiple times to empty order", ((string[])(null)));
+#line 31
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
+#line 32
+ testRunner.Given("I have an empty order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 33
+ testRunner.When("I add \'Nokia 3310\' to this order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 34
+     testRunner.And("I add \'Nokia 3310\' to this order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ProductName",
+                        "Quantity"});
+            table4.AddRow(new string[] {
+                        "Nokia 3310",
+                        "2"});
+#line 35
+ testRunner.Then("order should have following lines", ((string)(null)), table4, "Then ");
+#line 38
+ testRunner.And("total price should be 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -138,12 +193,12 @@ this.ScenarioSetup(scenarioInfo);
             
             public FixtureData()
             {
-                OrderFillingFeature.FeatureSetup();
+                AddProductsToOrderFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                OrderFillingFeature.FeatureTearDown();
+                AddProductsToOrderFeature.FeatureTearDown();
             }
         }
     }

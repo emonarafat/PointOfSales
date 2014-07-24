@@ -118,10 +118,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AddCustomer.feature</DependentUpon>
     </Compile>
-    <Compile Include="AddProductWithSalesCombinationsToOrder.feature.cs">
+    <Compile Include="AddSalesCombinationToOrder.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AddProductWithSalesCombinationsToOrder.feature</DependentUpon>
+      <DependentUpon>AddSalesCombinationToOrder.feature</DependentUpon>
     </Compile>
     <Compile Include="ApiWrappers\CustomersApi.cs" />
     <Compile Include="ApiWrappers\OrderLinesApi.cs" />
@@ -177,9 +177,9 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AddCustomer.feature.cs</LastGenOutput>
     </None>
-    <None Include="AddProductWithSalesCombinationsToOrder.feature">
+    <None Include="AddSalesCombinationToOrder.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>AddProductWithSalesCombinationsToOrder.feature.cs</LastGenOutput>
+      <LastGenOutput>AddSalesCombinationToOrder.feature.cs</LastGenOutput>
     </None>
     <None Include="App.config" />
     <None Include="ViewAvailableSalesCombinationsOfProduct.feature">

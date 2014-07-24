@@ -15,6 +15,8 @@ namespace PointOfSales.Specs.Steps
         private OrdersApi ordersApi;
         private OrderLinesApi orderLinesApi;
         private SalesCombinationsApi salesCombinationsApi;
+        private List<Product> products;
+        private int orderId = 1;
 
         public OrderSteps(OrdersApi ordersApi, OrderLinesApi orderLinesApi, SalesCombinationsApi salesCombinationsApi)
         {
@@ -26,17 +28,61 @@ namespace PointOfSales.Specs.Steps
         [Given(@"I have an empty order")]
         public void GivenIHaveAnEmptyOrder()
         {
-            DatabaseHelper.CreateProductsTable();
-            DatabaseHelper.SeedProducts();
+            products = DatabaseHelper.GetProducts().ToList();
             DatabaseHelper.CreateOrdersTable();
             DatabaseHelper.SeedOrders();
             DatabaseHelper.CreateOrderLinesTable();
-            DatabaseHelper.CreateSalesCombinationsTable();
-            DatabaseHelper.SeedSalesCombinations();
         }
 
+        [When(@"I add '(.*)' to this order")]
+        public void WhenIAddProductToOrder(string productName)
+        {
+            int productId = products.First(p => p.Name == productName).ProductId;
+            orderLinesApi.AddOrderLine(orderId, productId, quantity: 1);
+        }
+
+        [Then(@"order should have following lines")]
+        public void ThenOrderShouldHaveFollowingLines(Table table)
+        {
+            var expectedLines = table.Rows.Select(r => new {
+                ProductName = r["ProductName"],
+                Quantity = Int32.Parse(r["Quantity"])
+            }).OrderBy(x => x.ProductName).ThenBy(x => x.Quantity);
+
+            var lines = orderLinesApi.GetOrderLines(orderId);
+            var actualLines = lines.Select(l => new {
+                ProductName = products.First(p => p.ProductId == l.ProductId).Name,
+                l.Quantity
+            }).OrderBy(x => x.ProductName).ThenBy(x => x.Quantity);
+
+            Assert.Equal(expectedLines, actualLines);
+        }
+
+        [When(@"I add following sales combination to this order")]
+        public void WhenIAddFollowingSalesCombinationToThisOrder(Table table)
+        {
+            var row = table.Rows[0];
+            var mainProductId = products.First(p => p.Name == row["MainProduct"]).ProductId;
+            var subProductId = products.First(p => p.Name == row["SubProduct"]).ProductId;
+            var sales = DatabaseHelper.GetSalesCombinations();
+            var salesCombinationId = sales
+                .First(s => s.MainProductId == mainProductId && s.SubProductId == subProductId)
+                .SalesCombinationId;
+
+            salesCombinationsApi.Post(orderId, salesCombinationId);
+        }
+
+        [Then(@"total price should be (.*)")]
+        public void ThenTotalPriceShouldBe(int totalPrice)
+        {
+            var order = ordersApi.Get(orderId);
+            Assert.Equal(totalPrice, order.TotalPrice);
+        }
+
+
+
         [When(@"I add product to order")]
-        public void WhenIAddProductToOrder()
+        public void WhenIAddProductToOrder2()
         {
             orderLinesApi.AddOrderLine(1, productId: 1, quantity: 1);
         }

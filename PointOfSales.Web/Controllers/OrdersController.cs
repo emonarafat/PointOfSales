@@ -29,7 +29,7 @@ namespace PointOfSales.Web.Controllers
                 return null;
 
             var lines = orderLineRepository.GetByOrder(id);
-            order.TotalPrice = lines.Sum(l => l.Price);
+            order.TotalPrice = lines.Sum(l => l.Price * l.Quantity);
             return order;
         }
         
