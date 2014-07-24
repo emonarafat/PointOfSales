@@ -122,13 +122,13 @@ this.FeatureBackground();
         public virtual void SearchProductsByDescription()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search products by description", ((string[])(null)));
-#line 20
+#line 19
 this.ScenarioSetup(scenarioInfo);
 #line 7
 this.FeatureBackground();
-#line 21
+#line 20
  testRunner.When("I search products by \'smartphone\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 22
+#line 21
  testRunner.Then("I see only these products: \'Apple iPhone 5\', \'Nokia Lumia 1020\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -140,13 +140,13 @@ this.FeatureBackground();
         public virtual void SearchProductsByNameOrDescription()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search products by name or description", ((string[])(null)));
-#line 24
+#line 23
 this.ScenarioSetup(scenarioInfo);
 #line 7
 this.FeatureBackground();
-#line 25
+#line 24
  testRunner.When("I search products by \'iphone\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 26
+#line 25
  testRunner.Then("I see only these products: \'Apple iPhone 5\', \'Belkin Charge\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

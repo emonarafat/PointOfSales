@@ -15,7 +15,6 @@ Background:
 Scenario: Search products by name	
 	When I search products by 'nokia'
 	Then I see only these products: 'Nokia Lumia 1020', 'Nokia 3310'
-	
 
 Scenario: Search products by description	
 	When I search products by 'smartphone'

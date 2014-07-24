@@ -14,6 +14,7 @@ namespace PointOfSales.Specs.Steps
     public class SalesCombinationSteps
     {
         private SalesCombinationsApi salesCombinationsApi;
+        private List<Product> products;
         private List<SalesCombination> sales;
 
         public SalesCombinationSteps(SalesCombinationsApi salesCombinationsApi)
@@ -21,49 +22,50 @@ namespace PointOfSales.Specs.Steps
             this.salesCombinationsApi = salesCombinationsApi;
         }
 
-        [Given(@"I have products and sales combinaions")]
-        public void GivenIHaveProductsAndSalesCombinaions()
+        [Given(@"there are following sales combinations in shop")]
+        public void GivenThereAreFollowingSalesCombinations(Table table)
         {
-            DatabaseHelper.CreateProductsTable();
-            DatabaseHelper.SeedProducts();
+            products = DatabaseHelper.GetProducts().ToList();
+            var productIds = products.ToDictionary(p => p.Name, p => p.ProductId);
+
+            var sales = table.Rows.Select(r => new SalesCombination
+            {
+                MainProductId = productIds[r["MainProduct"]],
+                SubProductId = productIds[r["SubProduct"]]
+            });
+
             DatabaseHelper.CreateSalesCombinationsTable();
-            DatabaseHelper.SeedSalesCombinations();
+            DatabaseHelper.Save(sales);
         }
 
-        [When(@"I am trying to see available sales combinations of product without sales")]
-        public void WhenIAmTryingToSeeAvailableSalesCombinationsOfProductWithoutSales()
+        [When(@"I view available sales combinations of product '(.*)'")]
+        public void WhenIViewAvailableSalesCombinationsOfProduct(string productName)
         {
-            sales = salesCombinationsApi.GetSalesByProduct(2);
+            int productId = products.First(p => p.Name == productName).ProductId;
+            sales = salesCombinationsApi.GetSalesByProduct(productId);
         }
 
-        [Then(@"I do not see any available sales combinations")]
-        public void ThenIDoNotSeeAnyAvailableSalesCombinations()
-        {            
-            Assert.False(sales.Any());
-        }
-
-        [When(@"I am trying to see available sales combinations of product with sub-product sales")]
-        public void WhenIAmTryingToSeeAvailableSalesCombinationsOfProductWithSub_ProductSales()
+        [Then(@"I do not see any sales combinations")]
+        public void ThenIDoNotSeeAnySalesCombinations()
         {
-            sales = salesCombinationsApi.GetSalesByProduct(1);
+            Assert.Equal(0, sales.Count);
         }
 
-        [Then(@"I see sub-products sales combinations")]
-        public void ThenISeeSub_ProductsSalesCombinations()
-        {            
-            Assert.Equal(2, sales.Count);
-        }
-
-        [When(@"I am trying to see available sales combinations of product with main products sales")]
-        public void WhenIAmTryingToSeeAvailableSalesCombinationsOfProductWithMainProductsSales()
+        [Then(@"I see following sales combinations")]
+        public void ThenISeeFolowwingSalesCombinations(Table table)
         {
-            sales = salesCombinationsApi.GetSalesByProduct(3);
-        }
+            var expectedSales = table.Rows.Select(r => new { 
+                MainProduct = r["MainProduct"],
+                SubProduct = r["SubProduct"]
+            }).OrderBy(x => x.MainProduct).ThenBy(x => x.SubProduct);
 
-        [Then(@"I see main products sales combinations")]
-        public void ThenISeeMainProductsSalesCombinations()
-        {           
-            Assert.Equal(1, sales.Count);
+            var productNames = products.ToDictionary(p => p.ProductId, p => p.Name);
+            var actualSales = sales.Select(s => new {
+                MainProduct = productNames[s.MainProductId],
+                SubProduct = productNames[s.SubProductId]
+            }).OrderBy(x => x.MainProduct).ThenBy(x => x.SubProduct);
+
+            Assert.Equal(expectedSales, actualSales);
         }
     }
 }

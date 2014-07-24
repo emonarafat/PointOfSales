@@ -163,6 +163,22 @@ INSERT INTO Customers(FirstName,LastName,MiddleName,EmailAddress,Street,HouseNum
                 conn.Execute(sql, products);
         }
 
+        internal static IEnumerable<Product> GetProducts()
+        {
+            string sql = @"SELECT ProductID,Name,Price,Description,PictureURL,EntryDate FROM Products";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+                return conn.Query<Product>(sql);
+        }
+
+        internal static void Save(IEnumerable<SalesCombination> sales)
+        {
+            string sql = @"INSERT INTO SalesCombinations(MainProductID,SubProductID,Discount) 
+                           VALUES(@MainProductID,@SubProductID,@Discount)";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+                conn.Execute(sql, sales);
+        }
+
         private static void Execute(string sql)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
