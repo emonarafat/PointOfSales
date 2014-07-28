@@ -75,10 +75,10 @@ namespace PointOfSales.Specs
         
         [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "Edit detais of customer")]
-        [Xunit.TraitAttribute("Description", "Edit existing customer")]
-        public virtual void EditExistingCustomer()
+        [Xunit.TraitAttribute("Description", "Edit customer")]
+        public virtual void EditCustomer()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit existing customer", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit customer", ((string[])(null)));
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line hidden
@@ -170,7 +170,7 @@ this.ScenarioSetup(scenarioInfo);
                         "PostalCode",
                         "10023"});
 #line 27
- testRunner.Then("I see updated customer details", ((string)(null)), table3, "Then ");
+ testRunner.Then("I see updated details of this customer", ((string)(null)), table3, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

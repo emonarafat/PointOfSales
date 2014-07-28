@@ -3,7 +3,7 @@
 	As a salesman
 	I want to be able to edit the details of a customer
 
-Scenario: Edit existing customer
+Scenario: Edit customer
 	Given there is following customer in shop
 	| Field        | Value             |
 	| FirstName    | John              |
@@ -24,7 +24,7 @@ Scenario: Edit existing customer
 	| Street       | West 72nd Street  |
 	| HouseNumber  | 1                 |
 	| PostalCode   | 10023             |
-	Then I see updated customer details
+	Then I see updated details of this customer
 	| Field        | Value             |
 	| FirstName    | Jack              |
 	| LastName     | Finney            |

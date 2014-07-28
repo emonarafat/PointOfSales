@@ -82,7 +82,7 @@ namespace PointOfSales.Specs
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 7
- testRunner.Given("I have no customers", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("there are no customers in the shop", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
  testRunner.When("I search for recurring customer \'Doe\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9

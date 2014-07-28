@@ -26,27 +26,41 @@ namespace PointOfSales.Specs.Steps
             this.ordersApi = ordersApi;
         }
 
-
-
-        [Given(@"I don't have any customers")]
-        public void GivenIDonTHaveAnyCustomers()
+        [Given(@"there are no customers in the shop")]
+        public void GivenThereAreNoCustomersInTheShop()
         {
             DatabaseHelper.CreateCustomersTable();
         }
 
-        [When(@"I add customer")]
-        public void WhenIAddCustomer()
+        [Given(@"there is following customer in shop")]
+        public void GivenThereIsFollowingCustomerInShop(Table table)
         {
-            var customer = new Customer { FirstName = "John", LastName = "Doe", EmailAddress = "john.doe@gmail.com" };
+            DatabaseHelper.CreateCustomersTable();
+            var customer = table.CreateInstance<Customer>();
+            customer.EntryDate = DateTime.Today;
+            customerId = DatabaseHelper.Save(customer);
+        }
+
+        [When(@"I add following customer")]
+        public void WhenIAddFollowingCustomer(Table table)
+        {
+            var customer = table.CreateInstance<Customer>();
             customersApi.Post(customer);
         }
 
-        [Then(@"customer should exist in the system")]
-        public void ThenCustomerShouldExistInTheSystem()
+        [Then(@"I see following customers")]
+        public void ThenISeeFollowingCustomers(Table table)
         {
-            var customers = customersApi.Get();
-            Assert.Equal(1, customers.Count);
-            Assert.Equal("john.doe@gmail.com", customers[0].EmailAddress);
+            var customers = customersApi.Get().ToDictionary(c => c.EmailAddress);
+            var expectedCustomers = table.CreateSet<Customer>().ToList();
+            Assert.Equal(expectedCustomers.Count, customers.Count);
+
+            foreach(var expectedCustomer in expectedCustomers)
+            {
+                var actualCustomer = customers[expectedCustomer.EmailAddress];
+                Assert.Equal(expectedCustomer.FirstName, actualCustomer.FirstName);
+                Assert.Equal(expectedCustomer.LastName, actualCustomer.LastName);
+            }
         }
 
         [Given(@"customer without orders")]
@@ -76,7 +90,7 @@ namespace PointOfSales.Specs.Steps
                 ordersApi.Post(new Order { CustomerId = id });
         }
 
-        [Then(@"I see (.*) customer")]
+        [Then(@"I see exactly (.*) customers")]
         public void ThenISeeCustomer(int customersCount)
         {
             Assert.Equal(1, customers.Count);
@@ -100,12 +114,6 @@ namespace PointOfSales.Specs.Steps
             Assert.Equal(ordersCount, orders.Count);
         }
 
-        [Given(@"I have no customers")]
-        public void GivenIHaveNoCustomers()
-        {
-            DatabaseHelper.CreateCustomersTable();
-        }
-
         [Given(@"I have some customers")]
         public void GivenIHaveSomeCustomers()
         {
@@ -126,15 +134,6 @@ namespace PointOfSales.Specs.Steps
             Assert.Equal(4, customers.Count);
         }
 
-        [Given(@"there is following customer in shop")]
-        public void GivenThereIsFollowingCustomerInShop(Table table)
-        {
-            DatabaseHelper.CreateCustomersTable();
-            var customer = table.CreateInstance<Customer>();
-            customer.EntryDate = DateTime.Today;
-            customerId = DatabaseHelper.Save(customer);
-        }
-
         [When(@"I edit details of this customer")]
         public void WhenIEditDetailsOfThisCustomer(Table table)
         {
@@ -143,8 +142,8 @@ namespace PointOfSales.Specs.Steps
             customersApi.Put(customer);
         }
 
-        [Then(@"I see updated customer details")]
-        public void ThenISeeUpdatedCustomerDetails(Table table)
+        [Then(@"I see updated details of this customer")]
+        public void ThenISeeUpdatedDetailsOfThisCustomer(Table table)
         {
             var customer = customersApi.Get(customerId);
             var expectedCustomer = table.CreateInstance<Customer>();

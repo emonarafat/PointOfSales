@@ -18,7 +18,7 @@ namespace PointOfSales.Specs
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class AddingCustomerFeature : Xunit.IUseFixture<AddingCustomerFeature.FixtureData>, System.IDisposable
+    public partial class AddCustomerFeature : Xunit.IUseFixture<AddCustomerFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -26,7 +26,7 @@ namespace PointOfSales.Specs
 #line 1 "AddCustomer.feature"
 #line hidden
         
-        public AddingCustomerFeature()
+        public AddCustomerFeature()
         {
             this.TestInitialize();
         }
@@ -34,7 +34,7 @@ namespace PointOfSales.Specs
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "AddingCustomer", "In order suggest discounts and spam\nAs a salesman\nI want to be able to enter the " +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Add Customer", "In order suggest discounts and spam\nAs a salesman\nI want to be able to enter the " +
                     "details of a customer in the system", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -64,7 +64,7 @@ namespace PointOfSales.Specs
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void SetFixture(AddingCustomerFeature.FixtureData fixtureData)
+        public virtual void SetFixture(AddCustomerFeature.FixtureData fixtureData)
         {
         }
         
@@ -74,19 +74,41 @@ namespace PointOfSales.Specs
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "AddingCustomer")]
-        [Xunit.TraitAttribute("Description", "Adding new customer")]
-        public virtual void AddingNewCustomer()
+        [Xunit.TraitAttribute("FeatureTitle", "Add Customer")]
+        [Xunit.TraitAttribute("Description", "Add customer")]
+        public virtual void AddCustomer()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding new customer", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add customer", ((string[])(null)));
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 7
- testRunner.Given("I don\'t have any customers", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("there are no customers in the shop", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table1.AddRow(new string[] {
+                        "FirstName",
+                        "Jack"});
+            table1.AddRow(new string[] {
+                        "LastName",
+                        "Finney"});
+            table1.AddRow(new string[] {
+                        "EmailAddress",
+                        "jack@mail.com"});
 #line 8
- testRunner.When("I add customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 9
- testRunner.Then("customer should exist in the system", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("I add following customer", ((string)(null)), table1, "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "FirstName",
+                        "LastName",
+                        "EmailAddress"});
+            table2.AddRow(new string[] {
+                        "Jack",
+                        "Finney",
+                        "jack@mail.com"});
+#line 13
+ testRunner.Then("I see following customers", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -98,12 +120,12 @@ this.ScenarioSetup(scenarioInfo);
             
             public FixtureData()
             {
-                AddingCustomerFeature.FeatureSetup();
+                AddCustomerFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                AddingCustomerFeature.FeatureTearDown();
+                AddCustomerFeature.FeatureTearDown();
             }
         }
     }

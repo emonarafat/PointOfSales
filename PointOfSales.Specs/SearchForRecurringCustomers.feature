@@ -4,7 +4,7 @@
 	I want to be able to search for recurring customers
 
 Scenario: No customers in the system
-	Given I have no customers
+	Given there are no customers in the shop
 	When I search for recurring customer 'Doe'
 	Then I do not see any customers
 
