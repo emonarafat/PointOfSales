@@ -66,10 +66,12 @@ namespace PointOfSales.Persistence
                            MiddleName = @middleName,
                            EmailAddress = @emailAddress,
                            City = @city,
-                           Street = @street
+                           Street = @street,
+                           HouseNumber = @houseNumber,
+                           PostalCode = @postalCode
                          WHERE CustomerID = @customerId";
 
-            using (var conn = GetConnection())            
+            using (var conn = GetConnection())
                 return conn.Execute(sql, customer) == 1;
         }
     }

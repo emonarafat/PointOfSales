@@ -34,7 +34,7 @@ namespace PointOfSales.Specs
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Edit Detais Of Customer", "In order to keep data up-to date\nAs a salesman\nI want to be able to edit the deta" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Edit detais of customer", "In order to keep data up-to date\nAs a salesman\nI want to be able to edit the deta" +
                     "ils of a customer", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -74,19 +74,103 @@ namespace PointOfSales.Specs
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "Edit Detais Of Customer")]
+        [Xunit.TraitAttribute("FeatureTitle", "Edit detais of customer")]
         [Xunit.TraitAttribute("Description", "Edit existing customer")]
         public virtual void EditExistingCustomer()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit existing customer", ((string[])(null)));
 #line 6
 this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table1.AddRow(new string[] {
+                        "FirstName",
+                        "John"});
+            table1.AddRow(new string[] {
+                        "LastName",
+                        "Doe"});
+            table1.AddRow(new string[] {
+                        "MiddleName",
+                        ""});
+            table1.AddRow(new string[] {
+                        "EmailAddress",
+                        "john.doe@mail.com"});
+            table1.AddRow(new string[] {
+                        "City",
+                        "Washington"});
+            table1.AddRow(new string[] {
+                        "Street",
+                        "Pennsylvania Ave"});
+            table1.AddRow(new string[] {
+                        "HouseNumber",
+                        "1600"});
+            table1.AddRow(new string[] {
+                        "PostalCode",
+                        "20500"});
 #line 7
- testRunner.Given("I have some customers", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 8
- testRunner.When("I edit details of a customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 9
- testRunner.Then("I should see updated customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Given("there is following customer in shop", ((string)(null)), table1, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table2.AddRow(new string[] {
+                        "FirstName",
+                        "Jack"});
+            table2.AddRow(new string[] {
+                        "LastName",
+                        "Finney"});
+            table2.AddRow(new string[] {
+                        "MiddleName",
+                        ""});
+            table2.AddRow(new string[] {
+                        "EmailAddress",
+                        "john.doe@mail.com"});
+            table2.AddRow(new string[] {
+                        "City",
+                        "New York"});
+            table2.AddRow(new string[] {
+                        "Street",
+                        "West 72nd Street"});
+            table2.AddRow(new string[] {
+                        "HouseNumber",
+                        "1"});
+            table2.AddRow(new string[] {
+                        "PostalCode",
+                        "10023"});
+#line 17
+ testRunner.When("I edit details of this customer", ((string)(null)), table2, "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table3.AddRow(new string[] {
+                        "FirstName",
+                        "Jack"});
+            table3.AddRow(new string[] {
+                        "LastName",
+                        "Finney"});
+            table3.AddRow(new string[] {
+                        "MiddleName",
+                        ""});
+            table3.AddRow(new string[] {
+                        "EmailAddress",
+                        "john.doe@mail.com"});
+            table3.AddRow(new string[] {
+                        "City",
+                        "New York"});
+            table3.AddRow(new string[] {
+                        "Street",
+                        "West 72nd Street"});
+            table3.AddRow(new string[] {
+                        "HouseNumber",
+                        "1"});
+            table3.AddRow(new string[] {
+                        "PostalCode",
+                        "10023"});
+#line 27
+ testRunner.Then("I see updated customer details", ((string)(null)), table3, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

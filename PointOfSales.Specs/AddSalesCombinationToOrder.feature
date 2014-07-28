@@ -1,4 +1,5 @@
-﻿Feature: Add sales combination to order
+﻿@orders
+Feature: Add sales combination to order
 	In order to quickly fill order with products on sale
 	As a salesman
 	I want to be able to add a sales combination to an order
@@ -14,7 +15,7 @@ Background:
 	| Apple iPhone 5 | Belkin Charge        | 5        |
 	| Apple iPhone 5 | Speck SmartFlex Case | 20       |
 
-Scenario: Adding sales combination with new products adds both products and applies discount
+Scenario: Add sales combination to empty order
 	Given I have an empty order	
 	When I add following sales combination to this order
 	| MainProduct          | SubProduct           |
@@ -25,7 +26,7 @@ Scenario: Adding sales combination with new products adds both products and appl
 	| Belkin Charge  | 1        |
 	 And total price should be 545
 
-Scenario: Adding sales combination for already added product increases product quantity and adds second product with discount
+Scenario: Add sales combination to order with one product from combination
 	Given I have an empty order
 	When I add 'Apple iPhone 5' to this order
 	 And I add following sales combination to this order
@@ -37,7 +38,7 @@ Scenario: Adding sales combination for already added product increases product q
 	| Belkin Charge  | 1        |
  	 And total price should be 1045
 
-Scenario: Adding two products from sales combination automatically applies discount
+Scenario: Add two products from sales combination
 	Given I have an empty order
 	When I add 'Apple iPhone 5' to this order
 	And I add 'Belkin Charge' to this order
@@ -47,7 +48,7 @@ Scenario: Adding two products from sales combination automatically applies disco
 	| Belkin Charge  | 1        |
 	 And total price should be 545
 
-Scenario: Adding sales combination for already added products increases both quantities and applies discount
+Scenario: Add sales combination to order with both products from combination
 	Given I have an empty order
 	When I add 'Apple iPhone 5' to this order
 	And I add 'Belkin Charge' to this order

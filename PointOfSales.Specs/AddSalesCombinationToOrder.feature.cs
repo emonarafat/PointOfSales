@@ -35,7 +35,8 @@ namespace PointOfSales.Specs
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Add sales combination to order", "In order to quickly fill order with products on sale\nAs a salesman\nI want to be a" +
-                    "ble to add a sales combination to an order", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    "ble to add a sales combination to an order", ProgrammingLanguage.CSharp, new string[] {
+                        "orders"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -66,7 +67,7 @@ namespace PointOfSales.Specs
         
         public virtual void FeatureBackground()
         {
-#line 6
+#line 7
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "Name",
@@ -80,7 +81,7 @@ namespace PointOfSales.Specs
             table1.AddRow(new string[] {
                         "Speck SmartFlex Case",
                         "100"});
-#line 7
+#line 8
  testRunner.Given("there are following products in shop", ((string)(null)), table1, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -95,7 +96,7 @@ namespace PointOfSales.Specs
                         "Apple iPhone 5",
                         "Speck SmartFlex Case",
                         "20"});
-#line 12
+#line 13
  testRunner.And("there are following sales combinations in shop", ((string)(null)), table2, "And ");
 #line hidden
         }
@@ -111,17 +112,15 @@ namespace PointOfSales.Specs
         
         [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "Add sales combination to order")]
-        [Xunit.TraitAttribute("Description", "Adding sales combination with new products adds both products and applies discoun" +
-            "t")]
-        public virtual void AddingSalesCombinationWithNewProductsAddsBothProductsAndAppliesDiscount()
+        [Xunit.TraitAttribute("Description", "Add sales combination to empty order")]
+        public virtual void AddSalesCombinationToEmptyOrder()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding sales combination with new products adds both products and applies discoun" +
-                    "t", ((string[])(null)));
-#line 17
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add sales combination to empty order", ((string[])(null)));
 #line 18
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
+#line 19
  testRunner.Given("I have an empty order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -130,7 +129,7 @@ this.FeatureBackground();
             table3.AddRow(new string[] {
                         "Apple iPhone 5",
                         "Belkin Charge"});
-#line 19
+#line 20
  testRunner.When("I add following sales combination to this order", ((string)(null)), table3, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
@@ -142,9 +141,9 @@ this.FeatureBackground();
             table4.AddRow(new string[] {
                         "Belkin Charge",
                         "1"});
-#line 22
+#line 23
  testRunner.Then("order should have following lines", ((string)(null)), table4, "Then ");
-#line 26
+#line 27
   testRunner.And("total price should be 545", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -152,19 +151,17 @@ this.FeatureBackground();
         
         [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "Add sales combination to order")]
-        [Xunit.TraitAttribute("Description", "Adding sales combination for already added product increases product quantity and" +
-            " adds second product with discount")]
-        public virtual void AddingSalesCombinationForAlreadyAddedProductIncreasesProductQuantityAndAddsSecondProductWithDiscount()
+        [Xunit.TraitAttribute("Description", "Add sales combination to order with one product from combination")]
+        public virtual void AddSalesCombinationToOrderWithOneProductFromCombination()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding sales combination for already added product increases product quantity and" +
-                    " adds second product with discount", ((string[])(null)));
-#line 28
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add sales combination to order with one product from combination", ((string[])(null)));
 #line 29
- testRunner.Given("I have an empty order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
 #line 30
+ testRunner.Given("I have an empty order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 31
  testRunner.When("I add \'Apple iPhone 5\' to this order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
@@ -173,7 +170,7 @@ this.FeatureBackground();
             table5.AddRow(new string[] {
                         "Apple iPhone 5",
                         "Belkin Charge"});
-#line 31
+#line 32
   testRunner.And("I add following sales combination to this order", ((string)(null)), table5, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
@@ -185,9 +182,9 @@ this.FeatureBackground();
             table6.AddRow(new string[] {
                         "Belkin Charge",
                         "1"});
-#line 34
+#line 35
  testRunner.Then("order should have following lines", ((string)(null)), table6, "Then ");
-#line 38
+#line 39
    testRunner.And("total price should be 1045", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -195,19 +192,19 @@ this.FeatureBackground();
         
         [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "Add sales combination to order")]
-        [Xunit.TraitAttribute("Description", "Adding two products from sales combination automatically applies discount")]
-        public virtual void AddingTwoProductsFromSalesCombinationAutomaticallyAppliesDiscount()
+        [Xunit.TraitAttribute("Description", "Add two products from sales combination")]
+        public virtual void AddTwoProductsFromSalesCombination()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding two products from sales combination automatically applies discount", ((string[])(null)));
-#line 40
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add two products from sales combination", ((string[])(null)));
 #line 41
- testRunner.Given("I have an empty order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
 #line 42
- testRunner.When("I add \'Apple iPhone 5\' to this order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I have an empty order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 43
+ testRunner.When("I add \'Apple iPhone 5\' to this order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 44
  testRunner.And("I add \'Belkin Charge\' to this order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
@@ -219,9 +216,9 @@ this.FeatureBackground();
             table7.AddRow(new string[] {
                         "Belkin Charge",
                         "1"});
-#line 44
+#line 45
  testRunner.Then("order should have following lines", ((string)(null)), table7, "Then ");
-#line 48
+#line 49
   testRunner.And("total price should be 545", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -229,21 +226,19 @@ this.FeatureBackground();
         
         [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "Add sales combination to order")]
-        [Xunit.TraitAttribute("Description", "Adding sales combination for already added products increases both quantities and" +
-            " applies discount")]
-        public virtual void AddingSalesCombinationForAlreadyAddedProductsIncreasesBothQuantitiesAndAppliesDiscount()
+        [Xunit.TraitAttribute("Description", "Add sales combination to order with both products from combination")]
+        public virtual void AddSalesCombinationToOrderWithBothProductsFromCombination()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding sales combination for already added products increases both quantities and" +
-                    " applies discount", ((string[])(null)));
-#line 50
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add sales combination to order with both products from combination", ((string[])(null)));
 #line 51
- testRunner.Given("I have an empty order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
 #line 52
- testRunner.When("I add \'Apple iPhone 5\' to this order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I have an empty order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 53
+ testRunner.When("I add \'Apple iPhone 5\' to this order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 54
  testRunner.And("I add \'Belkin Charge\' to this order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
@@ -252,7 +247,7 @@ this.FeatureBackground();
             table8.AddRow(new string[] {
                         "Apple iPhone 5",
                         "Belkin Charge"});
-#line 54
+#line 55
  testRunner.And("I add following sales combination to this order", ((string)(null)), table8, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
@@ -264,9 +259,9 @@ this.FeatureBackground();
             table9.AddRow(new string[] {
                         "Belkin Charge",
                         "2"});
-#line 57
+#line 58
  testRunner.Then("order should have following lines", ((string)(null)), table9, "Then ");
-#line 61
+#line 62
   testRunner.And("total price should be 1090", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

@@ -186,6 +186,16 @@ INSERT INTO Customers(FirstName,LastName,MiddleName,EmailAddress,Street,HouseNum
                 return conn.Query<SalesCombination>(sql);
         }
 
+        internal static int Save(Customer customer)
+        {
+            string sql = @"INSERT INTO Customers(FirstName,LastName,MiddleName,EmailAddress,Street,HouseNumber,PostalCode,City,EntryDate) 
+                           VALUES(@FirstName,@LastName,@MiddleName,@EmailAddress,@Street,@HouseNumber,@PostalCode,@City,@EntryDate);
+                           SELECT CAST(SCOPE_IDENTITY() AS INT)";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+                return conn.Query<int>(sql, customer).Single();
+        }
+
         private static void Execute(string sql)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))

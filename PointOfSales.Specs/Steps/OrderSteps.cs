@@ -37,7 +37,7 @@ namespace PointOfSales.Specs.Steps
         [When(@"I add '(.*)' to this order")]
         public void WhenIAddProductToOrder(string productName)
         {
-            int productId = products.First(p => p.Name == productName).ProductId;
+            int productId = GetProductId(productName);
             orderLinesApi.AddOrderLine(orderId, productId, quantity: 1);
         }
 
@@ -62,8 +62,8 @@ namespace PointOfSales.Specs.Steps
         public void WhenIAddFollowingSalesCombinationToThisOrder(Table table)
         {
             var row = table.Rows[0];
-            var mainProductId = products.First(p => p.Name == row["MainProduct"]).ProductId;
-            var subProductId = products.First(p => p.Name == row["SubProduct"]).ProductId;
+            var mainProductId = GetProductId(row["MainProduct"]);
+            var subProductId = GetProductId(row["SubProduct"]);
             var sales = DatabaseHelper.GetSalesCombinations();
             var salesCombinationId = sales
                 .First(s => s.MainProductId == mainProductId && s.SubProductId == subProductId)
@@ -78,8 +78,6 @@ namespace PointOfSales.Specs.Steps
             var order = ordersApi.Get(orderId);
             Assert.Equal(totalPrice, order.TotalPrice);
         }
-
-
 
         [When(@"I add product to order")]
         public void WhenIAddProductToOrder2()
@@ -140,6 +138,11 @@ namespace PointOfSales.Specs.Steps
             var lines = orderLinesApi.GetOrderLines(1);
             Assert.Equal(quantity, lines[0].Quantity);
             Assert.Equal(quantity, lines[1].Quantity);
+        }
+
+        private int GetProductId(string productName)
+        {
+            return products.First(p => p.Name == productName).ProductId;
         }
     }
 }

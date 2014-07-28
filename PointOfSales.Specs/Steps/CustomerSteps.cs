@@ -1,10 +1,12 @@
-﻿using PointOfSales.Domain.Model;
+﻿using FizzWare.NBuilder;
+using PointOfSales.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 using Xunit;
 
 namespace PointOfSales.Specs.Steps
@@ -16,12 +18,15 @@ namespace PointOfSales.Specs.Steps
         private OrdersApi ordersApi;
         private List<Customer> customers;
         private List<Order> orders;
+        private int customerId;
 
         public CustomerSteps(CustomersApi customersApi, OrdersApi ordersApi)
         {
             this.customersApi = customersApi;
             this.ordersApi = ordersApi;
         }
+
+
 
         [Given(@"I don't have any customers")]
         public void GivenIDonTHaveAnyCustomers()
@@ -121,27 +126,37 @@ namespace PointOfSales.Specs.Steps
             Assert.Equal(4, customers.Count);
         }
 
-        [When(@"I edit details of a customer")]
-        public void WhenIEditDetailsOfACustomer()
+        [Given(@"there is following customer in shop")]
+        public void GivenThereIsFollowingCustomerInShop(Table table)
         {
-            var customer = customersApi.Get(1);
-            customer.FirstName = "Jack";
-            customer.LastName = "Daniels";
-            customer.MiddleName = null;
-            customer.EmailAddress = "jack.daniels@gmail.com";
-            customer.City = "Chicago";
+            DatabaseHelper.CreateCustomersTable();
+            var customer = table.CreateInstance<Customer>();
+            customer.EntryDate = DateTime.Today;
+            customerId = DatabaseHelper.Save(customer);
+        }
+
+        [When(@"I edit details of this customer")]
+        public void WhenIEditDetailsOfThisCustomer(Table table)
+        {
+            var customer = customersApi.Get(customerId);
+            table.FillInstance(customer);
             customersApi.Put(customer);
         }
 
-        [Then(@"I should see updated customer")]
-        public void ThenIShouldSeeUpdatedCustomer()
+        [Then(@"I see updated customer details")]
+        public void ThenISeeUpdatedCustomerDetails(Table table)
         {
-            var customer = customersApi.Get(1);
-            Assert.Equal("Jack", customer.FirstName);
-            Assert.Equal("Daniels", customer.LastName);
-            Assert.Null(customer.MiddleName);
-            Assert.Equal("jack.daniels@gmail.com", customer.EmailAddress);
-            Assert.Equal("Chicago", customer.City);
+            var customer = customersApi.Get(customerId);
+            var expectedCustomer = table.CreateInstance<Customer>();
+
+            Assert.Equal(expectedCustomer.FirstName, customer.FirstName);
+            Assert.Equal(expectedCustomer.LastName, customer.LastName);
+            Assert.Equal(expectedCustomer.MiddleName, customer.MiddleName);
+            Assert.Equal(expectedCustomer.EmailAddress, customer.EmailAddress);
+            Assert.Equal(expectedCustomer.City, customer.City);
+            Assert.Equal(expectedCustomer.Street, customer.Street);
+            Assert.Equal(expectedCustomer.HouseNumber, customer.HouseNumber);
+            Assert.Equal(expectedCustomer.PostalCode, customer.PostalCode);
         }
     }
 }
