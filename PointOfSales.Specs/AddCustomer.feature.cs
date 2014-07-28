@@ -34,7 +34,7 @@ namespace PointOfSales.Specs
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Add Customer", "In order suggest discounts and spam\nAs a salesman\nI want to be able to enter the " +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Add customer", "In order suggest discounts and spam\nAs a salesman\nI want to be able to enter the " +
                     "details of a customer in the system", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -74,7 +74,7 @@ namespace PointOfSales.Specs
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "Add Customer")]
+        [Xunit.TraitAttribute("FeatureTitle", "Add customer")]
         [Xunit.TraitAttribute("Description", "Add customer")]
         public virtual void AddCustomer()
         {

@@ -41,6 +41,16 @@ namespace PointOfSales.Specs.Steps
             customerId = DatabaseHelper.Save(customer);
         }
 
+        [Given(@"there are following customers in the shop")]
+        public void GivenThereAreFollowingCustomersInTheShop(Table table)
+        {
+            DatabaseHelper.CreateCustomersTable();
+            var customers = table.CreateSet(BuildCustomer);
+
+            foreach (var customer in customers)
+                DatabaseHelper.Save(customer);
+        }
+
         [When(@"I add following customer")]
         public void WhenIAddFollowingCustomer(Table table)
         {
@@ -48,34 +58,75 @@ namespace PointOfSales.Specs.Steps
             customersApi.Post(customer);
         }
 
+        [When(@"I search for recurring customer '(.*)'")]
+        public void WhenISearchForRecurringCustomer(string name)
+        {
+            customers = customersApi.Get(name);
+        }
+
+        [When(@"I edit details of this customer")]
+        public void WhenIEditDetailsOfThisCustomer(Table table)
+        {
+            var customer = customersApi.Get(customerId);
+            table.FillInstance(customer);
+            customersApi.Put(customer);
+        }
+
+        [Then(@"I see only these customers")]
+        public void ThenISeeOnlyTheseCustomers(Table table)
+        {
+            AssertCustomersAreEqual(table.CreateSet<Customer>(), customers);
+        }
+
+
         [Then(@"I see following customers")]
         public void ThenISeeFollowingCustomers(Table table)
         {
-            var customers = customersApi.Get().ToDictionary(c => c.EmailAddress);
-            var expectedCustomers = table.CreateSet<Customer>().ToList();
-            Assert.Equal(expectedCustomers.Count, customers.Count);
+            AssertCustomersAreEqual(table.CreateSet<Customer>(), customersApi.Get());
+        }
 
-            foreach(var expectedCustomer in expectedCustomers)
+        private void AssertCustomersAreEqual(
+            IEnumerable<Customer> expectedCustomers, IEnumerable<Customer> actualCustomers)
+        {
+            Assert.Equal(expectedCustomers.Count(), actualCustomers.Count());
+
+            foreach (var expectedCustomer in expectedCustomers)
             {
-                var actualCustomer = customers[expectedCustomer.EmailAddress];
+                var actualCustomer = actualCustomers.First(c => c.EmailAddress == expectedCustomer.EmailAddress);
                 Assert.Equal(expectedCustomer.FirstName, actualCustomer.FirstName);
                 Assert.Equal(expectedCustomer.LastName, actualCustomer.LastName);
             }
-        }
-
-        [Given(@"customer without orders")]
-        public void GivenCustomerWithoutOrders()
-        {            
-            DatabaseHelper.CreateOrdersTable();
-            DatabaseHelper.CreateCustomersTable();
-            var customer = new Customer { FirstName = "John", LastName = "Doe", EmailAddress = "john.doe@gmail.com" };
-            customersApi.Post(customer);
         }
 
         [Then(@"I do not see any customers")]
         public void ThenIDoNotSeeAnyCustomers()
         {
             Assert.Equal(0, customers.Count);
+        }
+
+        [Then(@"I see updated details of this customer")]
+        public void ThenISeeUpdatedDetailsOfThisCustomer(Table table)
+        {
+            var customer = customersApi.Get(customerId);
+            var expectedCustomer = table.CreateInstance<Customer>();
+
+            Assert.Equal(expectedCustomer.FirstName, customer.FirstName);
+            Assert.Equal(expectedCustomer.LastName, customer.LastName);
+            Assert.Equal(expectedCustomer.MiddleName, customer.MiddleName);
+            Assert.Equal(expectedCustomer.EmailAddress, customer.EmailAddress);
+            Assert.Equal(expectedCustomer.City, customer.City);
+            Assert.Equal(expectedCustomer.Street, customer.Street);
+            Assert.Equal(expectedCustomer.HouseNumber, customer.HouseNumber);
+            Assert.Equal(expectedCustomer.PostalCode, customer.PostalCode);
+        }
+
+        [Given(@"customer without orders")]
+        public void GivenCustomerWithoutOrders()
+        {
+            DatabaseHelper.CreateOrdersTable();
+            DatabaseHelper.CreateCustomersTable();
+            var customer = new Customer { FirstName = "John", LastName = "Doe", EmailAddress = "john.doe@gmail.com" };
+            customersApi.Post(customer);
         }
 
         [Given(@"cusomer with (.*) orders")]
@@ -88,12 +139,6 @@ namespace PointOfSales.Specs.Steps
 
             for (int i = 0; i < ordersCount; i++)
                 ordersApi.Post(new Order { CustomerId = id });
-        }
-
-        [Then(@"I see exactly (.*) customers")]
-        public void ThenISeeCustomer(int customersCount)
-        {
-            Assert.Equal(1, customers.Count);
         }
 
         [When(@"I view purchase history")]
@@ -114,48 +159,12 @@ namespace PointOfSales.Specs.Steps
             Assert.Equal(ordersCount, orders.Count);
         }
 
-        [Given(@"I have some customers")]
-        public void GivenIHaveSomeCustomers()
+        private Customer BuildCustomer()
         {
-            DatabaseHelper.CreateCustomersTable();
-            DatabaseHelper.SeedCustomers();
-        }
-
-        [When(@"I search for recurring customer '(.*)'")]
-        public void WhenISearchForRecurringCustomer(string name)
-        {
-            customers = customersApi.Get(name);
-        }
-
-        [Then(@"I see all customers with names containing search string")]
-        public void ThenISeeAllCustomersWithNamesContainingSearchString()
-        {
-            // TODO: Table input?
-            Assert.Equal(4, customers.Count);
-        }
-
-        [When(@"I edit details of this customer")]
-        public void WhenIEditDetailsOfThisCustomer(Table table)
-        {
-            var customer = customersApi.Get(customerId);
-            table.FillInstance(customer);
-            customersApi.Put(customer);
-        }
-
-        [Then(@"I see updated details of this customer")]
-        public void ThenISeeUpdatedDetailsOfThisCustomer(Table table)
-        {
-            var customer = customersApi.Get(customerId);
-            var expectedCustomer = table.CreateInstance<Customer>();
-
-            Assert.Equal(expectedCustomer.FirstName, customer.FirstName);
-            Assert.Equal(expectedCustomer.LastName, customer.LastName);
-            Assert.Equal(expectedCustomer.MiddleName, customer.MiddleName);
-            Assert.Equal(expectedCustomer.EmailAddress, customer.EmailAddress);
-            Assert.Equal(expectedCustomer.City, customer.City);
-            Assert.Equal(expectedCustomer.Street, customer.Street);
-            Assert.Equal(expectedCustomer.HouseNumber, customer.HouseNumber);
-            Assert.Equal(expectedCustomer.PostalCode, customer.PostalCode);
+            return Builder<Customer>.CreateNew()
+                .With(c => c.PostalCode = "123456")
+                .With(c => c.HouseNumber = "1")
+                .Build();
         }
     }
 }

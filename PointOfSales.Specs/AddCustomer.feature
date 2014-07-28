@@ -1,4 +1,4 @@
-﻿Feature: Add Customer
+﻿Feature: Add customer
 	In order suggest discounts and spam
 	As a salesman
 	I want to be able to enter the details of a customer in the system

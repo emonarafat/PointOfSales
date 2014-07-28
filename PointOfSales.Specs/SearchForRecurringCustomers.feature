@@ -1,20 +1,28 @@
-﻿Feature: Search For Recurring Customers
+﻿Feature: Search for recurring customers
 	In order to avoid entering customer details twice
 	As a salesman
-	I want to be able to search for recurring customers
+	I want to be able to search for recurring customers by string
 
-Scenario: No customers in the system
-	Given there are no customers in the shop
+Background:
+	Given there are following customers in the shop
+	| FirstName | LastName | EmailAddress      |
+	| John      | Doe      | john.doe@mail.com |
+	| Jack      | Finney   | jack@mail.com     |
+	| Bill      | Doe      | bill@mail.com     |
+
+Scenario: Customer is not added yet
+	When I search for recurring customer 'Mike'
+	Then I do not see any customers
+
+Scenario: Single customer found
+	When I search for recurring customer 'Jack'
+	Then I see only these customers
+	| FirstName | LastName | EmailAddress  |
+	| Jack      | Finney   | jack@mail.com |
+
+Scenario: Several customers found
 	When I search for recurring customer 'Doe'
-	Then I do not see any customers
-
-Scenario: No recurring customers matching search
-	Given I have some customers
-	When I search for recurring customer 'Jim'
-	Then I do not see any customers
-
-Scenario: Recurring customers exist
-	Given I have some customers
-	When I search for recurring customer 'John'
-	Then I see all customers with names containing search string
-	
+	Then I see only these customers
+	| FirstName | LastName | EmailAddress  |
+	| John      | Doe      | john.doe@mail.com |
+	| Bill      | Doe      | bill@mail.com     |
