@@ -15,7 +15,7 @@ namespace PointOfSales.Web.Controllers
         private ICustomerRepository customerRepository;
 
         public CustomersController(ICustomerRepository customerRepository)
-        {            
+        {
             this.customerRepository = customerRepository;
         }
 
@@ -33,7 +33,7 @@ namespace PointOfSales.Web.Controllers
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             return customer;
-        }        
+        }
         
         [Route("")]
         public int Post(Customer customer)

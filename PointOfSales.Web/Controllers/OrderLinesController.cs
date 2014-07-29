@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Web.Http;
 
 namespace PointOfSales.Web.Controllers
-{    
+{
     public class OrderLinesController : ApiController
     {
         private IOrderLineRepository orderLineRepository;
@@ -16,7 +16,7 @@ namespace PointOfSales.Web.Controllers
         private ISalesCombinationRepository salesCombinationRepository;
 
         public OrderLinesController(IOrderLineRepository orderLineRepository, IProductRepository productRepository, ISalesCombinationRepository salesCombinationRepository)
-        {            
+        {
             this.orderLineRepository = orderLineRepository;
             this.productRepository = productRepository;
             this.salesCombinationRepository = salesCombinationRepository;
@@ -30,7 +30,7 @@ namespace PointOfSales.Web.Controllers
 
         [Route("api/orders/{orderId:int}/lines")]
         public void Post([FromUri]OrderLine line)
-        {            
+        {
             var product = productRepository.GetById(line.ProductId);
             line.Price = product.Price;
 
