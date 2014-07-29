@@ -35,7 +35,8 @@ namespace PointOfSales.Specs
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Add customer", "In order suggest discounts and spam\nAs a salesman\nI want to be able to enter the " +
-                    "details of a customer in the system", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    "details of a customer in the system", ProgrammingLanguage.CSharp, new string[] {
+                        "customers"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -79,9 +80,9 @@ namespace PointOfSales.Specs
         public virtual void AddCustomer()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add customer", ((string[])(null)));
-#line 6
-this.ScenarioSetup(scenarioInfo);
 #line 7
+this.ScenarioSetup(scenarioInfo);
+#line 8
  testRunner.Given("there are no customers in the shop", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -96,7 +97,7 @@ this.ScenarioSetup(scenarioInfo);
             table1.AddRow(new string[] {
                         "EmailAddress",
                         "jack@mail.com"});
-#line 8
+#line 9
  testRunner.When("I add following customer", ((string)(null)), table1, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -107,7 +108,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Jack",
                         "Finney",
                         "jack@mail.com"});
-#line 13
+#line 14
  testRunner.Then("I see following customers", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();

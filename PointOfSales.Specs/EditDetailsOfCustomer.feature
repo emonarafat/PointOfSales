@@ -1,4 +1,5 @@
-﻿Feature: Edit detais of customer
+﻿@customers
+Feature: Edit detais of customer
 	In order to keep data up-to date
 	As a salesman
 	I want to be able to edit the details of a customer

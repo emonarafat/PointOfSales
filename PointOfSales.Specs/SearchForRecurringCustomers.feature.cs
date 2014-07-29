@@ -35,7 +35,8 @@ namespace PointOfSales.Specs
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Search for recurring customers", "In order to avoid entering customer details twice\nAs a salesman\nI want to be able" +
-                    " to search for recurring customers by string", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    " to search for recurring customers by string", ProgrammingLanguage.CSharp, new string[] {
+                        "customers"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -66,7 +67,7 @@ namespace PointOfSales.Specs
         
         public virtual void FeatureBackground()
         {
-#line 6
+#line 7
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "FirstName",
@@ -84,7 +85,7 @@ namespace PointOfSales.Specs
                         "Bill",
                         "Doe",
                         "bill@mail.com"});
-#line 7
+#line 8
  testRunner.Given("there are following customers in the shop", ((string)(null)), table1, "Given ");
 #line hidden
         }
@@ -104,13 +105,13 @@ namespace PointOfSales.Specs
         public virtual void CustomerIsNotAddedYet()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Customer is not added yet", ((string[])(null)));
-#line 13
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
 #line 14
- testRunner.When("I search for recurring customer \'Mike\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
 #line 15
+ testRunner.When("I search for recurring customer \'Mike\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 16
  testRunner.Then("I do not see any customers", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -122,11 +123,11 @@ this.FeatureBackground();
         public virtual void SingleCustomerFound()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Single customer found", ((string[])(null)));
-#line 17
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
 #line 18
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
+#line 19
  testRunner.When("I search for recurring customer \'Jack\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -137,7 +138,7 @@ this.FeatureBackground();
                         "Jack",
                         "Finney",
                         "jack@mail.com"});
-#line 19
+#line 20
  testRunner.Then("I see only these customers", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -149,11 +150,11 @@ this.FeatureBackground();
         public virtual void SeveralCustomersFound()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Several customers found", ((string[])(null)));
-#line 23
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
 #line 24
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
+#line 25
  testRunner.When("I search for recurring customer \'Doe\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -168,7 +169,7 @@ this.FeatureBackground();
                         "Bill",
                         "Doe",
                         "bill@mail.com"});
-#line 25
+#line 26
  testRunner.Then("I see only these customers", ((string)(null)), table3, "Then ");
 #line hidden
             this.ScenarioCleanup();

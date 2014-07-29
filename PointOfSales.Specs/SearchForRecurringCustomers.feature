@@ -1,4 +1,5 @@
-﻿Feature: Search for recurring customers
+﻿@customers
+Feature: Search for recurring customers
 	In order to avoid entering customer details twice
 	As a salesman
 	I want to be able to search for recurring customers by string

@@ -35,7 +35,8 @@ namespace PointOfSales.Specs
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Edit detais of customer", "In order to keep data up-to date\nAs a salesman\nI want to be able to edit the deta" +
-                    "ils of a customer", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    "ils of a customer", ProgrammingLanguage.CSharp, new string[] {
+                        "customers"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -79,7 +80,7 @@ namespace PointOfSales.Specs
         public virtual void EditCustomer()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit customer", ((string[])(null)));
-#line 6
+#line 7
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -109,7 +110,7 @@ this.ScenarioSetup(scenarioInfo);
             table1.AddRow(new string[] {
                         "PostalCode",
                         "20500"});
-#line 7
+#line 8
  testRunner.Given("there is following customer in shop", ((string)(null)), table1, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -139,7 +140,7 @@ this.ScenarioSetup(scenarioInfo);
             table2.AddRow(new string[] {
                         "PostalCode",
                         "10023"});
-#line 17
+#line 18
  testRunner.When("I edit details of this customer", ((string)(null)), table2, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -169,7 +170,7 @@ this.ScenarioSetup(scenarioInfo);
             table3.AddRow(new string[] {
                         "PostalCode",
                         "10023"});
-#line 27
+#line 28
  testRunner.Then("I see updated details of this customer", ((string)(null)), table3, "Then ");
 #line hidden
             this.ScenarioCleanup();

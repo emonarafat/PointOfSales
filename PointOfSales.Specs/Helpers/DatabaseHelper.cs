@@ -139,7 +139,8 @@ END;";
             Execute(sql);
         }
 
-        internal static void CreateCustomersTable()
+        [BeforeScenario("customers")]
+        public void CreateCustomersTable()
         {
             string sql = @"
 IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('Customers'))
@@ -160,6 +161,17 @@ CREATE TABLE Customers (
     EntryDate DATETIME NOT NULL
 );
 ";
+            Execute(sql);
+        }
+
+        [AfterScenario("customers")]
+        public void DropCustomersTable()
+        {
+            string sql = @"
+IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('Customers'))
+BEGIN;
+    DROP TABLE Customers;
+END;";
             Execute(sql);
         }
 

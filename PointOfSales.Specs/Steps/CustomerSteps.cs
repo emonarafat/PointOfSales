@@ -30,13 +30,12 @@ namespace PointOfSales.Specs.Steps
         [Given(@"there are no customers in the shop")]
         public void GivenThereAreNoCustomersInTheShop()
         {
-            DatabaseHelper.CreateCustomersTable();
+            // Do not add any customers to datastore
         }
 
         [Given(@"there is following customer in shop")]
         public void GivenThereIsFollowingCustomerInShop(Table table)
         {
-            DatabaseHelper.CreateCustomersTable();
             var customer = table.CreateInstance<Customer>();
             customer.EntryDate = DateTime.Today;
             customerId = DatabaseHelper.Save(customer);
@@ -45,7 +44,6 @@ namespace PointOfSales.Specs.Steps
         [Given(@"there are following customers in the shop")]
         public void GivenThereAreFollowingCustomersInTheShop(Table table)
         {
-            DatabaseHelper.CreateCustomersTable();
             var customers = table.CreateSet(BuildCustomer);
 
             foreach (var customer in customers)
