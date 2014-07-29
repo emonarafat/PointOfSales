@@ -40,12 +40,7 @@ CREATE TABLE Products (
         [AfterScenario("products", "orders", "sales")]
         public void DropProductsTable()
         {
-            string sql = @"
-IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('Products'))
-BEGIN;
-    DROP TABLE Products;
-END;";
-            Execute(sql);
+            DropTable("Products");
         }
 
         [BeforeScenario("sales", "orders")]
@@ -71,12 +66,7 @@ CREATE TABLE SalesCombinations (
         [AfterScenario("sales", "orders")]
         public void DropSalesCombinationsTable()
         {
-            string sql = @"
-IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('SalesCombinations'))
-BEGIN;
-    DROP TABLE SalesCombinations;
-END;";
-            Execute(sql);
+            DropTable("SalesCombinations");
         }
 
         [BeforeScenario("orders")]
@@ -100,12 +90,7 @@ CREATE TABLE Orders (
         [AfterScenario("orders")]
         public void DropOrdersTable()
         {
-            string sql = @"
-IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('Orders'))
-BEGIN;
-    DROP TABLE Orders;
-END;";
-            Execute(sql);
+            DropTable("Orders");
         }
 
         [BeforeScenario("orders")]
@@ -131,12 +116,7 @@ CREATE TABLE OrderLines (
         [AfterScenario("orders")]
         public void DropOrderLinesTable()
         {
-            string sql = @"
-IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('Customers'))
-BEGIN;
-    DROP TABLE Customers;
-END;";
-            Execute(sql);
+            DropTable("OrderLines");
         }
 
         [BeforeScenario("customers")]
@@ -167,12 +147,17 @@ CREATE TABLE Customers (
         [AfterScenario("customers")]
         public void DropCustomersTable()
         {
-            string sql = @"
-IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('Customers'))
+            DropTable("Customers");
+        }
+
+        private void DropTable(string tableName)
+        {
+            string sqlFormat = @"
+IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('{0}'))
 BEGIN;
-    DROP TABLE Customers;
+    DROP TABLE {0};
 END;";
-            Execute(sql);
+            Execute(String.Format(sqlFormat, tableName));
         }
 
         internal static void Save(IEnumerable<Product> products)
