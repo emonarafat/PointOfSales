@@ -10,13 +10,11 @@ using TechTalk.SpecFlow;
 
 namespace PointOfSales.Specs
 {
-    [Binding]
     public class DatabaseHelper
     {
         private static readonly string connectionString = "server=(localdb)\\v11.0;database=PoS;Integrated Security=SSPI";
 
-        [BeforeScenario("products", "orders", "sales")]
-        public void CreateProductsTable()
+        internal static void CreateProductsTable()
         {
             string sql = @"
 IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('Products'))
@@ -37,14 +35,7 @@ CREATE TABLE Products (
             Execute(sql);
         }
 
-        [AfterScenario("products", "orders", "sales")]
-        public void DropProductsTable()
-        {
-            DropTable("Products");
-        }
-
-        [BeforeScenario("sales", "orders")]
-        public void CreateSalesCombinationsTable()
+        internal static void CreateSalesCombinationsTable()
         {
             string sql = @"
 IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('SalesCombinations'))
@@ -63,14 +54,7 @@ CREATE TABLE SalesCombinations (
             Execute(sql);
         }
 
-        [AfterScenario("sales", "orders")]
-        public void DropSalesCombinationsTable()
-        {
-            DropTable("SalesCombinations");
-        }
-
-        [BeforeScenario("orders")]
-        public void CreateOrdersTable()
+        internal static void CreateOrdersTable()
         {
             string sql = @"
 IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('Orders'))
@@ -87,14 +71,7 @@ CREATE TABLE Orders (
             Execute(sql);
         }
 
-        [AfterScenario("orders")]
-        public void DropOrdersTable()
-        {
-            DropTable("Orders");
-        }
-
-        [BeforeScenario("orders")]
-        public void CreateOrderLinesTable()
+        internal static void CreateOrderLinesTable()
         {
             string sql = @"
 IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('OrderLines'))
@@ -113,14 +90,7 @@ CREATE TABLE OrderLines (
             Execute(sql);
         }
 
-        [AfterScenario("orders")]
-        public void DropOrderLinesTable()
-        {
-            DropTable("OrderLines");
-        }
-
-        [BeforeScenario("customers")]
-        public void CreateCustomersTable()
+        internal static void CreateCustomersTable()
         {
             string sql = @"
 IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('Customers'))
@@ -144,13 +114,7 @@ CREATE TABLE Customers (
             Execute(sql);
         }
 
-        [AfterScenario("customers")]
-        public void DropCustomersTable()
-        {
-            DropTable("Customers");
-        }
-
-        private void DropTable(string tableName)
+        internal static void DropTable(string tableName)
         {
             string sqlFormat = @"
 IF EXISTS(SELECT 1 FROM sys.tables WHERE object_id = OBJECT_ID('{0}'))
