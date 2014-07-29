@@ -32,14 +32,13 @@ namespace PointOfSales.Specs.Steps
         [Given(@"there are no products in shop")]
         public void GivenIHaveNoProducts()
         {
-            DatabaseHelper.CreateProductsTable();
+            // Do not add any products to datastore
         }
 
         [Given(@"there are following products in shop")]
         public void GivenThereAreFollowingProductsInShop(Table table)
         {
             var products = table.CreateSet<Product>(() => Builder<Product>.CreateNew().Build());
-            DatabaseHelper.CreateProductsTable();
             DatabaseHelper.Save(products);
         }
 
@@ -47,7 +46,6 @@ namespace PointOfSales.Specs.Steps
         public void GivenThereAreProductsInShop(int productsCount)
         {
             var products = Builder<Product>.CreateListOfSize(productsCount).Build();
-            DatabaseHelper.CreateProductsTable();
             DatabaseHelper.Save(products);
         }
 

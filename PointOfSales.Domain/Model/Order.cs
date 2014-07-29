@@ -11,5 +11,6 @@ namespace PointOfSales.Domain.Model
         public int CustomerId { get; set; }
         public int OrderId { get; set; }
         public decimal TotalPrice { get; set; }
+        public DateTime EntryDate { get; set; }
     }
 }

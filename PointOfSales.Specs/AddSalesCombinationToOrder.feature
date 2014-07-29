@@ -1,4 +1,4 @@
-﻿@orders
+﻿@orders @sales
 Feature: Add sales combination to order
 	In order to quickly fill order with products on sale
 	As a salesman

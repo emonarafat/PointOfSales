@@ -36,7 +36,8 @@ namespace PointOfSales.Specs
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Add sales combination to order", "In order to quickly fill order with products on sale\nAs a salesman\nI want to be a" +
                     "ble to add a sales combination to an order", ProgrammingLanguage.CSharp, new string[] {
-                        "orders"});
+                        "orders",
+                        "sales"});
             testRunner.OnFeatureStart(featureInfo);
         }
         

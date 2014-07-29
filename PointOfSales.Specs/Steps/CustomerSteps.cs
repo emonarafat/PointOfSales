@@ -19,6 +19,7 @@ namespace PointOfSales.Specs.Steps
         private List<Customer> customers;
         private List<Order> orders;
         private int customerId;
+        private Dictionary<string, int> customerIds;
 
         public CustomerSteps(CustomersApi customersApi, OrdersApi ordersApi)
         {
@@ -51,6 +52,22 @@ namespace PointOfSales.Specs.Steps
                 DatabaseHelper.Save(customer);
         }
 
+        [Given(@"there are following orders in the shop")]
+        public void GivenThereAreFollowingOrdersInTheShop(Table table)
+        {
+            customerIds = DatabaseHelper.GetCustomers()
+                   .ToDictionary(c => String.Format("{0} {1}", c.FirstName, c.LastName), c => c.CustomerId);
+
+            var orders = from r in table.Rows
+                         select new Order {
+                             CustomerId = customerIds[r["Customer"]],
+                             EntryDate = DateTime.Parse(r["Date"])
+                         };
+
+            foreach(var order in orders)
+                DatabaseHelper.Save(order);
+        }
+
         [When(@"I add following customer")]
         public void WhenIAddFollowingCustomer(Table table)
         {
@@ -72,12 +89,17 @@ namespace PointOfSales.Specs.Steps
             customersApi.Put(customer);
         }
 
+        [When(@"I view purchase history of '(.*)'")]
+        public void WhenIViewPurchaseHistoryOf(string customerName)
+        {
+            orders = ordersApi.GetCustomerOrders(customerIds[customerName]);
+        }
+
         [Then(@"I see only these customers")]
         public void ThenISeeOnlyTheseCustomers(Table table)
         {
             AssertCustomersAreEqual(table.CreateSet<Customer>(), customers);
         }
-
 
         [Then(@"I see following customers")]
         public void ThenISeeFollowingCustomers(Table table)
@@ -120,43 +142,19 @@ namespace PointOfSales.Specs.Steps
             Assert.Equal(expectedCustomer.PostalCode, customer.PostalCode);
         }
 
-        [Given(@"customer without orders")]
-        public void GivenCustomerWithoutOrders()
+        [Then(@"I see following orders")]
+        public void ThenISeeFollowingOrders(Table table)
         {
-            DatabaseHelper.CreateOrdersTable();
-            DatabaseHelper.CreateCustomersTable();
-            var customer = new Customer { FirstName = "John", LastName = "Doe", EmailAddress = "john.doe@gmail.com" };
-            customersApi.Post(customer);
-        }
-
-        [Given(@"cusomer with (.*) orders")]
-        public void GivenCusomerWithOrders(int ordersCount)
-        {
-            DatabaseHelper.CreateOrdersTable();
-            DatabaseHelper.CreateCustomersTable();
-            var customer = new Customer { FirstName = "John", LastName = "Doe", EmailAddress = "john.doe@gmail.com" };
-            int id = customersApi.PostAndReturnId(customer);
-
-            for (int i = 0; i < ordersCount; i++)
-                ordersApi.Post(new Order { CustomerId = id });
-        }
-
-        [When(@"I view purchase history")]
-        public void WhenIViewPurchaseHistory()
-        {
-            orders = ordersApi.GetCustomerOrders(1);
+            Assert.Equal(table.Rows.Count, orders.Count());
+            var expectedOrderDates = table.Rows.Select(r => DateTime.Parse(r["Date"]));
+            var actualOrderDates = orders.Select(o => o.EntryDate);
+            Assert.Equal(expectedOrderDates, actualOrderDates);
         }
 
         [Then(@"I do not see any orders")]
         public void ThenIDoNotSeeAnyOrders()
         {
             Assert.Equal(0, orders.Count);
-        }
-
-        [Then(@"I see (.*) orders")]
-        public void ThenISeeOrders(int ordersCount)
-        {
-            Assert.Equal(ordersCount, orders.Count);
         }
 
         private Customer BuildCustomer()

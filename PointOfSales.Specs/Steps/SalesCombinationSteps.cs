@@ -34,8 +34,7 @@ namespace PointOfSales.Specs.Steps
                 SubProductId = productIds[r["SubProduct"]],
                 Discount = r.Keys.Contains("Discount") ? Decimal.Parse(r["Discount"]) : 0
             });
-
-            DatabaseHelper.CreateSalesCombinationsTable();
+            
             DatabaseHelper.Save(sales);
         }
 
@@ -67,6 +66,18 @@ namespace PointOfSales.Specs.Steps
             }).OrderBy(x => x.MainProduct).ThenBy(x => x.SubProduct);
 
             Assert.Equal(expectedSales, actualSales);
+        }
+
+        
+        public void CreateSalesCombinationsStorage()
+        {
+            //DatabaseHelper.CreateSalesCombinationsTable();
+        }
+
+        
+        public void AfterSalesScenario()
+        {
+            //DatabaseHelper.DropSalesCombinationsTable();
         }
     }
 }

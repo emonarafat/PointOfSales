@@ -34,8 +34,10 @@ namespace PointOfSales.Specs
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ViewPurchaseHistoryOfCustomer", "In order to find customers which spend money\nAs a salesman\nI want to be able to v" +
-                    "iew the purchase history of a customer", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "View purchase history of customer", "In order to find customers which spend money\nAs a salesman\nI want to be able to v" +
+                    "iew the purchase history of a customer", ProgrammingLanguage.CSharp, new string[] {
+                        "customers",
+                        "orders"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -64,6 +66,39 @@ namespace PointOfSales.Specs
             testRunner.CollectScenarioErrors();
         }
         
+        public virtual void FeatureBackground()
+        {
+#line 7
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "FirstName",
+                        "LastName",
+                        "EmailAddress"});
+            table1.AddRow(new string[] {
+                        "John",
+                        "Doe",
+                        "john.doe@mail.com"});
+            table1.AddRow(new string[] {
+                        "Jack",
+                        "Finney",
+                        "jack@mail.com"});
+#line 8
+ testRunner.Given("there are following customers in the shop", ((string)(null)), table1, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Customer",
+                        "Date"});
+            table2.AddRow(new string[] {
+                        "John Doe",
+                        "2014-06-04"});
+            table2.AddRow(new string[] {
+                        "John Doe",
+                        "2014-07-29"});
+#line 12
+ testRunner.And("there are following orders in the shop", ((string)(null)), table2, "And ");
+#line hidden
+        }
+        
         public virtual void SetFixture(ViewPurchaseHistoryOfCustomerFeature.FixtureData fixtureData)
         {
         }
@@ -74,37 +109,44 @@ namespace PointOfSales.Specs
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "ViewPurchaseHistoryOfCustomer")]
+        [Xunit.TraitAttribute("FeatureTitle", "View purchase history of customer")]
         [Xunit.TraitAttribute("Description", "Customer without orders does not have purchase history")]
         public virtual void CustomerWithoutOrdersDoesNotHavePurchaseHistory()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Customer without orders does not have purchase history", ((string[])(null)));
-#line 6
+#line 18
 this.ScenarioSetup(scenarioInfo);
 #line 7
- testRunner.Given("customer without orders", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 8
- testRunner.When("I view purchase history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 9
+this.FeatureBackground();
+#line 19
+ testRunner.When("I view purchase history of \'Jack Finney\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 20
  testRunner.Then("I do not see any orders", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "ViewPurchaseHistoryOfCustomer")]
+        [Xunit.TraitAttribute("FeatureTitle", "View purchase history of customer")]
         [Xunit.TraitAttribute("Description", "Customer with orders have pruchase history")]
         public virtual void CustomerWithOrdersHavePruchaseHistory()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Customer with orders have pruchase history", ((string[])(null)));
-#line 11
+#line 22
 this.ScenarioSetup(scenarioInfo);
-#line 12
-    testRunner.Given("cusomer with 2 orders", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 13
- testRunner.When("I view purchase history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 14
- testRunner.Then("I see 2 orders", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 7
+this.FeatureBackground();
+#line 23
+ testRunner.When("I view purchase history of \'John Doe\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Date"});
+            table3.AddRow(new string[] {
+                        "2014-06-04"});
+            table3.AddRow(new string[] {
+                        "2014-07-29"});
+#line 24
+ testRunner.Then("I see following orders", ((string)(null)), table3, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
