@@ -1,4 +1,5 @@
-﻿using PointOfSales.Domain.Model;
+﻿using NLog;
+using PointOfSales.Domain.Model;
 using PointOfSales.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace PointOfSales.Web.Controllers
     public class CustomersController : ApiController
     {
         private ICustomerRepository customerRepository;
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public CustomersController(ICustomerRepository customerRepository)
         {
@@ -22,12 +24,14 @@ namespace PointOfSales.Web.Controllers
         [Route("")]
         public IEnumerable<Customer> Get()
         {
+            Logger.Info("Getting all customers");
             return customerRepository.GetAll();
         }
 
         [Route("{id:int}")]
         public Customer Get(int id)
         {
+            Logger.Info("Getting customer by id equal '{0}'", id);
             var customer = customerRepository.GetById(id);
             if (customer == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -38,6 +42,7 @@ namespace PointOfSales.Web.Controllers
         [Route("")]
         public HttpResponseMessage Post(Customer customer)
         {
+            Logger.Info("Adding customer");
             var addedCustomer = customerRepository.Add(customer);
             return Request.CreateResponse(HttpStatusCode.Created, addedCustomer);
         }
@@ -45,6 +50,7 @@ namespace PointOfSales.Web.Controllers
         [Route("{id:int}")]
         public void Put(int id, Customer customer)
         {
+            Logger.Info("Updating customer");
             customer.CustomerId = id;
 
             if(!customerRepository.Update(customer))
@@ -54,6 +60,7 @@ namespace PointOfSales.Web.Controllers
         [Route("")]
         public IEnumerable<Customer> Get(string name)
         {
+            Logger.Info("Searching customers by name containing '{0}'", name);
             return customerRepository.GetByName(name);
         }
     }

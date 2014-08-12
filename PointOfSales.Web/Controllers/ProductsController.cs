@@ -1,4 +1,5 @@
-﻿using PointOfSales.Domain.Model;
+﻿using NLog;
+using PointOfSales.Domain.Model;
 using PointOfSales.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace PointOfSales.Web.Controllers
     public class ProductsController : ApiController
     {
         private IProductRepository productRepository;
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public ProductsController(IProductRepository productRepository)
         {
@@ -22,18 +24,21 @@ namespace PointOfSales.Web.Controllers
         [Route("")]
         public IEnumerable<Product> Get()
         {
+            Logger.Info("Getting all products");
             return productRepository.GetAll();
         }        
         
         [Route("")]
         public IEnumerable<Product> Get(string search)
         {
+            Logger.Info("Searching products by '{0}'", search);
             return productRepository.GetByNameOrDescription(search);
         }
 
         [Route("")]
         public HttpResponseMessage Post(Product product)
         {
+            Logger.Info("Adding product");
             var addedProduct = productRepository.Add(product);
             return Request.CreateResponse(HttpStatusCode.Created, addedProduct);
         }

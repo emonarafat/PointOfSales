@@ -1,4 +1,5 @@
-﻿using PointOfSales.Domain.Model;
+﻿using NLog;
+using PointOfSales.Domain.Model;
 using PointOfSales.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace PointOfSales.Web.Controllers
         private IOrderLineRepository orderLineRepository;
         private IProductRepository productRepository;
         private ISalesCombinationRepository salesCombinationRepository;
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public OrderLinesController(IOrderLineRepository orderLineRepository, IProductRepository productRepository, ISalesCombinationRepository salesCombinationRepository)
         {
@@ -25,12 +27,14 @@ namespace PointOfSales.Web.Controllers
         [Route("api/orders/{orderId:int}/lines")]
         public IEnumerable<OrderLine> GetByOrder(int orderId)
         {
+            Logger.Info("Getting lines of order '{0}'", orderId);
             return orderLineRepository.GetByOrder(orderId);
         }
 
         [Route("api/orders/{orderId:int}/lines")]
         public void Post([FromUri]OrderLine line)
         {
+            Logger.Info("Adding order line");
             var product = productRepository.GetById(line.ProductId);
             line.Price = product.Price;
 
@@ -60,6 +64,7 @@ namespace PointOfSales.Web.Controllers
         [HttpPost]
         public void AddSalesCombination(int orderId, int salesCombinationId)
         {
+            Logger.Info("Adding sales combination '{0}' to order '{1}'", salesCombinationId, orderId);
             var sales = salesCombinationRepository.GetById(salesCombinationId);
             var lines = orderLineRepository.GetByOrder(orderId);
 

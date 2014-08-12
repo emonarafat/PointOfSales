@@ -1,4 +1,5 @@
-﻿using PointOfSales.Domain.Model;
+﻿using NLog;
+using PointOfSales.Domain.Model;
 using PointOfSales.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace PointOfSales.Web.Controllers
     {
         private IOrderRepository orderRepository;
         private IOrderLineRepository orderLineRepository;
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public OrdersController(IOrderRepository orderRepository, IOrderLineRepository orderLineRepository)
         {            
@@ -24,6 +26,7 @@ namespace PointOfSales.Web.Controllers
         [Route("{id:int}")]
         public Order Get(int id)
         {
+            Logger.Info("Getting order by id equal '{0}'", id);
             var order = orderRepository.GetById(id);
             if (order == null)
                 return null;
@@ -36,12 +39,14 @@ namespace PointOfSales.Web.Controllers
         [Route("~/api/customers/{customerId}/orders")]
         public IEnumerable<Order> GetByCustomer(int customerId)
         {
+            Logger.Info("Getting orders of customer '{0}'", customerId);
             return orderRepository.GetByCustomer(customerId);
         }
 
         [Route("")]
         public void Post(Order order)
         {
+            Logger.Info("Adding order");
             orderRepository.Add(order);
         }
     }
