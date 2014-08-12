@@ -36,9 +36,10 @@ namespace PointOfSales.Web.Controllers
         }
         
         [Route("")]
-        public int Post(Customer customer)
+        public HttpResponseMessage Post(Customer customer)
         {
-            return customerRepository.Add(customer);
+            var addedCustomer = customerRepository.Add(customer);
+            return Request.CreateResponse(HttpStatusCode.Created, addedCustomer);
         }
 
         [Route("{id:int}")]

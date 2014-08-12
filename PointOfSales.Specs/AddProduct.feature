@@ -7,8 +7,8 @@ Feature: Add Product
 Scenario: Add product
 	Given there are no products in shop
 	When I add following product
-	| Name       | Description  |
-	| Nokia 3310 | Mobile phone |
+	| Name       | Description  | Price |
+	| Nokia 3310 | Mobile phone | 50    |
 	Then I see following products
-	| Name       | Description  |
-	| Nokia 3310 | Mobile phone |
+	| Name       | Description  | Price |
+	| Nokia 3310 | Mobile phone | 50    |

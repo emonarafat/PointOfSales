@@ -87,19 +87,23 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "Name",
-                        "Description"});
+                        "Description",
+                        "Price"});
             table1.AddRow(new string[] {
                         "Nokia 3310",
-                        "Mobile phone"});
+                        "Mobile phone",
+                        "50"});
 #line 9
  testRunner.When("I add following product", ((string)(null)), table1, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Name",
-                        "Description"});
+                        "Description",
+                        "Price"});
             table2.AddRow(new string[] {
                         "Nokia 3310",
-                        "Mobile phone"});
+                        "Mobile phone",
+                        "50"});
 #line 12
  testRunner.Then("I see following products", ((string)(null)), table2, "Then ");
 #line hidden

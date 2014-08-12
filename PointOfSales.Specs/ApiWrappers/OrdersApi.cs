@@ -21,6 +21,7 @@ namespace PointOfSales.Specs
 
         public void Post(Order order)
         {
+            // TODO: Create order feature
             Post("api/orders", order);
         }
     }

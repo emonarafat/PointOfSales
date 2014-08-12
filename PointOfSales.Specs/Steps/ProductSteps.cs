@@ -99,6 +99,7 @@ namespace PointOfSales.Specs.Steps
             {
                 var actualProduct = actualProducts.FirstOrDefault(p => p.Name == expectedProduct.Name);
                 Assert.Equal(expectedProduct.Description, actualProduct.Description);
+                Assert.Equal(expectedProduct.Price, actualProduct.Price);
             }
         }
     }

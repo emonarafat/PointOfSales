@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -32,13 +33,20 @@ namespace PointOfSales.Tests
         [Fact]
         public void ShouldCreateNewCustomer()
         {
+            var customer = new Customer();
             var customerRepositoryMock = new Mock<ICustomerRepository>();
-            var customer = new Customer();            
+            customerRepositoryMock.Setup(r => r.Add(customer)).Returns(customer);
             var controller = new CustomersController(customerRepositoryMock.Object);
+            controller.Request = Mock.Of<HttpRequestMessage>();
+            controller.Configuration = Mock.Of<HttpConfiguration>();
 
-            controller.Post(customer);
+            var response = controller.Post(customer);
 
-            customerRepositoryMock.Verify(r => r.Add(customer), Times.Once());
+            Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+            Customer actualCustomer;
+            Assert.True(response.TryGetContentValue(out actualCustomer));
+            Assert.Equal(customer, actualCustomer);
+            customerRepositoryMock.VerifyAll();
         }
 
         [Fact]
