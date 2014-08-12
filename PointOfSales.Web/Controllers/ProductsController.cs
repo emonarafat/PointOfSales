@@ -32,9 +32,10 @@ namespace PointOfSales.Web.Controllers
         }
 
         [Route("")]
-        public Product Post(Product product)
+        public HttpResponseMessage Post(Product product)
         {
-            return productRepository.Add(product);
+            var addedProduct = productRepository.Add(product);
+            return Request.CreateResponse(HttpStatusCode.Created, addedProduct);
         }
     }
 }

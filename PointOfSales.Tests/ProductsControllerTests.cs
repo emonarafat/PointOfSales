@@ -9,6 +9,8 @@ using System.Web.Http;
 using PointOfSales.Domain.Repositories;
 using PointOfSales.Web.Controllers;
 using PointOfSales.Domain.Model;
+using System.Net;
+using System.Net.Http;
 
 public class ProductsControllerTests
 {
@@ -47,9 +49,14 @@ public class ProductsControllerTests
         var repositoryMock = new Mock<IProductRepository>();
         repositoryMock.Setup(r => r.Add(product)).Returns(product);
         var controller = new ProductsController(repositoryMock.Object);
+        controller.Request = Mock.Of<HttpRequestMessage>();
+        controller.Configuration = Mock.Of<HttpConfiguration>();
 
-        var actualProduct = controller.Post(product);
+        var response = controller.Post(product);
 
+        Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+        Product actualProduct;
+        Assert.True(response.TryGetContentValue(out actualProduct));
         Assert.Equal(product, actualProduct);
         repositoryMock.VerifyAll();
     }
