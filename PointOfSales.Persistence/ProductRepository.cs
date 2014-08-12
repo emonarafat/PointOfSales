@@ -51,7 +51,17 @@ namespace PointOfSales.Persistence
 
         public Product Add(Product product)
         {
-            throw new NotImplementedException();
+            var sql = @"INSERT INTO Products (Name, Price, Description, PictureURL, EntryDate)
+                        OUTPUT INSERTED.ProductID, INSERTED.EntryDate
+                        VALUES (@Name, @Price, @Description, @PictureURL, GETDATE())";
+
+            using(var conn = GetConnection())
+            {
+                var result = conn.Query(sql, product).Single();
+                product.ProductId = result.ProductID;
+                product.EntryDate = result.EntryDate;
+                return product;
+            }
         }
     }
 }
