@@ -48,5 +48,10 @@ namespace PointOfSales.Persistence
                 return product;
             }
         }
+
+        public Product Add(Product product)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

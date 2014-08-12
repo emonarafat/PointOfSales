@@ -12,5 +12,6 @@ namespace PointOfSales.Domain.Repositories
         IEnumerable<Product> GetAll();
         IEnumerable<Product> GetByNameOrDescription(string search);
         Product GetById(int productId);
+        Product Add(Product product);
     }
 }

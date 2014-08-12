@@ -39,4 +39,18 @@ public class ProductsControllerTests
         repositoryMock.VerifyAll();
         Assert.Equal(expectedProducts, products);
     }
+
+    [Fact]
+    public void ShouldSaveNewProduct()
+    {
+        var product = new Product();
+        var repositoryMock = new Mock<IProductRepository>();
+        repositoryMock.Setup(r => r.Add(product)).Returns(product);
+        var controller = new ProductsController(repositoryMock.Object);
+
+        var actualProduct = controller.Post(product);
+
+        Assert.Equal(product, actualProduct);
+        repositoryMock.VerifyAll();
+    }
 }

@@ -30,5 +30,11 @@ namespace PointOfSales.Web.Controllers
         {
             return productRepository.GetByNameOrDescription(search);
         }
+
+        [Route("")]
+        public Product Post(Product product)
+        {
+            return productRepository.Add(product);
+        }
     }
 }
