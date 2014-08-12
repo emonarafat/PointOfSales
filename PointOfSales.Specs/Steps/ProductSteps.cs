@@ -42,7 +42,7 @@ namespace PointOfSales.Specs.Steps
             DatabaseHelper.Save(products);
         }
 
-        [Given(@"there are (.*) products in shop")]
+        [Given(@"there are (\d+) products in shop")]
         public void GivenThereAreProductsInShop(int productsCount)
         {
             var products = Builder<Product>.CreateListOfSize(productsCount).Build();
@@ -61,13 +61,19 @@ namespace PointOfSales.Specs.Steps
             products = productsApi.Get(search);
         }
 
+        [When(@"I add following product")]
+        public void WhenIAddFollowingProduct(Table table)
+        {
+            ScenarioContext.Current.Pending();
+        }
+
         [Then(@"I do not see any products")]
         public void ThenIDoNotSeeAnyProducts()
         {
             Assert.Equal(0, products.Count);
         }
 
-        [Then(@"I see (.*) products")]
+        [Then(@"I see (\d+) products")]
         public void ThenISeeProducts(int productsCount)
         {
             Assert.Equal(productsCount, products.Count);
@@ -78,6 +84,12 @@ namespace PointOfSales.Specs.Steps
         {
             var names = productNames.Split(',').Select(n => n.Trim(' ', '\'')).OrderBy(n => n);
             Assert.Equal(names, products.Select(p => p.Name).OrderBy(n => n));
+        }
+
+        [Then(@"I see following products")]
+        public void ThenISeeFollowingProducts(Table table)
+        {
+            ScenarioContext.Current.Pending();
         }
     }
 }
