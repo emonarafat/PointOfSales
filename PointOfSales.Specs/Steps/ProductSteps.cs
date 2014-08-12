@@ -64,7 +64,8 @@ namespace PointOfSales.Specs.Steps
         [When(@"I add following product")]
         public void WhenIAddFollowingProduct(Table table)
         {
-            ScenarioContext.Current.Pending();
+            var product = table.CreateInstance<Product>();
+            productsApi.Post(product);
         }
 
         [Then(@"I do not see any products")]
@@ -89,7 +90,16 @@ namespace PointOfSales.Specs.Steps
         [Then(@"I see following products")]
         public void ThenISeeFollowingProducts(Table table)
         {
-            ScenarioContext.Current.Pending();
+            var expectedProducts = table.CreateSet<Product>();
+            var actualProducts = productsApi.GetProducts();
+
+            Assert.Equal(expectedProducts.Count(), actualProducts.Count());
+
+            foreach(var expectedProduct in expectedProducts)
+            {
+                var actualProduct = actualProducts.FirstOrDefault(p => p.Name == expectedProduct.Name);
+                Assert.Equal(expectedProduct.Description, actualProduct.Description);
+            }
         }
     }
 }

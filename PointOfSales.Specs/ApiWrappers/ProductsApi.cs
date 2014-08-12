@@ -18,5 +18,10 @@ namespace PointOfSales.Specs
         {
             return Get<List<Product>>("api/products?search={0}", search);
         }
+
+        public void Post(Product product)
+        {
+            Post("api/products", product);
+        }
     }
 }
