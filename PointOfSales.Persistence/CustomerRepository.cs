@@ -16,17 +16,19 @@ namespace PointOfSales.Persistence
 
         public IEnumerable<Customer> GetAll()
         {
-            Logger.Debug("Getting all customers");
             var sql = "SELECT * FROM Customers";
 
             using (var conn = GetConnection())
-                return conn.Query<Customer>(sql);
+            {
+                var customers = conn.Query<Customer>(sql).ToList();
+                Logger.Trace("{0} customers found", customers.Count);
+                return customers;
+            }
         }
 
         public Customer Add(Customer customer)
         {
             // TODO: Email should be unique
-            Logger.Debug("Adding customer");
             var sql = @"INSERT INTO Customers (FirstName, LastName, MiddleName, EmailAddress, Street, HouseNumber, PostalCode, City, EntryDate)
                         OUTPUT INSERTED.CustomerID, INSERTED.EntryDate
                         VALUES (@firstName, @lastName, @middleName, @emailAddress, @street, @houseNumber, @postalCode, @city, GETDATE())";
@@ -46,16 +48,26 @@ namespace PointOfSales.Persistence
             var sql = @"SELECT * FROM Customers WHERE FirstName LIKE @search OR LastName LIKE @search";
 
             using (var conn = GetConnection())
-                return conn.Query<Customer>(sql, new { search = String.Format("{0}%", search) });
+            {
+                var customers = conn.Query<Customer>(sql, new { search = String.Format("{0}%", search) }).ToList();
+                Logger.Trace("{0} customers found", customers.Count);
+                return customers;
+            }
         }
 
         public Customer GetById(int id)
         {
-            Logger.Debug("Getting customer {0}", id);
             var sql = "SELECT * FROM Customers WHERE CustomerID = @id";
 
             using (var conn = GetConnection())
-                return conn.Query<Customer>(sql, new { id = id }).SingleOrDefault();
+            {
+                var customer = conn.Query<Customer>(sql, new { id = id }).SingleOrDefault();
+
+                if (customer == null)
+                    Logger.Warn("Customer not found");
+
+                return customer;
+            }
         }
 
         public bool Update(Customer customer)
@@ -73,7 +85,10 @@ namespace PointOfSales.Persistence
                          WHERE CustomerID = @customerId";
 
             using (var conn = GetConnection())
-                return conn.Execute(sql, customer) == 1;
+            {
+                int updatedCustomersCount = conn.Execute(sql, customer);
+                return updatedCustomersCount == 1;
+            }
         }
     }
 }

@@ -12,7 +12,6 @@ namespace PointOfSales.Web.App_Start
     using Ninject.Web.Common;
     using PointOfSales.Domain.Repositories;
     using PointOfSales.Persistence;
-    using PointOfSales.Web.Controllers;
 
     public static class NinjectWebCommon 
     {

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Moq;
 using Xunit;
 using System.Web.Http;
@@ -48,9 +46,10 @@ public class ProductsControllerTests
         var product = new Product();
         var repositoryMock = new Mock<IProductRepository>();
         repositoryMock.Setup(r => r.Add(product)).Returns(product);
-        var controller = new ProductsController(repositoryMock.Object);
-        controller.Request = Mock.Of<HttpRequestMessage>();
-        controller.Configuration = Mock.Of<HttpConfiguration>();
+        var controller = new ProductsController(repositoryMock.Object) { 
+            Request = Mock.Of<HttpRequestMessage>(), 
+            Configuration = Mock.Of<HttpConfiguration>() 
+        };
 
         var response = controller.Post(product);
 

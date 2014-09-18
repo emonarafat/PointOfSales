@@ -5,8 +5,6 @@ using PointOfSales.Web.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace PointOfSales.Tests
@@ -27,7 +25,7 @@ namespace PointOfSales.Tests
             var sales = controller.GetByProduct(productId);
 
             repositoryMock.VerifyAll();
-            Assert.Equal(expectedSales, sales);            
+            Assert.Equal(expectedSales, sales);
         }
     }
 }

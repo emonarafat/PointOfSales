@@ -1,16 +1,7 @@
-﻿using Microsoft.Owin.Hosting;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using PointOfSales.Domain.Model;
-using PointOfSales.Web.Controllers;
+﻿using PointOfSales.Domain.Model;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using Xunit;

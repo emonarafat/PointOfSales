@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 using Xunit;
 
@@ -36,9 +34,10 @@ namespace PointOfSales.Tests
             var customer = new Customer();
             var customerRepositoryMock = new Mock<ICustomerRepository>();
             customerRepositoryMock.Setup(r => r.Add(customer)).Returns(customer);
-            var controller = new CustomersController(customerRepositoryMock.Object);
-            controller.Request = Mock.Of<HttpRequestMessage>();
-            controller.Configuration = Mock.Of<HttpConfiguration>();
+            var controller = new CustomersController(customerRepositoryMock.Object) { 
+                Request = Mock.Of<HttpRequestMessage>(), 
+                Configuration = Mock.Of<HttpConfiguration>() 
+            };
 
             var response = controller.Post(customer);
 
