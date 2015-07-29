@@ -26,7 +26,7 @@ namespace PointOfSales.Web.Controllers
         {
             Logger.Info("Getting all products");
             return productRepository.GetAll();
-        }        
+        }
         
         [Route("")]
         public IEnumerable<Product> Get(string search)
